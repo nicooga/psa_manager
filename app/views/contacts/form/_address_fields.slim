@@ -1,0 +1,10 @@
+.address.col-3
+  = form.fields_for :addresses do |form|
+    = remove_fields_button(form)
+    = form.select :state, Address::STATES, include_blank: Address.human_attribute_name(:state)
+    = form.text_field :city, placeholder: Address.human_attribute_name(:city)
+    = form.text_field :street, placeholder: Address.human_attribute_name(:street)
+    = form.text_field :number, placeholder: Address.human_attribute_name(:number)
+    = form.text_field :apartment, placeholder: Address.human_attribute_name(:apartment)
+    = form.text_field :zip_code, placeholder: Address.human_attribute_name(:zip_code)
+    = form.text_area :notes, placeholder: Address.human_attribute_name(:notes)

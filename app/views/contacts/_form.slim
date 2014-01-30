@@ -20,6 +20,9 @@
   .form-group
     = f.text_area :notes, rows: 3, placeholder: Contact.human_attribute_name(:notes)
 
+  .form-group
+    = render 'contacts/form/addresses_form', form: f
+
   .btn-group
     = f.submit class: 'btn btn-primary'
     = link_to 'Cancel', :back, class: 'btn btn-warning'

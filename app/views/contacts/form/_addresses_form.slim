@@ -1,0 +1,6 @@
+= add_fields_button form, '#addresses', 'contacts/form/address_fields',
+  class:  'btn btn-small',
+  button: content_tag(:i, 'Add Address', class: 'glyphicon glyphicon-plus')
+
+.row#addresses
+  = render 'contacts/form/address_fields', form: form

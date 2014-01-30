@@ -5,6 +5,7 @@ gem 'rails', '4.0.1'
 gem 'pry-rails'
 gem 'rspec-rails'
 gem 'draper', '~> 1.3'
+gem 'carmen-rails'
 gem 'pg'
 
 # Authentication

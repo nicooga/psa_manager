@@ -1,7 +1,8 @@
 class ContactsController < ApplicationController
-  before_filter :build_resource, only: :new
   before_filter :find_resource, only: [:show, :edit, :update, :destroy]
   before_filter :find_collection, only: :index
+  before_filter :build_resource, only: :new
+  before_filter :build_associated_entities, only: [:new, :edit]
 
   def create
     resource = instance_variable_set "@#{resource_class_name.downcase}",
@@ -14,7 +15,6 @@ class ContactsController < ApplicationController
   end
 
   def update
-    resource = instance_variable_get "@#{resource_class_name.downcase}"
     if resource.update permited_params
       redirect_to resource, notice: messages[:update]
     else
@@ -23,7 +23,6 @@ class ContactsController < ApplicationController
   end
 
   def destroy
-    resource = instance_variable_get "@#{resource_class_name.downcase}"
     if resource.destroy
       render :index, notice: messages[:destroy]
     else
@@ -34,7 +33,8 @@ class ContactsController < ApplicationController
   private
 
   def permited_params
-    params.require(resource_class_name.downcase.to_sym).permit :first_name, :last_name, :email, :birthday, :notes
+    params.require(resource_class_name.downcase.to_sym).permit :first_name, :last_name, :email, :birthday, :notes,
+      addresses_attributes: [:id, :city, :state, :street, :number, :apartment, :zip_code, :notes, :_destroy]
   end
 
   def find_collection
@@ -43,6 +43,16 @@ class ContactsController < ApplicationController
 
   def build_resource
     instance_variable_set "@#{resource_class_name.downcase}", resource_class.new
+  end
+
+  def build_associated_entities
+    associated_entities.each do |e|
+      instance_variable_set "@#{e}", resource.send(e).new if resource.send(e).blank?
+    end
+  end
+
+  def resource
+    instance_variable_get "@#{resource_class_name.downcase}"
   end
 
   def find_resource
@@ -61,5 +71,9 @@ class ContactsController < ApplicationController
     { create: "Succesfully created #{resource_class_name.downcase}",
       update: "Succesfully updated #{resource_class_name.downcase}",
       error:  "Something went wrong." }
+  end
+
+  def associated_entities
+    [:addresses]
   end
 end
