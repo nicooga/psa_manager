@@ -1,0 +1,24 @@
+development:
+  adapter:  postgresql
+  host:     localhost
+  encoding: utf8
+  database: psa_manager_development
+  pool: 5
+  username: postgres
+  password: postgres
+test:
+  adapter:  postgresql
+  host:     localhost
+  encoding: utf8
+  database: psa_manager_test
+  pool: 5
+  username: postgres
+  password: postgres
+production:
+  adapter:  postgresql
+  host:     localhost
+  encoding: utf8
+  database: psa_manager_production
+  pool: 5
+  username: postgres
+  password: postgres
