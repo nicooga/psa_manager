@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+export GOOGLE_KEY="472883078937.apps.googleusercontent.com"
+export GOOGLE_SECRET="G0QZgH221hsMX6HyjCEGN7hI"
