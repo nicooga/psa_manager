@@ -1,0 +1,15 @@
+nav.navbar.navbar-default.navbar-fixed-bottom role='navigation'
+  / Brand and toggle get grouped for better mobile display
+  .navbar-header= link_to 'PSA Manager', root_path, class: 'navbar-brand'
+
+  ul.nav.navbar-nav.navbar-right.pull-right
+    - if current_user
+      li.dropdown
+        = link_to '#', class: 'dropdown-toggle', data: {toggle: 'dropdown'} do
+          = current_user.name
+          b.caret
+        ul.dropdown-menu
+          li= link_to 'Logout', logout_path
+
+    - else
+      li= link_to 'Login with Google :D', '/auth/google_oauth2'

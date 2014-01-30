@@ -12,8 +12,9 @@ gem 'omniauth-google-oauth2'
 gem 'bcrypt-ruby', '~> 3.1.2'
 
 # Templating, js and assets stuff
-gem 'sass-rails', '~> 4.0.0'
-gem 'haml'
+gem 'therubyracer'
+gem 'less-rails-bootstrap', '~> 3.0.0.wip', github: 'sinfin/less-rails-bootstrap-3'
+gem 'slim-rails'
 gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.0.0'
 gem 'jquery-rails'
