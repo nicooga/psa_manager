@@ -1,0 +1,25 @@
+= form_for @contact, html: { role: :form } do |f|
+  = render 'shared/form_errors', object: @contact
+
+  .form-group
+    .row
+      .col-6
+        = f.text_field :first_name, placeholder: Contact.human_attribute_name(:first_name)
+      .col-6
+        = f.text_field :last_name, placeholder: Contact.human_attribute_name(:last_name)
+
+  .form-group
+    = f.text_field :email, placeholder: Contact.human_attribute_name(:email)
+
+  .form-group
+    .input-group.date
+      = f.text_field :birthday, class: :datepicker, placeholder: Contact.human_attribute_name(:birthday)
+      span.input-group-addon
+        i.glyphicon.glyphicon-th
+
+  .form-group
+    = f.text_area :notes, rows: 3, placeholder: Contact.human_attribute_name(:notes)
+
+  .btn-group
+    = f.submit class: 'btn btn-primary'
+    = link_to 'Cancel', :back, class: 'btn btn-warning'
