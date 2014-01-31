@@ -1,5 +1,5 @@
-.address.col-3
-  = form.fields_for :addresses do |form|
+= form.fields_for :addresses, local_assigns[:address] || Address.new do |form|
+  .address.col-3
     = remove_fields_button(form)
     = form.select :state, Address::STATES, include_blank: Address.human_attribute_name(:state)
     = form.text_field :city, placeholder: Address.human_attribute_name(:city)

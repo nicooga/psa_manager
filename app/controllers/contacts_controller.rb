@@ -2,7 +2,6 @@ class ContactsController < ApplicationController
   before_filter :find_resource, only: [:show, :edit, :update, :destroy]
   before_filter :find_collection, only: :index
   before_filter :build_resource, only: :new
-  before_filter :build_associated_entities, only: [:new, :edit]
 
   def create
     resource = instance_variable_set "@#{resource_class_name.downcase}",
@@ -43,12 +42,6 @@ class ContactsController < ApplicationController
 
   def build_resource
     instance_variable_set "@#{resource_class_name.downcase}", resource_class.new
-  end
-
-  def build_associated_entities
-    associated_entities.each do |e|
-      instance_variable_set "@#{e}", resource.send(e).new if resource.send(e).blank?
-    end
   end
 
   def resource

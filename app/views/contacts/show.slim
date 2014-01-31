@@ -1,13 +1,26 @@
 .contact
-  legend
-    = @contact.full_name
+  .row
+    .col-12
+      legend
+        = @contact.full_name
+        .actions.btn-group.pull-right
+          = link_to 'Edit', edit_contact_path(@contact), class: 'btn btn-primary'
+          = link_to 'Delete', contact_path(@contact), class: 'btn btn-danger',
+            method: :delete, data: { confirm: 'Are you sure?' }
+  .row
+    .col-3
+      dl
+        - [:email, :birthday, :notes].each do |attr|
+          dt= Contact.human_attribute_name attr
+          dd= @contact.send attr
+    .col-3
+      dl
+        dt= Contact.human_attribute_name :addresses
+        dd
+          ul.list-unstyled
+            - @contact.addresses.each do |a|
+              li
+                small= raw a.notes
+                div= [[a.city, a.state].join(', '),
+                  [a.street, a.number, a.apartment].join(' ')].join ', '
 
-  .btn-group.pull-right
-    = link_to 'Edit', edit_contact_path(@contact), class: 'btn btn-primary'
-    = link_to 'Delete', contact_path(@contact), class: 'btn btn-danger',
-      method: :delete, data: { confirm: 'Are you sure?' }
-
-  dl
-    - [:email, :birthday, :notes].each do |attr|
-      dt= Contact.human_attribute_name attr
-      dd= @contact.send attr
