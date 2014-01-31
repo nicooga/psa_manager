@@ -1,4 +1,3 @@
-
 .panel
   .panel-heading
     = form.label :addresses
@@ -6,4 +5,4 @@
       class:  'btn btn-small',
       button: content_tag(:i, 'Add', class: 'glyphicon glyphicon-plus')
   .row#addresses
-    = render 'contacts/form/address_fields', form: form, address: @contact.addresses
+    = render 'contacts/form/address_fields', form: form, address: @contact.addresses.presence

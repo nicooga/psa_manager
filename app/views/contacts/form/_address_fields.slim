@@ -1,10 +1,16 @@
 = form.fields_for :addresses, local_assigns[:address] || Address.new do |form|
-  .address.col-3
-    = remove_fields_button(form)
-    = form.select :state, Address::STATES, include_blank: Address.human_attribute_name(:state)
-    = form.text_field :city, placeholder: Address.human_attribute_name(:city)
-    = form.text_field :street, placeholder: Address.human_attribute_name(:street)
-    = form.text_field :number, placeholder: Address.human_attribute_name(:number)
-    = form.text_field :apartment, placeholder: Address.human_attribute_name(:apartment)
-    = form.text_field :zip_code, placeholder: Address.human_attribute_name(:zip_code)
-    = form.text_area :notes, placeholder: Address.human_attribute_name(:notes)
+  .address.col-3 id=("address_#{form.index}")
+    .panel
+      = remove_fields_button(form, "#address_#{form.index}", class: :close)
+      = form.select :state, Address::STATES, include_blank: Address.human_attribute_name(:state)
+      = form.text_field :city, placeholder: Address.human_attribute_name(:city)
+      = form.text_field :street, placeholder: Address.human_attribute_name(:street)
+      = form.text_field :number, placeholder: Address.human_attribute_name(:number)
+      = form.text_field :apartment, placeholder: Address.human_attribute_name(:apartment)
+      = form.text_field :zip_code, placeholder: Address.human_attribute_name(:zip_code)
+      = form.text_area :notes, placeholder: Address.human_attribute_name(:notes)
+      = add_fields_button form, "#address_phones_#{form.index}", 'contacts/phone_fields',
+        class:  'btn btn-small',
+        button: content_tag(:i, 'Add phone', class: 'glyphicon glyphicon-plus')
+      div id=("address_phones_#{form.index}")
+        = render 'phone_fields', form: form, phone_numbers: form.object.phone_numbers.presence

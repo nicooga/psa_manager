@@ -15,5 +15,9 @@
  */
 
 body {
-  padding-top: 20px
+  padding-top: 20px;
+}
+
+.push {
+  height: 60px;
 }

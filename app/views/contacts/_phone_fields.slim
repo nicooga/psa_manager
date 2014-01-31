@@ -1,0 +1,7 @@
+= form.fields_for :phone_numbers, local_assigns[:phone_numbers] do |pf|
+  .phone_number id=("phone_#{form.index}_#{pf.index}")
+    = pf.hidden_field :contact_id, value: @contact.id
+    .input-group
+      = pf.text_field :number, placeholder: PhoneNumber.human_attribute_name(:number)
+      = pf.select :kind, PhoneNumber::KINDS
+      span.input-group-addon= remove_fields_button(pf, "#phone_#{form.index}_#{pf.index}")

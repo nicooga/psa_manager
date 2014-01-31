@@ -8,13 +8,14 @@ module ApplicationHelper
     link_to_function options[:button] || icon, script, class: options[:class]
   end
 
-  def remove_fields_button(form)
+  def remove_fields_button(form, selector = nil, options = {})
     field = j form.hidden_field(:_destroy, value: true) if form.object.persisted?
+    selector = selector ? "$('#{selector}')" : "$(this).parent()"
     script = <<-STR
-      $(this).parent().append('#{field}')
-      $(this).parent().fadeOut(400)
+      #{selector}.append('#{field}')
+      #{selector}.fadeOut(400)
     STR
     icon = content_tag :i, nil, class: 'glyphicon glyphicon-remove'
-    link_to_function icon, script, class: 'pull-right'
+    link_to_function(icon, script, class: options[:class] || 'pull-right')
   end
 end
