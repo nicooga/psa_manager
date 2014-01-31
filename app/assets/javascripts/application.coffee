@@ -17,11 +17,10 @@
 #= require bootstrap-datepicker
 #= require_tree .
 
-$ ->
-  $(document).ready ->
-    $("input.datepicker").datepicker
-      startView: 1
-      todayBtn: true
-      autoclose: true
-      todayHighlight: true
-      format: "yyyy/mm/dd"
+$ -> $(document).ready ->
+  $("input.datepicker").datepicker
+    startView: 1
+    todayBtn: true
+    autoclose: true
+    todayHighlight: true
+    format: "yyyy/mm/dd"

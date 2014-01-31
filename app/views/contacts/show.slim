@@ -1,26 +1,24 @@
 .contact
-  .row
-    .col-12
-      legend
-        = @contact.full_name
-        .actions.btn-group.pull-right
-          = link_to 'Edit', edit_contact_path(@contact), class: 'btn btn-primary'
-          = link_to 'Delete', contact_path(@contact), class: 'btn btn-danger',
-            method: :delete, data: { confirm: 'Are you sure?' }
-  .row
-    .col-3
-      dl
-        - [:email, :birthday, :notes].each do |attr|
-          dt= Contact.human_attribute_name attr
-          dd= @contact.send attr
-    .col-3
-      dl
-        dt= Contact.human_attribute_name :addresses
-        dd
-          ul.list-unstyled
-            - @contact.addresses.each do |a|
-              li
-                small= raw a.notes
-                div= [[a.city, a.state].join(', '),
-                  [a.street, a.number, a.apartment].join(' ')].join ', '
+  .panel
+    .panel-heading
+      = @contact.full_name
+      .actions.btn-group.pull-right
+        = link_to 'Edit', edit_contact_path(@contact), class: 'btn btn-primary btn-small'
+        = link_to 'Delete', contact_path(@contact), class: 'btn btn-danger btn-small',
+          method: :delete, data: { confirm: 'Are you sure?' }
+    .row
+      .col-3
+        .panel
+          .panel-heading= Contact.human_attribute_name :basic_data
+          dl
+            - [:email, :birthday, :notes].each do |attr|
+              dt= Contact.human_attribute_name attr
+              dd= @contact.send attr
+      - if @contact.addresses.any?
+        .col-3
+          .panel
+            .panel-heading= Contact.human_attribute_name :addresses
 
+            ul.list-unstyled
+              = render partial: 'contacts/address', collection: @contact.addresses,
+                spacer_template: 'shared/spacer_line'

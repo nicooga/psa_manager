@@ -1,0 +1,5 @@
+li
+  span.label= raw address.notes
+  |  
+  = [[address.city, address.state].join(', '),
+    [address.street, address.number, address.apartment].join(' ')].join ', '
