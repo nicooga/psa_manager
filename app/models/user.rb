@@ -1,4 +1,6 @@
 class User < ActiveRecord::Base
+  has_many :contacts
+
   validates :email, presence: true
   validates :email, uniqueness: true
   validates :email, format: { with: /\A[^@]+@[^@]+\..+\z/ }

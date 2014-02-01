@@ -2,6 +2,7 @@ class Contact < ActiveRecord::Base
   belongs_to :user
   has_many :addresses, dependent: :destroy
   has_many :phone_numbers, dependent: :destroy
+  belongs_to :source, class_name: 'Contact'
 
   accepts_nested_attributes_for :addresses, :phone_numbers,
     allow_destroy: true, reject_if: :all_blank

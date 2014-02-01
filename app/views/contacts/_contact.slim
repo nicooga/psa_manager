@@ -13,9 +13,10 @@
         .panel
           .panel-heading= Contact.human_attribute_name :basic_data
           dl
-            - [:email, :birthday, :notes].each do |attr|
-              dt= Contact.human_attribute_name attr
-              dd= contact.send attr
+            - [:source, :email, :birthday, :notes].each do |attr|
+              - if contact.send attr
+                dt= Contact.human_attribute_name attr
+                dd= contact.send attr
             - if contact.phone_numbers.without_address.any?
               dt= Contact.human_attribute_name :phone_numbers
               dd

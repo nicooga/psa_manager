@@ -3,15 +3,11 @@
 
   .panel
     .panel-heading= f.label :basic_data
-    .form-group
-      .row
-        .col-6
-          = f.text_field :first_name, placeholder: Contact.human_attribute_name(:first_name)
-        .col-6
-          = f.text_field :last_name, placeholder: Contact.human_attribute_name(:last_name)
+    .row
+      .col-6= f.text_field :first_name, placeholder: Contact.human_attribute_name(:first_name)
+      .col-6= f.text_field :last_name, placeholder: Contact.human_attribute_name(:last_name)
 
-    .form-group
-      = f.text_field :email, placeholder: Contact.human_attribute_name(:email)
+    = f.text_field :email, placeholder: Contact.human_attribute_name(:email)
 
     .form-group
       .input-group.date
@@ -26,11 +22,11 @@
       = render 'contacts/form/phone_fields', form: f,
         phone_numbers: @contact.phone_numbers.without_address
 
-    .form-group
-      = f.text_area :notes, rows: 3, placeholder: Contact.human_attribute_name(:notes)
+    = f.select :source, current_user.contacts.map(&:decorate)
+    = f.text_field :source_date, class: :datepicker, placeholder: Contact.human_attribute_name(:source)
+    = f.text_area :notes, rows: 3, placeholder: Contact.human_attribute_name(:notes)
 
-  .form-group
-    = render 'contacts/form/addresses_form', form: f
+  = render 'contacts/form/addresses_form', form: f
 
   .btn-group
     = f.submit class: 'btn btn-primary'
