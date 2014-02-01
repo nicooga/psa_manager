@@ -2,7 +2,8 @@ li
   span.label= raw address.notes
   - address.phone_numbers.each do |phone|
     span.label.label-info
-      i.glyphicon.glyphicon-phone= phone.number
+      i.glyphicon.glyphicon-phone
+      = phone.number
   |  
   = [[address.city, address.state].join(', '),
     [address.street, address.number, address.apartment].join(' ')].join ', '

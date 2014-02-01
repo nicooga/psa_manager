@@ -17,7 +17,6 @@ class ContactsController < ApplicationController
     if resource.update permited_params
       redirect_to resource, notice: messages[:update]
     else
-      pry
       render :edit
     end
   end
@@ -35,7 +34,8 @@ class ContactsController < ApplicationController
   def permited_params
     params.require(resource_class_name.downcase.to_sym).permit :first_name, :last_name, :email, :birthday, :notes,
       addresses_attributes: [:id, :city, :state, :street, :number, :apartment, :zip_code, :notes, :_destroy,
-        phone_numbers_attributes: [:number, :kind, :contact_id, :id, :_destroy]]
+        phone_numbers_attributes: [:number, :kind, :contact_id, :id, :_destroy]],
+      phone_numbers_attributes: [:number, :kind, :contact_id, :id, :_destroy]
   end
 
   def find_collection

@@ -16,6 +16,13 @@
             - [:email, :birthday, :notes].each do |attr|
               dt= Contact.human_attribute_name attr
               dd= contact.send attr
+            - if contact.phone_numbers.without_address.any?
+              dt= Contact.human_attribute_name :phone_numbers
+              dd
+                - contact.phone_numbers.without_address.each do |p|
+                  span.label.label-info
+                    i.glyphicon.glyphicon-phone
+                    = p.number
       - if contact.addresses.any?
         .col-3
           .panel

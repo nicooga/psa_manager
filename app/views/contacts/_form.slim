@@ -19,6 +19,13 @@
         span.input-group-addon
           i.glyphicon.glyphicon-th
 
+    .form-group#contact_phone_numbers
+      = add_fields_button f, "#contact_phone_numbers", 'contacts/form/phone_fields',
+        button: content_tag(:i, 'Add phone', class: 'glyphicon glyphicon-plus'),
+        partial_opts: { phone_numbers: PhoneNumber.new }
+      = render 'contacts/form/phone_fields', form: f,
+        phone_numbers: @contact.phone_numbers.without_address
+
     .form-group
       = f.text_area :notes, rows: 3, placeholder: Contact.human_attribute_name(:notes)
 

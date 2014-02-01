@@ -3,6 +3,7 @@
     = form.label :addresses
     = add_fields_button form, '#addresses', 'contacts/form/address_fields',
       class:  'btn btn-small',
-      button: content_tag(:i, 'Add', class: 'glyphicon glyphicon-plus')
+      button: content_tag(:i, 'Add', class: 'glyphicon glyphicon-plus'),
+      partial_opts: { address: Address.new }
   .row#addresses
     = render 'contacts/form/address_fields', form: form, address: @contact.addresses.presence
