@@ -1,7 +1,9 @@
 PsaManager::Application.routes.draw do
-  resources :contacts
-
   root to: 'sessions#new'
+
+  resources :contacts
+  resources :products
+
   # Omniauth callback
   get '/auth/:provider/callback', to: 'sessions#create'
   namespace :sessions, as: '' do

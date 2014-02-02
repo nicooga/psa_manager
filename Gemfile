@@ -2,11 +2,14 @@ source 'https://rubygems.org'
 
 # Base
 gem 'rails', '4.0.1'
+gem 'pg'
 gem 'pry-rails'
 gem 'rspec-rails'
+
+# Model Stuff
 gem 'draper', '~> 1.3'
+gem 'money-rails'
 gem 'carmen-rails'
-gem 'pg'
 
 # Authentication
 gem 'omniauth'

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140201050701) do
+ActiveRecord::Schema.define(version: 20140201233951) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -58,6 +58,17 @@ ActiveRecord::Schema.define(version: 20140201050701) do
 
   add_index "phone_numbers", ["address_id"], name: "index_phone_numbers_on_address_id", using: :btree
   add_index "phone_numbers", ["contact_id"], name: "index_phone_numbers_on_contact_id", using: :btree
+
+  create_table "products", force: true do |t|
+    t.float    "bonificable_points"
+    t.string   "name"
+    t.integer  "list_price_cents",         default: 0,     null: false
+    t.string   "list_price_currency",      default: "ARS", null: false
+    t.integer  "suggested_price_cents",    default: 0,     null: false
+    t.string   "suggested_price_currency", default: "ARS", null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "users", force: true do |t|
     t.string   "email"

@@ -19,4 +19,8 @@ module ApplicationHelper
     icon = content_tag :i, nil, class: 'glyphicon glyphicon-remove'
     link_to_function(icon, script, class: options[:class] || 'pull-right')
   end
+
+  def icon(icon_name)
+    content_tag :i, nil, class: "glyphicon glyphicon-#{icon_name}"
+  end
 end
