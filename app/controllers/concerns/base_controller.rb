@@ -36,7 +36,7 @@ class BaseController < ApplicationController
 
   def destroy
     if resource.destroy
-      render :index, notice: messages[:destroy]
+      redirect_to action: :index, notice: messages[:destroy]
     else
       redirect_to resource, notice: messages[:error]
     end
@@ -45,9 +45,11 @@ class BaseController < ApplicationController
   private
 
   def messages
-    { create: "Succesfully created #{resource_class_name.downcase}",
+    Hash.new('').merge(
+      create: "Succesfully created #{resource_class_name.downcase}",
       update: "Succesfully updated #{resource_class_name.downcase}",
-      error:  "Something went wrong." }
+      error:  "Something went wrong."
+    )
   end
 
   ### RESOURCE
