@@ -1,6 +1,6 @@
 .panel.product
   .panel-heading
-    = product.name
+    = link_to product.name, product_path(product)
     .btn-group.pull-right
       = link_to edit_product_path(product), class: 'btn btn-primary btn-small' do
         = icon :edit

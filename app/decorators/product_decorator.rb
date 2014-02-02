@@ -9,4 +9,6 @@ class ProductDecorator < Draper::Decorator
   def suggested_price_with_symbol
     humanized_money_with_symbol object.suggested_price
   end
+
+  def to_s() name end
 end
