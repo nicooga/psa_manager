@@ -10,14 +10,10 @@
  *
  *= require_self
  *= require_tree .
- *= require twitter/bootstrap
  *= require bootstrap-datepicker
+ *= require font-awesome
  */
 
-body {
-  padding-top: 20px;
-}
-
-.push {
-  height: 60px;
-}
+body { padding-top: 20px; }
+.push { height: 60px; }
+i.glyphicon { color: white }

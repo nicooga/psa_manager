@@ -18,7 +18,8 @@ gem 'bcrypt-ruby', '~> 3.1.2'
 
 # Templating, js and assets stuff
 gem 'therubyracer'
-gem 'less-rails-bootstrap', '~> 3.0.0.wip', github: 'sinfin/less-rails-bootstrap-3'
+# gem 'less-rails-bootstrap', '~> 3.0.0.wip', github: 'sinfin/less-rails-bootstrap-3'
+gem 'font-awesome-less'
 gem 'bootstrap-datepicker-rails'
 gem 'slim-rails'
 gem 'uglifier', '>= 1.3.0'

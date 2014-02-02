@@ -1,18 +1,12 @@
-= form_for @product, html: { role: :form } do |f|
+= form_for @product, html: { role: :form }, builder: PsaManager::FormBuilder do |f|
   = render 'shared/form_errors', object: @product
-  .panel
+  .panel.panel-default
     .panel-heading Details
 
-    = f.text_field :name, placeholder: Product.human_attribute_name(:name)
-    = f.text_field :bonificable_points, placeholder: Product.human_attribute_name(:bonificable_points)
-    .input-group
-      span.input-group-addon
-        i.glyphicon.glyphicon-usd
-      = f.text_field :list_price, placeholder: Product.human_attribute_name(:list_price)
-    .input-group
-      span.input-group-addon
-        i.glyphicon.glyphicon-usd
-      = f.text_field :suggested_price, placeholder: Product.human_attribute_name(:suggested_price)
+    = f.text_field :name
+    = f.text_field :bonificable_points
+    = f.text_field :list_price, addon: :usd
+    = f.text_field :suggested_price, addon: :usd
 
   .btn-group
     = f.submit class: 'btn btn-primary'
