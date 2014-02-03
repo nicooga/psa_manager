@@ -10,6 +10,7 @@
       = form.text_field :zip_code
       = form.text_area :notes
       = add_fields_button form, "#address_phones_-timestamp_#{form.index}-", 'contacts/form/phone_fields',
+        timestamp_name: :phone_timestamp,
         partial_opts: { phone_numbers: PhoneNumber.new }
       div id=("address_phones_-timestamp_#{form.index}-")
         = render 'contacts/form/phone_fields', form: form, phone_numbers: form.object.phone_numbers.presence

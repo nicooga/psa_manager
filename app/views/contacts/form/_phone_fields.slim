@@ -4,5 +4,5 @@
     .input-group
       = pf.text_field :number, group: false
       = pf.select :kind, PhoneNumber::KINDS, group: false, class: 'puto'
-      span.input-group-addon= remove_fields_button pf, "#phone_-timestamp_#{form.index}#{pf.index}-",
+      span.input-group-addon= remove_fields_button pf, "#phone_-phone_timestamp_#{form.index}#{pf.index}-",
         timestamp_name: :phone_timestamp
