@@ -2,7 +2,7 @@
   .address.col-lg-3 id=("address_-timestamp_#{form.index}-")
     .panel.panel-default
       = remove_fields_button(form, "#address_-timestamp_#{form.index}-", class: 'btn close')
-      = form.select :state, Address::STATES, include_blank: Address.human_attribute_name(:state)
+      = form.select :state, Address::STATES
       = form.text_field :city
       = form.text_field :street
       = form.text_field :number

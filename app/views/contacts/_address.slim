@@ -1,8 +1,8 @@
-li
-  span.label= raw address.notes
+li.list-group-item
+  span.label.label-default= raw address.notes
   - address.phone_numbers.each do |phone|
     span.label.label-info
-      i.glyphicon.glyphicon-phone
+      = icon(:earphone)
       = phone.number
   |  
   = [[address.city, address.state].join(', '),

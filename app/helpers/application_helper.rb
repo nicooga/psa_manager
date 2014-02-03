@@ -1,11 +1,15 @@
 module ApplicationHelper
-  def add_fields_button(form, selector, partial, options = Hash.new({}))
-    html = j render(partial, { form: form }.merge(options[:partial_opts] || {}))
+  def add_fields_button(form, selector, partial, options = {})
+    opts = { partial_opts: {},
+             button: icon('plus-sign'),
+             class: 'btn',
+             timestamp_name: :timestamp }.merge(options)
+    html = j render(partial, { form: form }.merge(opts[:partial_opts]))
     script = <<-STR
       timestamp = (new Date).getTime();
-      $('#{selector}').append('#{html}'.replace(/-timestamp(_\\d+)?-/g, '_' + timestamp))
+      $('#{selector}').append('#{html}'.replace(/-#{opts[:timestamp_name]}(_\\d+)?-/g, '_' + timestamp))
     STR
-    link_to_function options[:button] || icon('plus-sign'), script, class: options[:class] || 'btn'
+    link_to_function opts[:button], script, class: opts[:class]
   end
 
   def remove_fields_button(form, selector = nil, options = {})
@@ -20,7 +24,8 @@ module ApplicationHelper
   end
 
   def icon(icon_name, content = nil)
-    content_tag :i, content, class: "glyphicon glyphicon-#{icon_name}"
+    i = content_tag(:i, nil, class: "glyphicon glyphicon-#{icon_name}")
+    content ? i + content_tag(:span, ' ' + content) : i
   end
 end
 
@@ -30,35 +35,29 @@ class PsaManager::FormBuilder < ActionView::Helpers::FormBuilder
 
   [:text_field, :text_area, :number_field].each do |method_name|
     define_method method_name do |field, opts = {}|
-      opts.merge!(
+      merge_opts(opts,
         placeholder: object.class.human_attribute_name(field),
         class: 'form-control',
-        group: true,
-        include_blank: object.class.human_attribute_name(field)
-      ) do |key, old, new|
-        case key
-        when :class then [old, new].join(' ')
-        when :group then old
-        end
-      end
+        group: true
+      )
 
       input_wrapping super(field, opts), opts
     end
   end
 
-  def select(field, choices, opts = {}, html_options = {})
-    html = super field, choices, opts, html_options.merge(
-      placeholder: object.class.human_attribute_name(field),
-      class: 'form-control'
-    )
-    input_wrapping html
+  def select(field, choices, opts = {}, html_opts = {})
+    html = super field, choices, merge_opts(opts,
+      group: true,
+      include_blank: object.class.human_attribute_name(field)
+    ), merge_opts(html_opts, class: 'form-control')
+    input_wrapping html, opts
   end
 
   def datepicker(field, opts = {})
     html = @template.content_tag(:div, class: 'form-group') do
-      text_field field, opts.merge(class: :datepicker, addon: :th)
+      text_field field, opts.merge(class: :datepicker, addon: :calendar)
     end
-    input_wrapping html
+    input_wrapping html, opts
   end
 
   private
@@ -78,6 +77,16 @@ class PsaManager::FormBuilder < ActionView::Helpers::FormBuilder
       end
     else
       html
+    end
+  end
+
+  def merge_opts(opts, defaults)
+    opts.merge!(defaults) do |key, old, new|
+      case key
+      when :class then [old, new].join(' ')
+      when :group then old
+      else old || new
+      end
     end
   end
 end

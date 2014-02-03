@@ -4,31 +4,34 @@
       = link_to contact.full_name, contact_path(contact)
 
       .btn-group.pull-right
-        = link_to 'Edit', edit_contact_path(contact), class: 'btn btn-primary btn-xs'
-        = link_to 'Delete', contact_path(contact), class: 'btn btn-danger btn-xs',
-          method: :delete, data: { confirm: 'Are you sure?' }
+        = link_to edit_contact_path(contact), class: 'btn btn-primary btn-xs' do
+          = icon :edit, 'Edit'
+        = link_to contact_path(contact), class: 'btn btn-danger btn-xs',
+          method: :delete, data: { confirm: 'Are you sure?' } do
+          = icon 'remove-circle', 'Delete'
 
     .row
       .col-lg-3
         .panel
-          .panel-heading= Contact.human_attribute_name :basic_data
-          dl
+          h4.panel-heading= Contact.human_attribute_name :basic_data
+
+          ul.list-group
             - [:source, :email, :birthday, :notes].each do |attr|
-              - if contact.send attr
-                dt= Contact.human_attribute_name attr
-                dd= contact.send attr
+              li.list-group-item
+                h5.list-group-item-heading= Contact.human_attribute_name attr
+                = contact.try attr
             - if contact.phone_numbers.without_address.any?
-              dt= Contact.human_attribute_name :phone_numbers
-              dd
+              li.list-group-item
+                h5.list-group-item-heading= Contact.human_attribute_name :phone_numbers
                 - contact.phone_numbers.without_address.each do |p|
+                  |  
                   span.label.label-info
-                    i.glyphicon.glyphicon-phone
+                    = icon(:earphone) + ' '
                     = p.number
       - if contact.addresses.any?
         .col-lg-3
           .panel
-            .panel-heading= Contact.human_attribute_name :addresses
+            h4.panel-heading= Contact.human_attribute_name :addresses
 
-            ul.list-unstyled
-              = render partial: 'contacts/address', collection: contact.addresses,
-                spacer_template: 'shared/spacer_line'
+            ul.list-group
+              = render partial: 'contacts/address', collection: contact.addresses
