@@ -5,7 +5,7 @@
     .panel-heading= 'Details'
     = f.select :product_id, Product.pluck(:name, :id)
     = f.text_field :serial_number
-    = f.text_field :aquisition_date
+    = f.datepicker :acquisition_date
 
   .btn-group.pull-right
     = f.submit class: 'btn btn-primary'
