@@ -7,6 +7,7 @@
     = f.text_field :bonificable_points
     = f.text_field :list_price, addon: :usd
     = f.text_field :suggested_price, addon: :usd
+    = f.number_field :expiration_time
 
   .btn-group
     = f.submit class: 'btn btn-primary'

@@ -1,5 +1,5 @@
 en:
   activerecord:
     attributes:
-      kit:
+      product:
         expiration_time: Expiration Date (in months)

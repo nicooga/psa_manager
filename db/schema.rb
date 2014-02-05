@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140202005803) do
+ActiveRecord::Schema.define(version: 20140205231428) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -49,7 +49,6 @@ ActiveRecord::Schema.define(version: 20140202005803) do
 
   create_table "kits", force: true do |t|
     t.string   "serial_number"
-    t.integer  "expiration_time"
     t.date     "aquisition_date"
     t.integer  "product_id"
     t.integer  "user_id"
@@ -81,6 +80,7 @@ ActiveRecord::Schema.define(version: 20140202005803) do
     t.string   "suggested_price_currency", default: "ARS", null: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "expiration_time"
   end
 
   create_table "users", force: true do |t|

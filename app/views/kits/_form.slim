@@ -6,7 +6,6 @@
     = f.select :product_id, Product.pluck(:name, :id)
     = f.text_field :serial_number
     = f.text_field :aquisition_date
-    = f.number_field :expiration_time
 
   .btn-group.pull-right
     = f.submit class: 'btn btn-primary'
