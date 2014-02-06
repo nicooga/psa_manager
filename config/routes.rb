@@ -1,6 +1,7 @@
 PsaManager::Application.routes.draw do
-  root to: 'sessions#new'
+  root to: 'activites#index'
 
+  resources :activities
   resources :contacts
   resources :products
   resources :kits

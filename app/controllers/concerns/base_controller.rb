@@ -1,4 +1,6 @@
 class BaseController < ApplicationController
+  respond_to :html
+
   ### DSL
   class_attribute :parent_class_name
   class_attribute :permited_params_keys
@@ -16,11 +18,19 @@ class BaseController < ApplicationController
   before_filter :find_collection, only: :index
   before_filter :build_resource, only: :new
 
+  def index
+    respond_with collection, &responder
+  end
+
+  def show
+    respond_with resource, &responder
+  end
+
   def create
     resource = instance_variable_set "@#{resource_class_name.downcase}",
       resource_class.new(permited_params)
     if resource.save
-      redirect_to resource, notice: messages[:create]
+      respond_with resource, notice: messages[:create]
     else
       render :new
     end
@@ -28,7 +38,7 @@ class BaseController < ApplicationController
 
   def update
     if resource.update permited_params
-      redirect_to resource, notice: messages[:update]
+      respond_with resource, notice: messages[:update]
     else
       render :edit
     end
@@ -36,7 +46,7 @@ class BaseController < ApplicationController
 
   def destroy
     if resource.destroy
-      redirect_to action: :index, notice: messages[:destroy]
+      respond_with resource, notice: messages[:destroy]
     else
       redirect_to resource, notice: messages[:error]
     end
@@ -77,6 +87,10 @@ class BaseController < ApplicationController
     instance_variable_get "@#{resource_class_name.downcase}"
   end
 
+  def collection
+    instance_variable_get "@#{resource_class_name.downcase.pluralize}"
+  end
+
   def find_resource
     instance_variable_set "@#{resource_class_name.downcase}", resource_class.find(params[:id]).decorate
   end
@@ -91,5 +105,10 @@ class BaseController < ApplicationController
 
   def resource_class_name
     params[:controller].singularize.capitalize
+  end
+
+  def responder
+    responder_method_name = :"#{params[:action]}_responder"
+    respond_to?(responder_method_name) ? method(responder_method_name) : ->(format){}
   end
 end

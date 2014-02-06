@@ -1,0 +1,2 @@
+class PresentationArrangement < Activity
+end

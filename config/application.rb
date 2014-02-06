@@ -12,5 +12,7 @@ module PsaManager
       include ActionView::Helpers::OutputSafetyHelper
       raw "<div class='has-error'>#{html_tag}</div>"
     end
+
+    config.autoload_paths += Dir[Rails.root.join('app', 'models', '{**}')]
   end
 end

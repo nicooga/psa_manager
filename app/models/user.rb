@@ -1,6 +1,7 @@
 class User < ActiveRecord::Base
   has_many :contacts, dependent: :destroy
   has_many :kits, dependent: :destroy
+  has_many :activities
 
   validates :email, presence: true
   validates :email, uniqueness: true

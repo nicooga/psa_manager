@@ -6,6 +6,7 @@ nav.navbar.navbar-default.navbar-fixed-bottom role='navigation'
     li= link_to Contact.model_name.human.pluralize, contacts_path
     li= link_to Product.model_name.human.pluralize, products_path
     li= link_to Kit.model_name.human.pluralize, kits_path
+    li= link_to Activity.model_name.human.pluralize, activities_path
 
   ul.nav.navbar-nav.navbar-right.pull-right
     - if current_user
