@@ -1,5 +1,5 @@
 PsaManager::Application.routes.draw do
-  root to: 'activites#index'
+  root to: 'activities#index'
 
   resources :activities
   resources :contacts

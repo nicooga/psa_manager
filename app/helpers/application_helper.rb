@@ -24,7 +24,7 @@ module ApplicationHelper
   end
 
   def icon(icon_name, content = nil)
-    i = content_tag(:i, nil, class: "glyphicon glyphicon-#{icon_name}")
+    i = content_tag(:span, nil, class: "glyphicon glyphicon-#{icon_name}")
     content ? i + content_tag(:span, ' ' + content) : i
   end
 end
@@ -35,13 +35,11 @@ class PsaManager::FormBuilder < ActionView::Helpers::FormBuilder
 
   [:text_field, :text_area, :number_field].each do |method_name|
     define_method method_name do |field, opts = {}|
-      merge_opts(opts,
+      html = super(field, merge_opts(opts,
         placeholder: object.class.human_attribute_name(field),
-        class: 'form-control',
-        group: true
-      )
-
-      input_wrapping super(field, opts), opts
+        class: 'form-control'
+      ))
+      input_wrapping html, opts
     end
   end
 
@@ -60,16 +58,18 @@ class PsaManager::FormBuilder < ActionView::Helpers::FormBuilder
     input_wrapping html, opts
   end
 
+  def datetimepicker(field, opts = {})
+    html = text_field field, merge_opts(opts, class: :datetimepicker)
+    input_wrapping(html, merge_opts(opts, addon: {
+      before: :calendar,
+      after:  :remove
+    }))
+  end
+
   private
 
   def input_wrapping(html, opts = {})
-    html = if opts[:addon]
-      @template.content_tag(:div, class: 'input-group') do
-        content_tag(:span, icon(opts[:addon]), class: 'input-group-addon') + html
-      end
-    else
-      html
-    end
+    html = addon_wrapping(html, opts[:addon])
 
     if opts[:group]
       @template.content_tag :div, class: 'form-group' do
@@ -80,13 +80,33 @@ class PsaManager::FormBuilder < ActionView::Helpers::FormBuilder
     end
   end
 
-  def merge_opts(opts, defaults)
-    opts.merge!(defaults) do |key, old, new|
-      case key
-      when :class then [old, new].join(' ')
-      when :group then old
-      else old || new
+  def addon_wrapping(html, opts = {})
+    opts ? @template.content_tag(:div, class: 'input-group') do
+      case opts
+      when String, Symbol
+        input_group_addon(opts) + html
+      when Hash
+        input_group_addon(opts[:before]) + html + input_group_addon(opts[:after])
+      when Array
+        opts.map do |icon_name|
+          icon_name.to_s == '#' ? html :
+            input_group_addon(icon_name)
+        end
       end
+    end : html
+  end
+
+  def input_group_addon(icon_name)
+    content_tag(:span, icon(icon_name), class: 'input-group-addon')
+  end
+
+  def merge_opts(opts, defaults)
+    defaults.merge(opts) do |k, old, new|
+      k == :class ? [old.to_s, new.to_s].join(' ') : new
     end
+  end
+
+  def ignore_opts(opts, *keys)
+    opts.dup.delete_if {|k| keys.include? k }
   end
 end

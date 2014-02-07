@@ -7,8 +7,8 @@
     = f.select :type, Activity::TYPES.map { |s| [s.to_s.titleize, s] }
     = f.select :contact_id, current_user.contacts.map { |c| [c.decorate, c.id] }
     = f.select :address_id, current_user.contacts.first.addresses.map { |a| [a.decorate, a.id] }
-    = f.datepicker :target_date
-    = f.datepicker :completed_date
+    = f.datetimepicker :target_date
+    = f.datetimepicker :completed_date
     = f.select :status, Activity::STATUSES.map { |s| [s.to_s.titleize, s] }
     = f.text_area :notes
 

@@ -4,6 +4,7 @@ class BaseController < ApplicationController
   ### DSL
   class_attribute :parent_class_name
   class_attribute :permited_params_keys
+  class_attribute :decorator
 
   def self.belongs_to(resource_name = nil)
     self.parent_class_name ||= resource_name
@@ -11,6 +12,10 @@ class BaseController < ApplicationController
 
   def self.permit_params(*args)
     self.permited_params_keys ||= args
+  end
+
+  def self.decorate_with(decorator)
+    self.decorator = decorator
   end
 
   ### PERSISTANCE
@@ -76,7 +81,8 @@ class BaseController < ApplicationController
   end
 
   def find_collection
-    instance_variable_set "@#{resource_class_name.downcase.pluralize}", resource_class.all.map(&:decorate)
+    instance_variable_set "@#{resource_class_name.downcase.pluralize}",
+      decorate_collection(resource_class.all)
   end
 
   def build_resource
@@ -92,7 +98,8 @@ class BaseController < ApplicationController
   end
 
   def find_resource
-    instance_variable_set "@#{resource_class_name.downcase}", resource_class.find(params[:id]).decorate
+    object = resource_class.find(params[:id])
+    instance_variable_set "@#{resource_class_name.downcase}", decorate(object)
   end
 
   def resource_class
@@ -110,5 +117,21 @@ class BaseController < ApplicationController
   def responder
     responder_method_name = :"#{params[:action]}_responder"
     respond_to?(responder_method_name) ? method(responder_method_name) : ->(format){}
+  end
+
+  def decorate(object)
+    if decorator
+      decorator.decorate object
+    else
+      object.decorate
+    end
+  end
+
+  def decorate_collection(collection)
+    if decorator
+      decorator.decorate_collection(collection)
+    else
+      collection.map &:decorate
+    end
   end
 end

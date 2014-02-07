@@ -1,0 +1,54 @@
+.activity
+  .panel.panel-default
+    .panel-heading
+      = @activity.type
+      .actions.btn-group.pull-right
+        = link_to edit_activity_path(@activity), class: 'btn btn-primary btn-xs' do
+          = icon :edit, 'Edit'
+        = link_to activity_path(@activity), class: 'btn btn-danger btn-xs',
+          method: :delete, data: { confirm: 'Are you sure?' } do
+          = icon 'remove-circle', 'Delete'
+    .row
+      .col-lg-3
+        .panel.basic_data
+          h4.panel-heading= Activity.human_attribute_name :basic_data
+          ul.list-group
+            - [:type, :status, :target_date, :completed_date].each do |attr|
+              - if @activity.send attr
+                li.list-group-item
+                  h5.list-group-heading= Activity.human_attribute_name attr
+                  = @activity.send attr
+
+      .col-lg-3
+        .panel.contact
+          h4.panel-heading
+            = Activity.human_attribute_name :contact
+            .btn-group.pull-right
+              = link_to contact_path(@activity.contact), class: 'btn btn-info btn-xs' do
+                = icon 'info-sign', 'More'
+
+          ul.list-group
+            - [:source, :email, :birthday, :notes].each do |attr|
+              li.list-group-item
+                h5.list-group-item-heading= Contact.human_attribute_name attr
+                = @activity.contact.try attr
+            - if @activity.contact.phone_numbers.without_address.any?
+              li.list-group-item
+                h5.list-group-item-heading= Contact.human_attribute_name :phone_numbers
+                - @activity.contact.phone_numbers.without_address.each do |p|
+                  |  
+                  span.label.label-info
+                    = icon(:earphone) + ' '
+                    = p.number
+
+      .col-lg-3
+        .panel.contact
+          h4.panel-heading= Activity.human_attribute_name :address
+
+          span.label-default= raw @activity.address.notes
+          - @activity.address.phone_numbers.each do |phone|
+            span.label.label-info
+              = icon(:earphone)
+              = phone.number
+          |  
+          = @activity.address.decorate

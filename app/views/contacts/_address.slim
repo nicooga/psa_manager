@@ -5,5 +5,4 @@ li.list-group-item
       = icon(:earphone)
       = phone.number
   |  
-  = [[address.city, address.state].join(', '),
-    [address.street, address.number, address.apartment].join(' ')].join ', '
+  = address.decorate

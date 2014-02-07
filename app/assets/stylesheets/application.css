@@ -10,10 +10,12 @@
  *
  *= require_self
  *= require_tree .
- *= require bootstrap-datepicker
+ *= require bootstrap-datetimepicker
  *= require font-awesome
  */
 
 body { padding-top: 20px; }
 .push { height: 60px; }
-i.glyphicon { color: white }
+.glyphicon {
+  margin: 2px
+}

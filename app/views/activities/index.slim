@@ -1,0 +1,26 @@
+= link_to 'Add new Activity', new_activity_path, class: 'btn btn-primary pull-right'
+legend= Activity.model_name.name
+
+table.table.table-striped
+  - attributes = [:status, :type, :target_date, :completed_date, :contact, :address]
+  thead
+    - attributes.each do |attr|
+      th= Activity.human_attribute_name attr
+    th
+
+  tbody
+    - @activities.each do |a|
+      tr
+        - (attributes - [:contact, :address]).each do |attr|
+          td= a.try attr
+        td.contact= a.contact.decorate
+        td.address= a.address.decorate
+        td
+          .btn-group
+            = link_to activity_path(a), class: 'btn btn-info btn-xs' do
+              = icon 'info-sign'
+            = link_to edit_activity_path(a), class: 'btn btn-primary btn-xs' do
+              = icon :edit
+            = link_to activity_path(a), class: 'btn btn-danger btn-xs',
+              method: :delete, data: { confirm: 'Are you sure?' } do
+              = icon 'remove-circle'

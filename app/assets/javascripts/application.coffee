@@ -13,13 +13,11 @@
 #= require jquery
 #= require jquery_ujs
 #= require jquery.turbolinks
-#= require bootstrap-datepicker
+#= require bootstrap
+#= require moment
+#= require bootstrap-datetimepicker
 #= require_tree .
 
 $ -> $(document).ready ->
-  $("input.datepicker").datepicker
-    startView: 1
-    todayBtn: true
-    autoclose: true
-    todayHighlight: true
-    format: "yyyy/mm/dd"
+  $(".datepicker").datetimepicker pickTime: false, format: 'YYYY/MM/DD'
+  $(".datetimepicker").datetimepicker format: 'YYYY/MM/DD'

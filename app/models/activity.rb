@@ -8,4 +8,6 @@ class Activity < ActiveRecord::Base
    Demo Sale Service Exchange Invitation Presentation EntryMonitoring Entry|
 
   STATUSES = [:pending, :failed, :completed]
+
+  validates :target_date, :type, :contact, presence: true
 end
