@@ -1,3 +1,8 @@
+PATH
+  remote: /home/cygnus/Projects/bootstrap3-form-builder
+  specs:
+    bootstrap3-form-builder (0.0.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -195,6 +200,7 @@ PLATFORMS
 DEPENDENCIES
   bcrypt-ruby (~> 3.1.2)
   bootstrap3-datetimepicker-rails (~> 2.1.30)
+  bootstrap3-form-builder!
   carmen-rails
   coffee-rails (~> 4.0.0)
   draper (~> 1.3)

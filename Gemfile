@@ -21,6 +21,7 @@ gem 'therubyracer'
 gem 'font-awesome-less'
 gem 'momentjs-rails', '~> 2.5.0'
 gem 'bootstrap3-datetimepicker-rails', '~> 2.1.30'
+gem 'bootstrap3-form-builder', path: File.expand_path('~/Projects/bootstrap3-form-builder')
 gem 'slim-rails'
 gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.0.0'
