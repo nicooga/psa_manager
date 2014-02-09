@@ -21,3 +21,6 @@
 $ -> $(document).ready ->
   $(".datepicker").datetimepicker pickTime: false, format: 'YYYY/MM/DD'
   $(".datetimepicker").datetimepicker format: 'YYYY/MM/DD'
+
+  $('.input-group.datetimepicker .date_remove').on 'click', ->
+    $(this).parent().find('input.datetimepicker').val('')
