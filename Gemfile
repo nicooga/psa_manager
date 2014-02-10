@@ -6,6 +6,10 @@ gem 'pg'
 gem 'pry-rails'
 gem 'rspec-rails'
 
+# Fake data and database cleaning
+gem 'ffaker'
+gem 'database_cleaner', '1.0.0.RC1'
+
 # Model Stuff
 gem 'draper', '~> 1.3'
 gem 'money-rails'
