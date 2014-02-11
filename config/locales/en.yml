@@ -2,4 +2,5 @@ en:
   activerecord:
     attributes:
       product:
-        expiration_time: Expiration Date (in months)
+        expiration_time: Expiration Time (in months)
+        service_period:  Service Period (in months)
