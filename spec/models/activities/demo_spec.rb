@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe DemoArrangement do
+describe Demo do
   let(:user) do
     User.create!(email: Faker::Internet.email)
   end
@@ -21,33 +21,41 @@ describe DemoArrangement do
     )
   end
 
-  let(:da) do
+  let(:demo) do
     described_class.new(
       user:    user,
       contact: contact,
-      address: contact.addresses.first
+      address: contact.addresses.first,
     ).tap { |a| a.save(validate: false) }
   end
 
   describe '#next_activities' do
     describe 'should generate proper activities' do
       it 'on failure' do
-        da.status = :failed
-        da.save!(validate: false)
-        da.next_activities.first.should have_attributes(
-          contact_id: da.contact.id,
-          user_id:    da.user.id,
-          address_id: da.address.id
+        demo.status = :failed
+        demo.save!(validate: false)
+        demo.next_activities.first.should have_attributes(
+          contact_id: demo.contact.id,
+          user_id:    demo.user.id,
+          address_id: demo.address.id
         )
       end
 
       it 'on completition' do
-        da.status = :completed
-        da.save!(validate: false)
-        da.next_activities.first.should have_attributes(
-          contact_id: da.contact.id,
-          user_id:    da.user.id,
-          address_id: da.address.id
+        demo.status = :completed
+        demo.save!(validate: false)
+        demo.next_activities.should be_has_key(:one_of)
+
+        demo.next_activities[:one_of].first.should have_attributes(
+          contact_id: demo.contact.id,
+          user_id:    demo.user.id,
+          address_id: demo.address.id
+        )
+
+        demo.next_activities[:one_of].second.should have_attributes(
+          contact_id: demo.contact.id,
+          user_id:    demo.user.id,
+          address_id: demo.address.id
         )
       end
     end

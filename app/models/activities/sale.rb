@@ -1,0 +1,2 @@
+class Sale < Activity
+end

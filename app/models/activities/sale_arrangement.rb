@@ -1,0 +1,2 @@
+class SaleArrangement < Activity
+end
