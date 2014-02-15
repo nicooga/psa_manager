@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140213002110) do
+ActiveRecord::Schema.define(version: 20140215040501) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -59,6 +59,21 @@ ActiveRecord::Schema.define(version: 20140213002110) do
 
   add_index "contacts", ["source_id"], name: "index_contacts_on_source_id", using: :btree
   add_index "contacts", ["user_id"], name: "index_contacts_on_user_id", using: :btree
+
+  create_table "installations", force: true do |t|
+    t.date     "date"
+    t.integer  "kit_id"
+    t.integer  "contact_id"
+    t.integer  "address_id"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "installations", ["address_id"], name: "index_installations_on_address_id", using: :btree
+  add_index "installations", ["contact_id"], name: "index_installations_on_contact_id", using: :btree
+  add_index "installations", ["kit_id"], name: "index_installations_on_kit_id", using: :btree
+  add_index "installations", ["user_id"], name: "index_installations_on_user_id", using: :btree
 
   create_table "kits", force: true do |t|
     t.string   "serial_number"
