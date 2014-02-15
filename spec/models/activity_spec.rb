@@ -16,8 +16,8 @@ describe Activity do
         instance.completed_date.should eq(date)
       end
 
-      it 'triggers #generate_next_activities' do
-        instance.should_receive(:generate_next_activities).once
+      it 'triggers #generate_next_activity' do
+        instance.should_receive(:generate_next_activity).once
         instance.status = :completed
         instance.save(validate: false)
       end
