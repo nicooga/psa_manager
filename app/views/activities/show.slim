@@ -42,6 +42,7 @@
                     = p.number
 
       .col-lg-3
+        - if @activity.address
         .panel.contact
           h4.panel-heading= Activity.human_attribute_name :address
 

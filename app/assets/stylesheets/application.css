@@ -10,8 +10,6 @@
  *
  *= require_self
  *= require_tree .
- *= require bootstrap-datetimepicker
- *= require font-awesome
  */
 
 body { padding-top: 20px; }

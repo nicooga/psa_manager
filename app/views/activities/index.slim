@@ -11,10 +11,8 @@ table.table.table-striped
   tbody
     - @activities.each do |a|
       tr
-        - (attributes - [:contact, :address]).each do |attr|
+        - (attributes).each do |attr|
           td= a.try attr
-        td.contact= a.contact.decorate
-        td.address= a.address.decorate
         td
           .btn-group
             = link_to activity_path(a), class: 'btn btn-info btn-xs' do

@@ -14,13 +14,14 @@
 #= require jquery_ujs
 #= require jquery.turbolinks
 #= require bootstrap
-#= require moment
-#= require bootstrap-datetimepicker
 #= require_tree .
 
 $ -> $(document).ready ->
-  $(".datepicker").datetimepicker pickTime: false, format: 'YYYY/MM/DD'
-  $(".datetimepicker").datetimepicker format: 'YYYY/MM/DD'
-
-  $('.input-group.datetimepicker .date_remove').on 'click', ->
-    $(this).parent().find('input.datetimepicker').val('')
+  $(".input-group.datepicker").datetimepicker pickTime: false, format: 'YYYY/MM/DD'
+  $(".input-group.datetimepicker").datetimepicker
+    format:          'yyyy-mm-dd hh:mm',
+    autoclose:       true,
+    todayBtn:        true,
+    pickerPosition:  "bottom-left"
+    triggerSelector: '.input-group-addon .glyphicon.glyphicon-calendar',
+    resetSelector:   '.input-group-addon .glyphicon.glyphicon-remove',

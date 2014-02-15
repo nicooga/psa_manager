@@ -9,11 +9,13 @@ $ ->
         only:    'id'
         methods: 'addresses',
       (contact)->
-        options_html = $.map(contact.addresses, (address)->
-          $('<option>').attr('value', address.id)
-          .text([address.state, address.city,
-            [address.street, address.number].join(' ')
-          ].join(', '))
-        ).contact [$('<option>').text('Contact')]
+        options_html = [$('<option>').text('Address')].concat(
+          $.map(contact.addresses, (address)->
+            $('<option>').attr('value', address.id)
+            .text([address.state, address.city,
+              [address.street, address.number].join(' ')
+            ].join(', '))
+          )
+        )
 
         $form.find('select#activity_address_id').html options_html

@@ -4,7 +4,10 @@ source 'https://rubygems.org'
 gem 'rails', '4.0.1'
 gem 'pg'
 gem 'pry-rails'
+
+# Testing
 gem 'rspec-rails'
+gem 'factory_girl_rails', '4.2.1', group: [:development, :test]
 
 # Fake data and database cleaning
 gem 'ffaker'

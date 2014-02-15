@@ -35,7 +35,7 @@ class BaseController < ApplicationController
     resource = instance_variable_set "@#{resource_class_name.downcase}",
       resource_class.new(permited_params)
     if resource.save
-      respond_with resource, notice: messages[:create]
+      respond_with resource, notice: messages[:create], &responder
     else
       render :new
     end
