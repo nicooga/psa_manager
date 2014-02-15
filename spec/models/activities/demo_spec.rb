@@ -7,6 +7,7 @@ describe Demo do
     describe 'should generate proper activities' do
       it 'on failure' do
         demo.update! status: :failed
+        demo.next_activity.should be_kind_of(DemoArrangement)
         demo.next_activity.should have_attributes(
           contact_id: demo.contact.id,
           user_id:    demo.user.id,
@@ -18,12 +19,14 @@ describe Demo do
         demo.update! status: :completed
         demo.next_activity.should be_has_key(:one_of)
 
+        demo.next_activity[:one_of].first.should be_kind_of(Sale)
         demo.next_activity[:one_of].first.should have_attributes(
           contact_id: demo.contact.id,
           user_id:    demo.user.id,
           address_id: demo.address.id
         )
 
+        demo.next_activity[:one_of].second.should be_kind_of(SaleArrangement)
         demo.next_activity[:one_of].second.should have_attributes(
           contact_id: demo.contact.id,
           user_id:    demo.user.id,

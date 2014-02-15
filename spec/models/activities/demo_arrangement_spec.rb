@@ -7,6 +7,7 @@ describe DemoArrangement do
     describe 'should generate proper activities' do
       it 'on failure' do
         da.update! status: :failed
+        da.next_activity.should be_kind_of(DemoArrangement)
         da.next_activity.should have_attributes(
           contact_id: da.contact.id,
           user_id:    da.user.id,
@@ -16,6 +17,7 @@ describe DemoArrangement do
 
       it 'on completition' do
         da.update! status: :completed
+        da.next_activity.should be_kind_of(Demo)
         da.next_activity.should have_attributes(
           contact_id: da.contact.id,
           user_id:    da.user.id,
