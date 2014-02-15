@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140215040501) do
+ActiveRecord::Schema.define(version: 20140215173958) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -20,14 +20,17 @@ ActiveRecord::Schema.define(version: 20140215040501) do
     t.datetime "target_date"
     t.datetime "completed_date"
     t.string   "type"
-    t.string   "status",         default: "pending"
+    t.string   "status",          default: "pending"
     t.text     "notes"
     t.integer  "address_id"
     t.integer  "contact_id"
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "installation_id"
   end
+
+  add_index "activities", ["installation_id"], name: "index_activities_on_installation_id", using: :btree
 
   create_table "addresses", force: true do |t|
     t.string   "city"

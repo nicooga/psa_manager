@@ -13,7 +13,10 @@ Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
 ActiveRecord::Migration.check_pending! if defined?(ActiveRecord::Migration)
 
 RSpec.configure do |config|
-  DatabaseCleaner.clean_with :truncation
+  config.before(:suite) do
+    DatabaseCleaner.clean_with :truncation
+  end
+
 
   # If true, the base class of anonymous controllers will be inferred
   # automatically. This will be the default behavior in future versions of

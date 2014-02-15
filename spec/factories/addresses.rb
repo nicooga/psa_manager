@@ -6,7 +6,7 @@ FactoryGirl.define do
     city     { Faker::Address.city }
     street   { Faker::Address.street_name }
     number   { rand 1..5000 }
-    zip_code { Faker::Address.zip_code }
+    zip_code { Faker::AddressUS.zip_code }
     notes    { Faker::Lorem.sentence }
 
     after(:create) do |a|

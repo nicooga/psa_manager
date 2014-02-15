@@ -22,11 +22,11 @@ class Activity < ActiveRecord::Base
   end
 
   after_update :reschedule, if: ->(a) do
-    !status_changed? || !status_change.map(&:to_s).uniq.one? && status.to_s == 'failed'
+    !a.status_changed? || !a.status_change.map(&:to_s).uniq.one? && a.status.to_s == 'failed'
   end
 
-  after_update :generate_next_activity, if: COMPLETITION_CONDITIONS
   before_update :set_completed_date, if: COMPLETITION_CONDITIONS
+  after_update :generate_next_activity, if: COMPLETITION_CONDITIONS
 
   private
 
