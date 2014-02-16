@@ -11,7 +11,8 @@ FactoryGirl.define do
 
     (Activity::TYPES).each do |type|
       factory(type.underscore, class: type) do
-        installation if %w|ServiceArrangement Service ExchangeArrangement|.include?(type)
+        installation if %w|ServiceArrangement Service
+          ExchangeArrangement Exchange|.include?(type)
       end
     end
 
