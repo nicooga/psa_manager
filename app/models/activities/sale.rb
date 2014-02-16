@@ -19,7 +19,7 @@ class Sale < Activity
       user:         self.user,
       address:      self.address,
       installation: self.installation,
-      target_date:  Time.now + self.installation.kit.product.service_period.months - 1.week
+      target_date:  self.installation.next_service_date - 1.week
     )
   end
 end

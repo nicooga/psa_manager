@@ -9,12 +9,11 @@ FactoryGirl.define do
     address     { contact.addresses.sample }
     user
 
-    (Activity::TYPES - ['ServiceArrangement']).each do |type|
-      factory(type.underscore, class: type)
+    (Activity::TYPES).each do |type|
+      factory(type.underscore, class: type) do
+        installation if %w|ServiceArrangement Service|.include?(type)
+      end
     end
 
-    factory :service_arrangement, class: ServiceArrangement do
-      installation
-    end
   end
 end

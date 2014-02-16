@@ -31,4 +31,20 @@ describe Installation do
       i.next_service_date.should eq(next_service_date)
     end
   end
+
+  describe '#warranty_expiration_date' do
+    it 'retrieves product expiration date' do
+      i.warranty_expiration_date.should eq(
+        i.date.advance months: i.kit.product.expiration_time
+      )
+    end
+  end
+
+  describe '#warranty_about_to_expire?' do
+    it 'tells wich is closest, next service date or expiration date' do
+      i.warranty_about_to_expire?.should eq(
+        i.warranty_expiration_date <= i.next_service_date
+      )
+    end
+  end
 end

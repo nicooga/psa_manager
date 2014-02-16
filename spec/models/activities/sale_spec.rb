@@ -39,14 +39,12 @@ describe Sale do
         end
 
        it 'generated service should have proper attributes' do
-         date = Time.now
-         Time.stub now: date
          sale.update!(
            status: :completed,
            installation_attributes: installation.attributes.except(*%w|id created_at updated_at|)
          )
          sale.next_activity.target_date.should eq(
-           date + sale.installation.kit.product.service_period.months - 1.week
+           sale.installation.next_service_date - 1.week
          )
        end
       end
