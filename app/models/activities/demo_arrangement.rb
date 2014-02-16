@@ -1,4 +1,6 @@
 class DemoArrangement < Activity
+  private
+
   def reschedule
     self.next_activity = DemoArrangement.new(
       contact_id: self.contact_id,

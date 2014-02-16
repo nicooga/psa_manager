@@ -3,6 +3,8 @@ class Sale < Activity
   accepts_nested_attributes_for :installation, reject_if: :all_blank
   validates :installation, presence: true, on: :update, if: COMPLETITION_CONDITIONS
 
+  private
+
   def reschedule
     self.next_activity = SaleArrangement.new(
       contact: self.contact,
