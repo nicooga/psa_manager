@@ -18,6 +18,11 @@ describe Installation do
       i.kit = nil
       i.should_not be_valid
     end
+
+    it 'require a date' do
+      i.date = nil
+      i.should_not be_valid
+    end
   end
 
   describe '#next_service_date' do

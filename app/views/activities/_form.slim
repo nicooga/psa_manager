@@ -1,4 +1,8 @@
-= form_for @activity, html: { role: :form }, builder: Bootstrap3::FormBuilder do |f|
+= form_for local_assigns[:activity] || resource,
+  as:      :activity,
+  html:    { role: :form },
+  builder: Bootstrap3::FormBuilder do |f|
+
   = render 'shared/form_errors', object: f.object
 
   .panel.panel-default
@@ -8,12 +12,8 @@
     = f.select :contact_id, current_user.contacts.map { |c| [c.decorate, c.id] }
     = f.select :address_id, current_user.contacts.first.addresses.map { |a| [a.decorate, a.id] }
     = f.datetimepicker :target_date
-    = f.datetimepicker :completed_date
-    = f.select :status, Activity::STATUSES.map { |s| [s.to_s.titleize, s] }
     = f.text_area :notes
 
   .btn-group.pull-right
     = f.submit class: 'btn btn-primary'
     = link_to 'Cancel', :back, class: 'btn btn-warning'
-
-

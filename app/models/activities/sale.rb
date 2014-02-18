@@ -3,6 +3,8 @@ class Sale < Activity
   accepts_nested_attributes_for :installation, reject_if: :all_blank
   validates :installation, presence: true, on: :update, if: COMPLETITION_CONDITIONS
 
+  def needs_an_installation?() true end
+
   private
 
   def reschedule

@@ -1,0 +1,25 @@
+= form_for local_assigns[:activity] || @activity,
+  as:      :activity,
+  url:     activities_path,
+  remote:  true,
+  method:  :post,
+  html:    { role: :form },
+  builder: Bootstrap3::FormBuilder do |f|
+
+
+  .modal-header
+    h4.modal-title= "Edit Next Activity: #{activity.type.titleize}"
+
+  .modal-body
+    = render 'shared/form_errors', object: f.object
+
+    = f.hidden_field :type
+    = f.hidden_field :contact_id
+    = f.hidden_field :installation_id
+    = f.select :address_id, f.object.contact.addresses.map { |a| [a.decorate, a.id] }
+    = f.datetimepicker :target_date
+    = f.text_area :notes
+
+  .modal-footer
+    = f.submit class: 'btn btn-primary'
+    = link_to 'Cancel', :back, class: 'btn btn-warning', data: { dismiss: :modal }

@@ -9,7 +9,9 @@ class Activity < ActiveRecord::Base
 
   STATUSES = [:pending, :failed, :completed]
 
-  validates :target_date, :type, :contact, presence: true
+  validates :target_date, :type, :contact, :address, presence: true
+
+  default_scope -> { order 'target_date DESC' }
 
   # Logic for generating next activities
   def next_activity() @next_activities end
@@ -27,6 +29,8 @@ class Activity < ActiveRecord::Base
 
   before_update :set_completed_date, if: COMPLETITION_CONDITIONS
   after_update :generate_next_activity, if: COMPLETITION_CONDITIONS
+
+  def needs_an_installation?() false end
 
   private
 

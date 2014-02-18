@@ -1,5 +1,6 @@
 class BaseController < ApplicationController
   respond_to :html
+  helper_method :resource
 
   ### DSL
   class_attribute :parent_class_name
@@ -19,9 +20,10 @@ class BaseController < ApplicationController
   end
 
   ### PERSISTANCE
-  before_filter :find_resource, only: [:show, :edit, :update, :destroy]
   before_filter :find_collection, only: :index
   before_filter :build_resource, only: :new
+
+  def action_successful?() @action_successful end
 
   def index
     respond_with collection, &responder
@@ -35,9 +37,11 @@ class BaseController < ApplicationController
     resource = instance_variable_set "@#{resource_class_name.downcase}",
       resource_class.new(permited_params)
     if resource.save
+      @action_successful = true
       respond_with resource, notice: messages[:create], &responder
     else
-      render :new
+      @action_successful = false
+      respond_with resource, &responder
     end
   end
 
@@ -69,7 +73,7 @@ class BaseController < ApplicationController
 
   ### RESOURCE
   def permited_params
-    params.require(resource_class_name.downcase.to_sym).permit permited_params_keys
+    params.fetch(resource_class_name.downcase.to_sym, {}).permit permited_params_keys
   end
 
   def belongs_to?
@@ -90,16 +94,17 @@ class BaseController < ApplicationController
   end
 
   def resource
-    instance_variable_get "@#{resource_class_name.downcase}"
+    name = "@#{resource_class_name.downcase}"
+    if instance_variable_defined?(name)
+      instance_variable_get(name)
+    else
+      obj = resource_class.find(params[:id])
+      instance_variable_set name, decorate(obj)
+    end
   end
 
   def collection
     instance_variable_get "@#{resource_class_name.downcase.pluralize}"
-  end
-
-  def find_resource
-    object = resource_class.find(params[:id])
-    instance_variable_set "@#{resource_class_name.downcase}", decorate(object)
   end
 
   def resource_class

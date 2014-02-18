@@ -1,0 +1,35 @@
+= render 'shared/modal_button',
+  id:        :complete_activity_form,
+  title:     icon(:ok, 'Complete'),
+  css_class: 'btn btn-success btn-xs'
+
+- content_for :complete_activity_form_modal_content do
+  - activity = local_assigns[:activity] || @activity
+
+  = form_for activity,
+    url:     complete_activity_path(activity),
+    method:  :put,
+    remote:  true,
+    html:    { role: :form },
+    builder: Bootstrap3::FormBuilder do |f|
+
+    .modal-header
+      h4.modal-title= 'Complete Activity'
+
+    .modal-body
+      = render 'shared/form_errors', object: f.object
+
+      = f.fields_for :installation, f.object.build_installation do |insf|
+        = insf.hidden_field :contact_id, value: activity.contact.id
+        = insf.datepicker :date
+        = insf.select :address_id,
+          activity.contact.addresses.map { |a| [a.decorate, a.id] },
+          selected: activity.address.id
+
+        = insf.select :kit_id, current_user.kits.map { |k| [k.decorate, k.id] }
+
+    .modal-footer
+      = f.submit class: 'btn btn-primary'
+      = link_to 'Cancel', :back, class: 'btn btn-warning', data: { dismiss: :modal }
+
+= render 'shared/modal', id: :complete_activity_form

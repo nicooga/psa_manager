@@ -12,7 +12,7 @@
     class: 'btn btn-small btn-info pull-right'
 
   dl
-    - [:serial_number, :aquisition_date, :expiration_time].each do |attr|
+    - [:serial_number, :acquisition_date, :expiration_time].each do |attr|
       - if attr
         dt= Kit.human_attribute_name attr
         dd= @kit.try attr

@@ -16,12 +16,25 @@
 #= require bootstrap
 #= require_tree .
 
-$ -> $(document).ready ->
-  $(".input-group.datepicker").datetimepicker pickTime: false, format: 'YYYY/MM/DD'
-  $(".input-group.datetimepicker").datetimepicker
-    format:          'yyyy-mm-dd hh:mm',
+window.init_datepickers = ->
+  $(".input-group.datepicker").datetimepicker
+    pickTime:        false,
+    format:          'yyyy-mm-dd',
     autoclose:       true,
     todayBtn:        true,
     pickerPosition:  "bottom-left"
     triggerSelector: '.input-group-addon .glyphicon.glyphicon-calendar',
     resetSelector:   '.input-group-addon .glyphicon.glyphicon-remove',
+
+window.init_datetimepickers = ->
+  $(".input-group.datetimepicker").datetimepicker
+    format:          'yyyy-mm-dd hh:mm',
+    autoclose:       true,
+    todayBtn:        true,
+    pickerPosition:  "bottom-left",
+    triggerSelector: '.input-group-addon .glyphicon.glyphicon-calendar',
+    resetSelector:   '.input-group-addon .glyphicon.glyphicon-remove',
+
+$ -> $(document).ready ->
+  window.init_datetimepickers()
+  window.init_datepickers()

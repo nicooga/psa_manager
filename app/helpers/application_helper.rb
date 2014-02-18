@@ -52,10 +52,12 @@ module Bootstrap3
     end
 
     def datepicker(field, opts = {})
-      html = @template.content_tag(:div, class: 'form-group') do
-        text_field field, opts.merge(class: :datepicker, addon: :calendar)
-      end
-      input_wrapping html, opts
+      html = text_field field
+      input_wrapping html, merge_opts(opts,
+        input_group: { class: 'datepicker date' },
+        addon: ['#', :remove, :calendar],
+        class: :date
+      )
     end
 
     def datetimepicker(field, opts = {})

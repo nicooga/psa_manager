@@ -1,0 +1,17 @@
+- content_for :next_activity_modal_content do
+  - if @activity.next_activity.is_a? Hash
+    ul.nav.nav-tabs.one_of
+      li.active = link_to @activity.next_activity[:one_of].first.type.titleize,
+        '#option1', data: { toggle: :tab }
+      li = link_to @activity.next_activity[:one_of].second.type.titleize,
+        '#option2', data: { toggle: :tab }
+
+    .tab-content
+      #option1.tab-pane.active
+        = render 'next_activity_form_for_modal', activity: @activity.next_activity[:one_of].first
+      #option2.tab-pane
+        = render 'next_activity_form_for_modal', activity: @activity.next_activity[:one_of].second
+  - else
+    = render 'next_activity_form_for_modal', activity: @activity.next_activity
+
+= render 'shared/modal', id: :next_activity

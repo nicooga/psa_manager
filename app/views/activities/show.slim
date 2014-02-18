@@ -1,13 +1,33 @@
 .activity
   .panel.panel-default
     .panel-heading
-      = @activity.type
-      .actions.btn-group.pull-right
-        = link_to edit_activity_path(@activity), class: 'btn btn-primary btn-xs' do
-          = icon :edit, 'Edit'
-        = link_to activity_path(@activity), class: 'btn btn-danger btn-xs',
-          method: :delete, data: { confirm: 'Are you sure?' } do
-          = icon 'remove-circle', 'Delete'
+      h4.panel-heading
+        = @activity.type
+
+        .actions.pull-right
+          .btn-group
+            - if @activity.needs_an_installation?
+              = render 'complete_form_modal', activity: @activity.next_activity
+            - else
+              = link_to complete_activity_path(@activity),
+                remote: true,
+                method: :put,
+                class: 'btn btn-success btn-xs' do
+                = icon :ok, 'Complete'
+
+            = link_to fail_activity_path(@activity),
+              remote: true,
+              method: :put,
+              class: 'btn btn-warning btn-xs' do
+              = icon :fire, 'Fail'
+
+          .btn-group
+            = link_to edit_activity_path(@activity), class: 'btn btn-primary btn-xs' do
+              = icon :edit, 'Edit'
+            = link_to activity_path(@activity), class: 'btn btn-danger btn-xs',
+              method: :delete, data: { confirm: 'Are you sure?' } do
+              = icon 'remove-circle', 'Delete'
+
     .row
       .col-lg-3
         .panel.basic_data
@@ -17,7 +37,7 @@
               - if @activity.send attr
                 li.list-group-item
                   h5.list-group-heading= Activity.human_attribute_name attr
-                  = @activity.send attr
+                  div id=("activity_#{attr}") = @activity.send attr
 
       .col-lg-3
         .panel.contact
@@ -42,11 +62,10 @@
                     = p.number
 
       .col-lg-3
-        - if @activity.address
         .panel.contact
           h4.panel-heading= Activity.human_attribute_name :address
 
-          span.label-default= raw @activity.address.notes
+          span.label-default= @activity.address.notes
           - @activity.address.phone_numbers.each do |phone|
             span.label.label-info
               = icon(:earphone)

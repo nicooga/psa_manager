@@ -1,7 +1,12 @@
 PsaManager::Application.routes.draw do
   root to: 'activities#index'
 
-  resources :activities
+  resources :activities do
+    member do
+      put :complete
+      put :fail
+    end
+  end
   resources :contacts
   resources :products
   resources :kits

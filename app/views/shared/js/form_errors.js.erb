@@ -1,0 +1,3 @@
+$("#<%= local_assigns[:selector] || "#{resource.class.name.underscore}_errors" %>").html(
+  "<%= j render('shared/form_errors', object: local_assigns[:obj] || resource) %>"
+)

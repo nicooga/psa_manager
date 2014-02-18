@@ -1,0 +1,12 @@
+$('.modal').modal('hide')
+
+$('#activity_status').html('<%= resource.status %>')
+
+$('body').append(
+  "<%= j(render 'next_activity_form_modal', activity: @activity.next_activity) %>"
+)
+
+window.init_datetimepickers()
+window.init_datepickers()
+
+$('#next_activity').modal('show')

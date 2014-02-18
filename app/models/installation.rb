@@ -4,7 +4,7 @@ class Installation < ActiveRecord::Base
   belongs_to :address
   belongs_to :user
 
-  validates :address, :contact, :kit, presence: true
+  validates :date, :address, :contact, :kit, presence: true
 
   def next_service_date
     now = Time.now

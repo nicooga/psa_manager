@@ -1,5 +1,7 @@
+div id=(:"#{object.class.name.underscore}_errors")
 - if object && object.errors.any?
-  .error_messages.alert.alert-danger
+  .error_messages.alert.alert-danger.alert-dismissable
+    button.close aria-hidden="true" data-dismiss="alert" type="button" = icon('remove-circle')
     h4
       = pluralize(object.errors.count, 'error')
       |  prohibited this #{object.decorated? ? object.object.class.name.downcase : object.class.name.downcase} from being saved:

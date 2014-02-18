@@ -1,0 +1,15 @@
+.modal.fade id=(local_assigns[:id]) aria-hidden='true' aria-labelledby=("##{local_assigns[:id]}_label") role='dialog' tabindex='-1'
+  .modal-dialog
+    .modal-content
+      - if content_for(:"#{id}_modal_content")
+        = content_for(:"#{id}_modal_content")
+      - else
+        .modal-header
+          button.close aria-hidden='true' data-dismiss='modal' type='button'
+          - if local_assigns[:title].nil? ? true : local_assigns[:title]
+            h4.modal-title id=("#{local_assigns[:id]}_label") = local_assigns[:title]
+        .modal-body
+          = content_for(:"#{id}_modal_body") || local_assigns[:body]
+        .modal-footer
+          = content_for(:"#{id}_modal_footer") || local_assigns[:footer]
+          button.btn.btn-default data-dismiss='modal' type='button' = icon(:remove)

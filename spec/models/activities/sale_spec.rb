@@ -48,6 +48,10 @@ describe Sale do
          )
        end
       end
+
+      it 'needs_an_installation' do
+        sale.needs_an_installation?.should be_true
+      end
     end
   end
 end
