@@ -2,11 +2,29 @@ $('.modal').modal('hide')
 
 $('#activity_status').html('<%= resource.status %>')
 
-$('body').append(
+var next_activity_button = $(
+  "<%= j(render 'shared/modal_button',
+            id:        :next_activity,
+            title:     icon('share-alt', 'Next Activity'),
+            css_class: 'btn btn-primary btn-xs') %>"
+)
+
+var next_activity_modal = $(
   "<%= j(render 'next_activity_form_modal', activity: @activity.next_activity) %>"
 )
+
+if ($('[data-target="#next_activity_modal"]')[0]) {
+  $('[data-target="#next_activity_modal"]').remove()
+}
+
+if ($('#modals #next_activity_modal')[0]) {
+  $('#modals #next_activity_modal').remove()
+}
+
+$('#actions').prepend(next_activity_button)
+$('#modals').append(next_activity_modal)
 
 window.init_datetimepickers()
 window.init_datepickers()
 
-$('#next_activity').modal('show')
+$('#next_activity_modal').modal('show')

@@ -1,4 +1,4 @@
-.modal.fade id=(local_assigns[:id]) aria-hidden='true' aria-labelledby=("##{local_assigns[:id]}_label") role='dialog' tabindex='-1'
+.modal.fade id=("#{local_assigns[:id]}_modal") aria-hidden='true' aria-labelledby=("##{local_assigns[:id]}_label") role='dialog' tabindex='-1'
   .modal-dialog
     .modal-content
       - if content_for(:"#{id}_modal_content")
