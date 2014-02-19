@@ -13,29 +13,24 @@ class Activity < ActiveRecord::Base
 
   default_scope -> { order 'target_date DESC' }
 
-  # Logic for generating next activities
-  def next_activity() @next_activities end
-  def next_activity=(value)
-    @next_activities = value
-  end
-
-  COMPLETITION_CONDITIONS = ->(a) do
-    !status_changed? || !status_change.map(&:to_s).uniq.one? && status.to_s == 'completed'
-  end
-
-  after_update :reschedule, if: ->(a) do
-    !a.status_changed? || !a.status_change.map(&:to_s).uniq.one? && a.status.to_s == 'failed'
-  end
-
-  before_update :set_completed_date, if: COMPLETITION_CONDITIONS
-  after_update :generate_next_activity, if: COMPLETITION_CONDITIONS
+  before_update :set_completed_date, if: :just_completed?
 
   def needs_an_installation?() false end
 
+  def just_completed?
+    !status_changed? ||
+    !status_change.map(&:to_s).uniq.one? &&
+    status.to_s == 'completed'
+  end
+
+  STATUSES.each do |status|
+    define_method :"#{status}?" do
+      self.status = status
+    end
+  end
+
   private
 
-  def reschedule() end
-  def generate_next_activity() end
   def set_completed_date
     self.completed_date = Time.now if valid?
   end
