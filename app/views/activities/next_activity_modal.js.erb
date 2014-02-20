@@ -21,7 +21,7 @@ if ($('#modals #next_activity_modal')[0]) {
   $('#modals #next_activity_modal').remove()
 }
 
-$('#actions').prepend(next_activity_button)
+$("#activity_actions_<%= @activity.id %>").prepend(next_activity_button)
 $('#modals').append(next_activity_modal)
 
 window.init_datetimepickers()

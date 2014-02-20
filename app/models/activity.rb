@@ -25,7 +25,7 @@ class Activity < ActiveRecord::Base
 
   STATUSES.each do |status|
     define_method :"#{status}?" do
-      self.status = status
+      self.status.to_sym == status
     end
   end
 

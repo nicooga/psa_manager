@@ -1,0 +1,57 @@
+.row
+  .col-md-5
+    h5= 'Basic Data'
+    dl.dl-horizontal.well.well-sm
+      - %i|full_name email birthday source source_date|.each do |attr|
+        - if @contact.try attr
+          dt= Contact.human_attribute_name attr
+          dd= @contact.try attr
+
+    - if resource.phone_numbers.without_address.any?
+      h5= 'Phone Numbers'
+
+      table.table.table-condensed
+        thead
+          th= PhoneNumber.human_attribute_name :number
+          th= PhoneNumber.human_attribute_name :kind
+
+        tbody
+          - resource.phone_numbers.without_address.each do |pn|
+            tr
+              td= pn.number
+              td= pn.kind
+
+  .col-md-7
+    h5= 'Addresses'
+    .panel.panel-dafault
+      #addresses.panel-group
+        - @contact.addresses.map(&:decorate).each_with_index do |a, i|
+          .panel.panel-default
+
+            .panel-heading
+              = content_tag :h4, class: 'panel-title',
+                data: { parent: '#addresses', toggle: 'collapse', target: "#address_#{i}" } do
+                = icon(:home, a.short_display)
+                .pull-right= icon('chevron-down')
+
+            div id=("address_#{i}") class=("panel-collapse collapse #{i.zero? ? 'in' : nil}")
+              .panel-body
+                dl.dl-horizontal.well.well-sm
+                  - %i|city state apartment zip_code notes|.each do |attr|
+                    - if a.try attr
+                      dt= Address.human_attribute_name attr
+                      dd= a.try attr
+
+                - if a.phone_numbers.any?
+                  h5= 'Phone Numbers'
+
+                  table.table.table-condensed
+                    thead
+                      th= PhoneNumber.human_attribute_name :number
+                      th= PhoneNumber.human_attribute_name :kind
+
+                    tbody
+                      - a.phone_numbers.each do |pn|
+                        tr
+                          td= pn.number
+                          td= pn.kind

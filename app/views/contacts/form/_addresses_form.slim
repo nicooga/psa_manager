@@ -4,4 +4,4 @@
     = add_fields_button form, '#addresses', 'contacts/form/address_fields',
       partial_opts: { address: Address.new }
   .row#addresses
-    = render 'contacts/form/address_fields', form: form, address: @contact.addresses.presence
+    = render 'contacts/form/address_fields', form: form, address: resource.addresses.presence

@@ -5,7 +5,7 @@
         = @activity.type
 
         .actions.pull-right
-          #actions.btn-group
+          .btn-group id=("activity_actions_#{@activity.id}")
             - if @activity.needs_an_installation?
               = render 'complete_form_modal', activity: @activity.next_activity
             - else

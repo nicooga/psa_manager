@@ -82,6 +82,12 @@ GEM
     json (1.8.1)
     jwt (0.1.8)
       multi_json (>= 1.5)
+    kaminari (0.15.1)
+      actionpack (>= 3.0.0)
+      activesupport (>= 3.0.0)
+    kaminari-bootstrap (3.0.1)
+      kaminari (>= 0.13.0)
+      rails
     less (2.4.0)
       commonjs (~> 0.2.7)
     less-rails (2.4.2)
@@ -217,6 +223,7 @@ DEPENDENCIES
   font-awesome-less
   jquery-rails
   jquery-turbolinks
+  kaminari-bootstrap (~> 3.0.1)
   momentjs-rails (~> 2.5.0)
   money-rails
   omniauth

@@ -1,5 +1,5 @@
-= form_for @contact, html: { role: :form }, builder: Bootstrap3::FormBuilder do |f|
-  = render 'shared/form_errors', object: @contact
+= form_for resource, html: { role: :form }, builder: Bootstrap3::FormBuilder do |f|
+  = render 'shared/form_errors', object: resource
 
   .panel.panel-default
     .panel-heading= f.label :basic_data
@@ -15,9 +15,9 @@
       = add_fields_button f, "#contact_phone_numbers", 'contacts/form/phone_fields',
         partial_opts: { phone_numbers: PhoneNumber.new }
       = render 'contacts/form/phone_fields', form: f,
-        phone_numbers: @contact.phone_numbers.without_address
+        phone_numbers: resource.phone_numbers.without_address
 
-    = f.select :source, current_user.contacts.map(&:decorate)
+    = f.select :source_id, current_user.contacts.map { |c| [c.decorate, c.id] }
     = f.datepicker :source_date
     = f.text_area :notes, rows: 3
 

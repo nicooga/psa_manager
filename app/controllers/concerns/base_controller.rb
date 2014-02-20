@@ -121,7 +121,9 @@ class BaseController < ApplicationController
 
   def responder
     responder_method_name = :"#{params[:action]}_responder"
-    respond_to?(responder_method_name) ? method(responder_method_name) : ->(format){}
+    respond_to?(responder_method_name) ? method(responder_method_name) : ->(format) do
+      format.js { render "#{params[:action]}.js.erb", layout: false }
+    end
   end
 
   def decorate(object)

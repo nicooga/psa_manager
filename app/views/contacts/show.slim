@@ -1,35 +1,18 @@
 .contact
   .panel.panel-default
-    .panel-heading
-      = @contact.full_name
-      .actions.btn-group.pull-right
-        = link_to edit_contact_path(@contact), class: 'btn btn-primary btn-xs' do
-          = icon :edit, 'Edit'
-        = link_to contact_path(@contact), class: 'btn btn-danger btn-xs',
-          method: :delete, data: { confirm: 'Are you sure?' } do
-          = icon 'remove-circle', 'Delete'
-    .row
-      .col-lg-3
-        .panel
-          h4.panel-heading= Contact.human_attribute_name :basic_data
+    ul#contact_info.nav.nav-tabs
+      li.active= link_to 'Basic Data', '#basic_data', data: { toggle: :tab }
+      li= link_to 'Activities', '#activities', data: { toggle: :tab }
+      li= link_to 'Installations', '#installations', data: { toggle: :tab }
 
-          ul.list-group
-            - [:source, :email, :birthday, :notes].each do |attr|
-              li.list-group-item
-                h5.list-group-item-heading= Contact.human_attribute_name attr
-                = @contact.try attr
-            - if @contact.phone_numbers.without_address.any?
-              li.list-group-item
-                h5.list-group-item-heading= Contact.human_attribute_name :phone_numbers
-                - @contact.phone_numbers.without_address.each do |p|
-                  |  
-                  span.label.label-info
-                    = icon(:earphone) + ' '
-                    = p.number
-      - if @contact.addresses.any?
-        .col-lg-3
-          .panel
-            h4.panel-heading= Contact.human_attribute_name :addresses
+      li.pull-right
+        = link_to icon(:remove, 'Remove'), contact_path(@contact), class: 'btn-danger',
+          method: :delete, data: { confirm: 'Are you sure?' }
+      li.pull-right
+        = link_to icon(:edit, 'Edit'), edit_contact_path(@contact), class: 'btn-primary'
 
-            ul.list-group
-              = render partial: 'contacts/address', collection: @contact.addresses
+    .panel-body
+      .tab-content
+        #basic_data.tab-pane.fade.in.active= render 'contacts/show/basic_data'
+        #activities.tab-pane.fade= render 'contacts/show/activities'
+        #installations.tab-pane.fade= render 'contacts/show/installations'
