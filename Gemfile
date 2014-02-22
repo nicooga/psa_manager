@@ -17,6 +17,7 @@ gem 'database_cleaner', '1.0.0.RC1'
 gem 'draper', '~> 1.3'
 gem 'money-rails'
 gem 'carmen-rails'
+gem 'has_scope'
 
 # Authentication
 gem 'omniauth'

@@ -69,6 +69,9 @@ GEM
     ffaker (1.23.0)
     font-awesome-less (4.0.2)
       less-rails (>= 2.4.2)
+    has_scope (0.6.0.rc)
+      actionpack (>= 3.2, < 5)
+      activesupport (>= 3.2, < 5)
     hashie (2.0.5)
     hike (1.2.3)
     httpauth (0.2.0)
@@ -221,6 +224,7 @@ DEPENDENCIES
   factory_girl_rails (= 4.2.1)
   ffaker
   font-awesome-less
+  has_scope
   jquery-rails
   jquery-turbolinks
   kaminari-bootstrap (~> 3.0.1)

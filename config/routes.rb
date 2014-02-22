@@ -1,15 +1,27 @@
 PsaManager::Application.routes.draw do
   root to: 'activities#index'
 
-  resources :activities do
-    member do
-      put :complete
-      put :fail
+  resources :users do
+    scope module: :users do
+      resources :contacts do
+        scope module: :contacts do
+          resources :installations, only: :index
+          resources :activities, only: :index
+        end
+      end
+
+      resources :activities do
+        member do
+          put :complete
+          put :fail
+        end
+      end
+
+      resources :kits
     end
   end
-  resources :contacts
+
   resources :products
-  resources :kits
 
   # Omniauth callback
   get '/auth/:provider/callback', to: 'sessions#create'

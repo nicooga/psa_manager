@@ -2,7 +2,7 @@ class SessionsController < ApplicationController
   def create
     user = User.fetch(auth_hash)
     session[:user_id] = user.id
-    redirect_to root_path, notice: "Welcome back #{user.email}"
+    redirect_to root_path, info: "Welcome back #{user.email}"
   end
 
   def destroy

@@ -1,19 +1,12 @@
-class ActivitiesController < BaseController
-  respond_to :js
+class Users::ActivitiesController < ApplicationController
   decorate_with ActivityDecorator
-  belongs_to :current_user
-
-  def create_responder(format)
-    format.html do
-      render :show
-    end
-  end
+  respond_to :js
 
   def complete
     if resource.update permited_params.merge(status: :completed)
       respond_with(resource) do |format|
         format.html { render :next_activity }
-        format.js   { render 'next_activity_modal.js.erb', layout: false }
+        format.js   { render 'next_activity.js.erb', layout: false }
       end
     else
       flash.now[:danger] = "Something went wrong: #{resource.errors.full_messages.to_sentence}"
@@ -28,7 +21,7 @@ class ActivitiesController < BaseController
     if resource.update status: :failed
       respond_with(resource) do |format|
         format.html { render :next_activity }
-        format.js   { render 'next_activity_modal.js.erb', layout: false }
+        format.js   { render 'next_activity.js.erb', layout: false }
       end
     else
       flash.now[:danger] = 'Something went wrong'

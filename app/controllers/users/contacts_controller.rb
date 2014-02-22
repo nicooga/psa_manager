@@ -1,6 +1,5 @@
-class ContactsController < BaseController
+class Users::ContactsController < ApplicationController
   respond_to :html, :json
-  belongs_to :current_user
 
   def show
     @activities = ActivityDecorator.decorate_collection(

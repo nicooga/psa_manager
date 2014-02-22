@@ -1,0 +1,18 @@
+.panel.kit
+  .panel-heading
+    = link_to kit.product.name, user_kit_path(current_user, kit)
+    .btn-group.pull-right
+      = link_to 'View product info', product_path(kit.product),
+        class: 'btn btn-small btn-info'
+      = link_to edit_user_kit_path(current_user, kit), class: 'btn btn-primary btn-small' do
+        = icon :edit
+      = link_to user_kit_path(current_user, kit), class: 'btn btn-danger btn-small',
+        method: :delete, data: { confirm: 'Are you sure?' } do
+        = icon :remove
+
+
+  dl
+    - [:serial_number, :aquisition_date, :expiration_time].each do |attr|
+      - if attr
+        dt= Kit.human_attribute_name attr
+        dd= kit.try attr

@@ -1,4 +1,4 @@
-= form_for resource, html: { role: :form }, builder: Bootstrap3::FormBuilder do |f|
+= form_for [current_user, resource], html: { role: :form }, builder: Bootstrap3::FormBuilder do |f|
   = render 'shared/form_errors', object: resource
 
   .panel.panel-default
@@ -12,16 +12,16 @@
     = f.datepicker :birthday
 
     .form-group#contact_phone_numbers
-      = add_fields_button f, "#contact_phone_numbers", 'contacts/form/phone_fields',
+      = add_fields_button f, "#contact_phone_numbers", 'users/contacts/form/phone_fields',
         partial_opts: { phone_numbers: PhoneNumber.new }
-      = render 'contacts/form/phone_fields', form: f,
+      = render 'users/contacts/form/phone_fields', form: f,
         phone_numbers: resource.phone_numbers.without_address
 
     = f.select :source_id, current_user.contacts.map { |c| [c.decorate, c.id] }
     = f.datepicker :source_date
     = f.text_area :notes, rows: 3
 
-  = render 'contacts/form/addresses_form', form: f
+  = render 'users/contacts/form/addresses_form', form: f
 
   .btn-group
     = f.submit class: 'btn btn-primary'

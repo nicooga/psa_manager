@@ -2,9 +2,9 @@
   .panel-heading
     = @kit.product.name
     .btn-group.pull-right
-      = link_to edit_kit_path(@kit), class: 'btn btn-primary btn-small' do
+      = link_to edit_user_kit_path(current_user, @kit), class: 'btn btn-primary btn-small' do
         = icon :edit
-      = link_to kit_path(@kit), class: 'btn btn-danger btn-small',
+      = link_to user_kit_path(current_user, @kit), class: 'btn btn-danger btn-small',
         method: :delete, data: { confirm: 'Are you sure?' } do
         = icon :remove
 

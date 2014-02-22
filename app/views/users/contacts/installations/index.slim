@@ -1,0 +1,21 @@
+#contact_installations
+  = paginate @installations, param_name: :installation_page, remote: true,
+    params: { controller: 'users/contacts/installations', action: :index, contact_id: @installations.proxy_association.owner }
+
+  - if @installations.any?
+    table.table.table-hover.table-condensed.table-stripped
+      thead
+        th= Installation.human_attribute_name :date
+        th= Installation.human_attribute_name :address
+        th= Installation.human_attribute_name :kit
+        th= Kit.human_attribute_name :serial_number
+
+      tbody
+        - @installations.each do |i|
+          tr
+            td= i.date
+            td= i.address.decorate
+            td= i.kit.decorate
+            td= i.kit.serial_number
+
+  = page_entries_info @installations

@@ -1,0 +1,18 @@
+.contact
+  .panel.panel-default
+    ul#contact_info.nav.nav-tabs
+      li.active= link_to 'Basic Data', '#basic_data', data: { toggle: :tab }
+      li= link_to 'Activities', '#activities', data: { toggle: :tab }
+      li= link_to 'Installations', '#installations', data: { toggle: :tab }
+
+      li.pull-right
+        = link_to icon(:remove, 'Remove'), user_contact_path(current_user, @contact), class: 'btn-danger',
+          method: :delete, data: { confirm: 'Are you sure?' }
+      li.pull-right
+        = link_to icon(:edit, 'Edit'), edit_user_contact_path(current_user, @contact), class: 'btn-primary'
+
+    .panel-body
+      .tab-content
+        #basic_data.tab-pane.fade.in.active= render 'users/contacts/show/basic_data'
+        #activities.tab-pane.fade= render 'users/contacts/show/activities'
+        #installations.tab-pane.fade= render template: 'users/contacts/installations/index.slim'

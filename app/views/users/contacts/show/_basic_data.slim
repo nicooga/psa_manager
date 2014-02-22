@@ -34,7 +34,7 @@
                 = icon(:home, a.short_display)
                 .pull-right= icon('chevron-down')
 
-            div id=("address_#{i}") class=("panel-collapse collapse #{i.zero? ? 'in' : nil}")
+            div.panel-collapse.collapse id=("address_#{i}")
               .panel-body
                 dl.dl-horizontal.well.well-sm
                   - %i|city state apartment zip_code notes|.each do |attr|
