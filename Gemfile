@@ -18,10 +18,7 @@ gem 'draper', '~> 1.3'
 gem 'money-rails'
 gem 'carmen-rails'
 gem 'has_scope'
-
-# Faceted Search
 gem 'ransack', github: 'activerecord-hackery/ransack', branch: 'rails-4'
-gem 'progress_bar'
 
 # Authentication
 gem 'omniauth'
