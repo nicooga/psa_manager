@@ -31,3 +31,6 @@ body { padding-top: 20px; }
 
 .btn-xs   { height: 22px }
 .btn-base { height: 38px }
+
+table.table tr td div.btn-group { display:none;}
+table.table tr:hover td div.btn-group { display:inline-block;}

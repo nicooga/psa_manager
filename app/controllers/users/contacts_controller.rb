@@ -1,6 +1,12 @@
 class Users::ContactsController < ApplicationController
   respond_to :html, :json
 
+  has_scope :with_activities_pending, type: :boolean
+
+  def prepare_collection(c)
+    decorate_collection(apply_scopes(c).page(params[:page]).per(15))
+  end
+
   def show
     @activities = ActivityDecorator.decorate_collection(
       resource.activities

@@ -8,10 +8,9 @@
           remote: true,
           params: { controller: 'users/contacts/activities', action: :index, user_id: current_user.id, contact_id: contact.id }
 
-    - if @activities.any?
-      .btn-group#contact_activity_scopes
-        = scope_buttons :failed, :completed, :pending, remote: true, class: 'btn btn-base btn-default',
-          params: { controller: 'users/contacts/activities', action: :index, user_id: current_user.id, contact_id: contact.id }
+    .btn-group#contact_activity_scopes
+      = scope_buttons :failed, :completed, :pending, remote: true,
+        params: { controller: 'users/contacts/activities', action: :index, user_id: current_user.id, contact_id: contact.id }
 
 
   - if @activities.any?

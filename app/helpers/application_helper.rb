@@ -27,7 +27,7 @@ module ApplicationHelper
 
   def scope_buttons(*scopes)
     opts = {
-      class: 'btn btn-default btn-large',
+      class: 'btn btn-base btn-default',
       remote: false,
       params: { controller:  controller_path }
     }.merge(scopes.extract_options!)

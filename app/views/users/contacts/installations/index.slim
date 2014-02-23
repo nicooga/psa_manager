@@ -5,10 +5,9 @@
       .pagination= paginate @installations, param_name: :installations_page, remote: true,
         params: { controller: 'users/contacts/installations', action: :index, contact_id: contact.id }
 
-    - if @installations.any?
-      .btn-group#contact_installation_scopes
-        = scope_buttons :about_to_expire, :next_service_near, remote: true, class: 'btn btn-base btn-default',
-          params: { controller: 'users/contacts/installations', action: :index, user_id: current_user, contact_id: contact.id }
+    .btn-group#contact_installation_scopes
+      = scope_buttons :about_to_expire, :next_service_near, remote: true,
+        params: { controller: 'users/contacts/installations', action: :index, user_id: current_user, contact_id: contact.id }
 
   - if @installations.any?
     table.table.table-hover.table-condensed.table-stripped
