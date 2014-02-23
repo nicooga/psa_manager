@@ -1,0 +1,37 @@
+- contact = @activities.proxy_association.owner
+
+#contact_activities
+  .btn-toolbar.pull-right.actions
+    .btn-group
+      .pagination= paginate @activities,
+          param_name: :activities_page,
+          remote: true,
+          params: { controller: 'users/contacts/activities', action: :index, user_id: current_user.id, contact_id: contact.id }
+
+    - if @activities.any?
+      .btn-group#contact_activity_scopes
+        = scope_buttons :failed, :completed, :pending, remote: true, class: 'btn btn-base btn-default',
+          params: { controller: 'users/contacts/activities', action: :index, user_id: current_user.id, contact_id: contact.id }
+
+
+  - if @activities.any?
+    table.table.table-hover.table-condensed.table-stripped
+      thead
+        - %i|status type target_date completed_date address|.each do |attr|
+          th= Activity.human_attribute_name attr
+        th
+
+      tbody
+        - @activities.each do |a|
+          tr
+            - %i|status type target_date completed_date address|.each do |attr|
+              td= a.try(attr).instance_eval { try(:decorate) || self }
+            td
+              - if a.pending?
+                .btn-group id=("activity_actions_#{a.id}")
+                  = link_to icon(:ok, 'Complete'), complete_user_activity_path(current_user, a),
+                    class: 'btn btn-success btn-xs', method: :put, remote: true
+                  = link_to icon(:fire, 'Fail'), fail_user_activity_path(current_user, a),
+                    class: 'btn btn-warning btn-xs', method: :put, remote: true
+
+  = page_entries_info @activities

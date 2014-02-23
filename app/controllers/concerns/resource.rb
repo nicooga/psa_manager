@@ -3,13 +3,13 @@ module Resource
 
   def resource
     set_or_retrieve(resource_class_name.underscore) do
-      decorate resource_class.find(params[:id])
+      prepare_resource resource_class.find(params[:id])
     end
   end
 
   def collection
     set_or_retrieve(resource_class_name.underscore.pluralize) do
-      decorate_collection(
+      prepare_collection(
         if resource_class.kind_of? ActiveRecord::Associations::CollectionProxy
           resource_class
         else

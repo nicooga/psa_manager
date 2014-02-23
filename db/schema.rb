@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140215173958) do
+ActiveRecord::Schema.define(version: 20140223005635) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -71,6 +71,8 @@ ActiveRecord::Schema.define(version: 20140215173958) do
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.date     "warranty_expiration_date"
+    t.date     "next_service_date"
   end
 
   add_index "installations", ["address_id"], name: "index_installations_on_address_id", using: :btree

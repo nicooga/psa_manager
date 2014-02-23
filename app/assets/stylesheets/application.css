@@ -14,6 +14,20 @@
 
 body { padding-top: 20px; }
 .push { height: 60px; }
-.glyphicon {
-  margin: 2px
+
+.btn-group .pager a {
+  line-height: 16px;
+  float: left;
 }
+
+.btn-group .pagination,
+.btn-group .pager {
+  margin: 0;
+}
+
+.actions {
+  margin-bottom: 15px;
+}
+
+.btn-xs   { height: 22px }
+.btn-base { height: 38px }

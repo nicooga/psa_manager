@@ -1,6 +1,14 @@
+- contact = @installations.proxy_association.owner
 #contact_installations
-  = paginate @installations, param_name: :installation_page, remote: true,
-    params: { controller: 'users/contacts/installations', action: :index, contact_id: @installations.proxy_association.owner }
+  .btn-toolbar.pull-right.actions
+    .btn-group
+      .pagination= paginate @installations, param_name: :installations_page, remote: true,
+        params: { controller: 'users/contacts/installations', action: :index, contact_id: contact.id }
+
+    - if @installations.any?
+      .btn-group#contact_installation_scopes
+        = scope_buttons :about_to_expire, :next_service_near, remote: true, class: 'btn btn-base btn-default',
+          params: { controller: 'users/contacts/installations', action: :index, user_id: current_user, contact_id: contact.id }
 
   - if @installations.any?
     table.table.table-hover.table-condensed.table-stripped
@@ -9,6 +17,8 @@
         th= Installation.human_attribute_name :address
         th= Installation.human_attribute_name :kit
         th= Kit.human_attribute_name :serial_number
+        th= Installation.human_attribute_name :next_service_date
+        th= Installation.human_attribute_name :warranty_expiration_date
 
       tbody
         - @installations.each do |i|
@@ -17,5 +27,7 @@
             td= i.address.decorate
             td= i.kit.decorate
             td= i.kit.serial_number
+            td= i.next_service_date
+            td= i.warranty_expiration_date
 
   = page_entries_info @installations

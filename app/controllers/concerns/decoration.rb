@@ -14,4 +14,12 @@ module Decoration
       collection.decorate
     end
   end
+
+  def prepare_resource(r)
+    decorate(r)
+  end
+
+  def prepare_collection(c)
+    decorate_collection(c)
+  end
 end

@@ -26,7 +26,7 @@ describe Installation do
   end
 
   describe '#next_service_date' do
-    it 'retrieves next service date' do
+    it 'retrieves next service date after touch' do
       now = freeze_time
       service_period = i.kit.product.service_period.months
       installation_date = i.date
@@ -38,7 +38,7 @@ describe Installation do
   end
 
   describe '#warranty_expiration_date' do
-    it 'retrieves product expiration date' do
+    it 'retrieves product expiration date after touch' do
       i.warranty_expiration_date.should eq(
         i.date.advance months: i.kit.product.expiration_time
       )
@@ -46,7 +46,7 @@ describe Installation do
   end
 
   describe '#warranty_about_to_expire?' do
-    it 'tells wich is closest, next service date or expiration date' do
+    it 'tells wich is closest, next service date or expiration date after touch' do
       i.warranty_about_to_expire?.should eq(
         i.warranty_expiration_date <= i.next_service_date
       )

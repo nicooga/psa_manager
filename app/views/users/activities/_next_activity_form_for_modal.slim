@@ -1,6 +1,6 @@
-= form_for local_assigns[:activity] || @activity,
+= form_for [current_user, local_assigns[:activity] || @activity],
   as:      :activity,
-  url:     activities_path,
+  url:     user_activities_path,
   remote:  true,
   method:  :post,
   html:    { role: :form },

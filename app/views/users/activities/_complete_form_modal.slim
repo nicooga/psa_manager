@@ -6,8 +6,8 @@
 - content_for :complete_activity_form_modal_content do
   - activity = local_assigns[:activity] || @activity
 
-  = form_for activity,
-    url:     complete_activity_path(activity),
+  = form_for [current_user, activity],
+    url:     complete_user_activity_path(current_user, activity),
     method:  :put,
     remote:  true,
     html:    { role: :form },

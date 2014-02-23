@@ -25,6 +25,20 @@ module ApplicationHelper
     link_to_function(icon, script, class: options[:class] || 'btn pull-right')
   end
 
+  def scope_buttons(*scopes)
+    opts = {
+      class: 'btn btn-default btn-large',
+      remote: false,
+      params: { controller:  controller_path }
+    }.merge(scopes.extract_options!)
+
+    css_class = current_scopes.none? ? opts[:class] + ' active' : opts[:class]
+    link_to(icon('zoom-out'), opts[:params], class: css_class, remote: opts[:remote]) +
+    scopes.map do |scp|
+      css_class = current_scopes.keys.include?(scp) ? opts[:class] + ' active' : opts[:class]
+      link_to scp.to_s.titleize, Hash[scp, true].merge(opts[:params]), class: css_class, remote: opts[:remote]
+    end.reduce(:+)
+  end
 end
 
 module Bootstrap3
