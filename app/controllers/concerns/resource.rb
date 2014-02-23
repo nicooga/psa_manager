@@ -9,13 +9,15 @@ module Resource
 
   def collection
     set_or_retrieve(resource_class_name.underscore.pluralize) do
-      prepare_collection(
-        if resource_class.kind_of? ActiveRecord::Associations::CollectionProxy
-          resource_class
-        else
-          resource_class.all
-        end
-      )
+      prepare_collection(retrieve_collection)
+    end
+  end
+
+  def retrieve_collection
+    if resource_class.kind_of? ActiveRecord::Associations::CollectionProxy
+      resource_class
+    else
+      resource_class.all
     end
   end
 

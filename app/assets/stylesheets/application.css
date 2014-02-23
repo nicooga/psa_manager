@@ -34,3 +34,5 @@ body { padding-top: 20px; }
 
 table.table tr td div.btn-group { display:none;}
 table.table tr:hover td div.btn-group { display:inline-block;}
+
+.page_entries_info { margin-bottom: 15px }

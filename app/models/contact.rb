@@ -13,5 +13,5 @@ class Contact < ActiveRecord::Base
   validates :first_name, :last_name, :email, :birthday, presence: true
   validates :email, format: { with: /\A[^@]+@[^@]+\..+\z/ }
 
-  scope :with_activities_pending, -> { joins(:activities).where activities: { status: :pending } }
+  scope :with_pending_activities, -> { joins(:activities).where activities: { status: :pending } }
 end

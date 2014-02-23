@@ -38,3 +38,7 @@ window.init_datetimepickers = ->
 $ -> $(document).ready ->
   window.init_datetimepickers()
   window.init_datepickers()
+
+  $('.input-group .reset').click ->
+    $(this).parent().find('input[type!="submit"]').val('')
+    $(this).parent().parent().submit()

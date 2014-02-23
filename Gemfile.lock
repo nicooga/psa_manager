@@ -1,3 +1,15 @@
+GIT
+  remote: git://github.com/activerecord-hackery/ransack.git
+  revision: 0a77a1b89cf6e00e0a63f93bfebaa7934a21ce93
+  branch: rails-4
+  specs:
+    ransack (1.1.0)
+      actionpack (>= 4.0)
+      activerecord (>= 4.0)
+      activesupport (>= 4.0)
+      i18n
+      polyamorous (~> 0.6.0)
+
 PATH
   remote: /home/cygnus/Projects/bootstrap3-form-builder
   specs:
@@ -73,6 +85,7 @@ GEM
       actionpack (>= 3.2, < 5)
       activesupport (>= 3.2, < 5)
     hashie (2.0.5)
+    highline (1.6.20)
     hike (1.2.3)
     httpauth (0.2.0)
     i18n (0.6.9)
@@ -130,8 +143,14 @@ GEM
     omniauth-oauth2 (1.1.1)
       oauth2 (~> 0.8.0)
       omniauth (~> 1.0)
+    options (2.3.2)
     pg (0.17.1)
+    polyamorous (0.6.4)
+      activerecord (>= 3.0)
     polyglot (0.3.3)
+    progress_bar (1.0.0)
+      highline (~> 1.6.1)
+      options (~> 2.3.0)
     pry (0.9.12.3)
       coderay (~> 1.0)
       method_source (~> 0.8)
@@ -233,8 +252,10 @@ DEPENDENCIES
   omniauth
   omniauth-google-oauth2
   pg
+  progress_bar
   pry-rails
   rails (= 4.0.1)
+  ransack!
   rspec-rails
   sdoc
   slim-rails

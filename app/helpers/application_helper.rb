@@ -50,7 +50,7 @@ module Bootstrap3
       define_method method_name do |field, opts = {}|
         opts = merge_opts(opts, input_group: true) if opts[:addon]
         html = super(field, merge_opts(opts,
-          placeholder: object.class.human_attribute_name(field),
+          placeholder: object.class.try(:human_attribute_name, field),
           class: 'form-control'
         ))
         input_wrapping html, opts
