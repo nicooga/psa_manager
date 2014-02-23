@@ -5,7 +5,7 @@ class BaseController < ActionController::Base
   include Decoration
 
   respond_to :html
-  helper_method :resource
+  helper_method :resource, :collection, :resource_chain
   before_filter :build_resource, only: :new
 
   class_attribute :permited_params_keys

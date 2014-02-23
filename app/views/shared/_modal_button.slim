@@ -1,2 +1,2 @@
-button class=(local_assigns[:css_class]) data-target=("##{local_assigns[:id]}_modal") data-toggle='modal'
+a class=(local_assigns[:css_class] || 'btn btn-primary') data-target=("##{local_assigns[:id]}_modal") data-toggle='modal'
   = local_assigns[:title]

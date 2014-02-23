@@ -11,6 +11,7 @@ table.table.table-stripped
           td= c.try(attr)
         td= link_to c.source.decorate, user_contact_path(current_user, c)
         td= c.source_date
+        td
           .btn-group
             = link_to icon('info-sign'), user_contact_path(current_user, c), class: 'btn btn-info btn-xs'
             = link_to icon(:edit), edit_user_contact_path(current_user, c), class: 'btn btn-primary btn-xs'

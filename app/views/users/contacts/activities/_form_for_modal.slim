@@ -1,0 +1,19 @@
+- activity = local_assigns[:activity] || @activity ||  @contact.activities.new
+= form_for [current_user, @contact, activity], as: :activity,
+  remote: :true, url: user_contact_activities_path(current_user.id, @contact),
+  html: { role: :form }, builder: Bootstrap3::FormBuilder do |f|
+
+  .modal-header
+    h4.modal-title= "New Activity"
+
+  .modal-body
+    = render 'shared/form_errors', object: f.object
+
+    = f.select :type, Activity::TYPES.map { |s| [s.to_s.titleize, s] }
+    = f.select :address_id, f.object.contact.addresses.map { |a| [a.decorate, a.id] }
+    = f.datetimepicker :target_date
+    = f.text_area :notes
+
+  .modal-footer
+    = f.submit class: 'btn btn-primary'
+    = link_to 'Cancel', :back, class: 'btn btn-warning', data: { dismiss: :modal }

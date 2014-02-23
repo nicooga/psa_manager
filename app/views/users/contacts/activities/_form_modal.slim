@@ -1,0 +1,10 @@
+= render 'shared/modal_button',
+  css_class: 'btn btn-primary pull-right',
+  id:        :activity_form,
+  title:     'New Activity'
+
+- content = capture do
+  = render 'users/contacts/activities/form_for_modal'
+
+- content_for :modals do
+  = render 'shared/modal', id: :activity_form, content: content

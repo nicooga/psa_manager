@@ -6,7 +6,7 @@ PsaManager::Application.routes.draw do
       resources :contacts do
         scope module: :contacts do
           resources :installations, only: :index
-          resources :activities, only: :index
+          resources :activities, only: [:index, :create]
         end
       end
 

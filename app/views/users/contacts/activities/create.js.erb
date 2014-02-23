@@ -1,0 +1,6 @@
+<% @contact = current_user.contacts.find(params[:contact_id]) %>
+<% @activities = collection %>
+
+$('.modal').modal('hide')
+
+<%= render template: 'users/contacts/activities/index.js.erb' %>

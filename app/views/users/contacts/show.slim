@@ -10,6 +10,7 @@
           method: :delete, data: { confirm: 'Are you sure?' }
       li.pull-right
         = link_to icon(:edit, 'Edit'), edit_user_contact_path(current_user, @contact), class: 'btn-primary'
+      .navbar-text.pull-right= "Showing #{@contact} info"
 
     .panel-body
       .tab-content

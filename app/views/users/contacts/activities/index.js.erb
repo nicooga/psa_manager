@@ -1,3 +1,4 @@
-$('#contact_activities').html(
+<% @contact ||= current_user.contacts.find(params[:contact_id]) %>
+$('#contact_activities').replaceWith(
   "<%= j(render template: 'users/contacts/activities/index.slim') %>"
 )

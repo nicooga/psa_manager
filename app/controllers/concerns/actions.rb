@@ -8,8 +8,8 @@ module Actions
   end
 
   def create
-    resource = instance_variable_set "@#{resource_class_name.downcase}",
-      resource_class.new(permited_params)
+    resource = set_or_retrieve "#{resource_class_name.downcase}",
+      resource_class.build(permited_params)
     if resource.save
       @action_successful = true
       respond_with resource, notice: messages[:create], &responder
@@ -21,8 +21,10 @@ module Actions
 
   def update
     if resource.update permited_params
-      respond_with resource, notice: messages[:update]
+      @action_successful = true
+      respond_with resource, notice: messages[:update], &responder
     else
+      @action_successful = false
       render :edit
     end
   end

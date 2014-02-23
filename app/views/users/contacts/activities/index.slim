@@ -2,8 +2,7 @@
 
 #contact_activities
   .btn-toolbar.pull-right.actions
-    .btn-group
-      .pagination= paginate @activities,
+    .btn-group= paginate @activities,
           param_name: :activities_page,
           remote: true,
           params: { controller: 'users/contacts/activities', action: :index, user_id: current_user.id, contact_id: contact.id }
@@ -11,6 +10,8 @@
     .btn-group#contact_activity_scopes
       = scope_buttons :failed, :completed, :pending, remote: true,
         params: { controller: 'users/contacts/activities', action: :index, user_id: current_user.id, contact_id: contact.id }
+    = render 'users/contacts/activities/form_modal'
+
 
 
   - if @activities.any?
@@ -23,14 +24,19 @@
       tbody
         - @activities.each do |a|
           tr
-            - %i|status type target_date completed_date address|.each do |attr|
+            - %i|status type target_date completed_date|.each do |attr|
               td= a.try(attr).instance_eval { try(:decorate) || self }
+            td= a.address.decorate.short_display
             td
-              - if a.pending?
-                .btn-group id=("activity_actions_#{a.id}")
-                  = link_to icon(:ok, 'Complete'), complete_user_activity_path(current_user, a),
-                    class: 'btn btn-success btn-xs', method: :put, remote: true
-                  = link_to icon(:fire, 'Fail'), fail_user_activity_path(current_user, a),
-                    class: 'btn btn-warning btn-xs', method: :put, remote: true
+              .btn-group id=("activity_actions_#{a.id}")
+                - if a.pending?
+                  - if a.needs_an_installation?
+                    = render 'users/contacts/activities/complete_form_modal', activity: a
+                  - else
+                    = link_to icon(:ok, 'Complete'), complete_user_activity_path(current_user, a),
+                      class: 'btn btn-success btn-xs', method: :put, remote: true
+                    = link_to icon(:fire, 'Fail'), fail_user_activity_path(current_user, a),
+                      class: 'btn btn-warning btn-xs', method: :put, remote: true
+                = link_to icon(:edit, 'Edit'), edit_user_activity_path(current_user, a), class: 'btn btn-primary btn-xs'
 
   = page_entries_info @activities

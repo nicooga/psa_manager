@@ -42,6 +42,12 @@ class Users::ActivitiesController < ApplicationController
     end
   end
 
+  def update_responder(format)
+    if action_successful?
+      format.html { render :show }
+    end
+  end
+
   permit_params :target_date, :completed_date, :type,
    :status, :notes, :address_id, :contact_id, :installation_id,
    installation_attributes: [:date, :kit_id, :contact_id, :address_id, :user_id]
