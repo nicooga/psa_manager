@@ -2,7 +2,7 @@
   .col-md-5
     h5= 'Basic Data'
     dl.dl-horizontal.well.well-sm
-      - %i|full_name email birthday source source_date|.each do |attr|
+      - %i|full_name email birthday source source_date notes|.each do |attr|
         - if @contact.try attr
           dt= Contact.human_attribute_name attr
           dd= @contact.try attr

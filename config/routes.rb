@@ -1,6 +1,4 @@
 PsaManager::Application.routes.draw do
-  root to: 'activities#index'
-
   resources :users do
     scope module: :users do
       resources :contacts do
