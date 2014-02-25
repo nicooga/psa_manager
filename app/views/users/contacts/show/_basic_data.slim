@@ -2,10 +2,19 @@
   .col-md-5
     h5= 'Basic Data'
     dl.dl-horizontal.well.well-sm
-      - %i|full_name email birthday source source_date notes|.each do |attr|
-        - if @contact.try attr
+      - %i|full_name email birthday|.each do |attr|
+        - if @contact.try(attr)
           dt= Contact.human_attribute_name attr
-          dd= @contact.try attr
+          dd= @contact.try(attr)
+      - if @contact.source
+        dt= Contact.human_attribute_name :source
+        dd= link_to @contact.source_name, user_contact_path(current_user, @contact.source_name)
+      - if @contact.source_date
+        dt= Contact.human_attribute_name :source_date
+        dd= @contact.source_date
+      - if @contact.source
+        dt= Contact.human_attribute_name :notes
+        dd= @contact.notes
 
     - if resource.phone_numbers.without_address.any?
       h5= 'Phone Numbers'
@@ -36,11 +45,19 @@
 
             div.panel-collapse.collapse id=("address_#{i}")
               .panel-body
-                dl.dl-horizontal.well.well-sm
-                  - %i|city state apartment zip_code notes|.each do |attr|
-                    - if a.try attr
-                      dt= Address.human_attribute_name attr
-                      dd= a.try attr
+                - if a.geocoded?
+                  .map.collapse id=("address_#{i}_map_container") style=('width: 600px')
+                    div id=("address_#{i}_map") style=('width: 600; height: 400px;')
+                .well.well-sm
+                  - if a.geocoded?
+                    = render 'users/contacts/show/address_map', address: a, i: i
+                    = link_to icon('map-marker'), '#', class: 'pull-right btn btn-default btn-xs',
+                      data: { toggle: :collapse, target: "#address_#{i}_map_container" }
+                  dl.dl-horizontal
+                    - %i|city state apartment zip_code notes|.each do |attr|
+                      - if a.try(attr).present?
+                        dt= Address.human_attribute_name attr
+                        dd= a.try attr
 
                 - if a.phone_numbers.any?
                   h5= 'Phone Numbers'

@@ -1,6 +1,6 @@
 nav.navbar.navbar-default.navbar-fixed-bottom role='navigation'
   / Brand and toggle get grouped for better mobile display
-  .navbar-header= link_to 'PSA Manager', root_path, class: 'navbar-brand'
+  .navbar-header= link_to 'PSA Manager', 'root_path', class: 'navbar-brand'
 
   ul.nav.navbar-nav
     li= link_to Contact.model_name.human.pluralize, user_contacts_path(current_user)

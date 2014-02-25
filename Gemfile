@@ -19,6 +19,8 @@ gem 'money-rails'
 gem 'carmen-rails'
 gem 'has_scope'
 gem 'ransack', github: 'activerecord-hackery/ransack', branch: 'rails-4'
+gem 'geocoder'
+gem 'gmaps4rails'
 
 # Authentication
 gem 'omniauth'
@@ -29,14 +31,17 @@ gem 'bcrypt-ruby', '~> 3.1.2'
 gem 'therubyracer'
 gem 'font-awesome-less'
 gem 'momentjs-rails', '~> 2.5.0'
-gem 'bootstrap3-datetimepicker-rails', '~> 2.1.30'
-gem 'bootstrap3-form-builder', path: File.expand_path('~/Projects/bootstrap3-form-builder')
 gem 'slim-rails'
 gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.0.0'
 gem 'jquery-rails'
 gem 'jquery-turbolinks'
+gem 'underscore-rails'
+
+# View Helpers
 gem 'kaminari-bootstrap', '~> 3.0.1'
+gem 'bootstrap3-datetimepicker-rails', '~> 2.1.30'
+gem 'bootstrap3-form-builder', path: File.expand_path('~/Projects/bootstrap3-form-builder')
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.

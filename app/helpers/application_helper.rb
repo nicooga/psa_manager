@@ -39,6 +39,12 @@ module ApplicationHelper
       link_to scp.to_s.titleize, Hash[scp, true].merge(opts[:params]), class: css_class, remote: opts[:remote]
     end.reduce(:+)
   end
+
+  def table(collection, attributes_hash)
+    content_tag(:table, class: 'table table-condensed') do
+      content_tag(:thead)
+    end
+  end
 end
 
 module Bootstrap3

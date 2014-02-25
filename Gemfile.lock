@@ -81,6 +81,8 @@ GEM
     ffaker (1.23.0)
     font-awesome-less (4.0.2)
       less-rails (>= 2.4.2)
+    geocoder (1.1.9)
+    gmaps4rails (2.1.2)
     has_scope (0.6.0.rc)
       actionpack (>= 3.2, < 5)
       activesupport (>= 3.2, < 5)
@@ -222,6 +224,7 @@ GEM
     uglifier (2.4.0)
       execjs (>= 0.3.0)
       json (>= 1.8.0)
+    underscore-rails (1.5.2)
     unicode_utils (1.4.0)
 
 PLATFORMS
@@ -238,6 +241,8 @@ DEPENDENCIES
   factory_girl_rails (= 4.2.1)
   ffaker
   font-awesome-less
+  geocoder
+  gmaps4rails
   has_scope
   jquery-rails
   jquery-turbolinks
@@ -255,3 +260,4 @@ DEPENDENCIES
   slim-rails
   therubyracer
   uglifier (>= 1.3.0)
+  underscore-rails

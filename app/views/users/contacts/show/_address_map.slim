@@ -1,0 +1,31 @@
+javascript:
+  $(function(){
+    $('#address_#{i}_map_container').on('show.bs.collapse', function(){
+      if(!window.maps) { window.maps = {} }
+      if(!window.maps.map_#{i}) {
+        var handler = Gmaps.build('Google');
+        handler.buildMap({
+          provider: { zoom: 20 },
+          internal: {id: 'address_#{i}_map'}}, function(){
+          markers = handler.addMarkers([
+            {
+              "lat": #{address.latitude},
+              "lng": #{address.longitude},
+              "infowindow": "#{address.short_display}"
+            }
+          ]);
+          handler.bounds.extendWith(markers);
+          handler.fitMapToBounds();
+          handler.getMap().setZoom(15)
+        });
+        window.maps.map_#{i} = handler
+      }
+    })
+
+    $('#address_#{i}_map_container').on('shown.bs.collapse', function(){
+      var map = window.maps.map_#{i}.getMap()
+      var center = map.getCenter()
+      google.maps.events.trigger(map, 'resize')
+      map.setCenter(center)
+    })
+  })

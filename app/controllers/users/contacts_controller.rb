@@ -34,6 +34,17 @@ class Users::ContactsController < ApplicationController
     format.js { render "contacts/show/show.js.erb", layout: false }
   end
 
+  private
+
+  def redirect_path(action, resource = resource)
+    case action
+    when :create, :update
+      [User.find(params[:user_id]), resource]
+    else
+      super
+    end
+  end
+
   permit_params :first_name, :last_name, :email, :birthday, :notes, :source_id, :source_date,
     phone_numbers_attributes: [:number, :kind, :contact_id, :id, :_destroy],
     addresses_attributes: [:id, :city, :state, :street, :number, :apartment, :zip_code, :notes, :_destroy,
