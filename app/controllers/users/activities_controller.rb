@@ -37,14 +37,8 @@ class Users::ActivitiesController < ApplicationController
       format.html { render :show }
       format.js   { render 'create.js', layout: false }
     else
-      format.html { render :show }
+      format.html { render :new }
       format.js   { render 'shared/js/form_errors.js.erb', layout: false }
-    end
-  end
-
-  def update_responder(format)
-    if action_successful?
-      format.html { render :show }
     end
   end
 

@@ -10,22 +10,22 @@
               - if @activity.needs_an_installation?
                 = render 'complete_form_modal', activity: @activity.next_activity
               - else
-                = link_to complete_user_activity_path(current_user, @activity),
+                = link_to complete_user_activity_path(@activity.user, @activity),
                   remote: true,
                   method: :put,
                   class: 'btn btn-success btn-xs' do
                   = icon :ok, 'Complete'
 
-              = link_to fail_user_activity_path(current_user, @activity),
+              = link_to fail_user_activity_path(@activity.user, @activity),
                 remote: true,
                 method: :put,
                 class: 'btn btn-warning btn-xs' do
                 = icon :fire, 'Fail'
 
             .btn-group
-              = link_to edit_user_activity_path(current_user, @activity), class: 'btn btn-primary btn-xs' do
+              = link_to edit_user_activity_path(@activity.user, @activity.id), class: 'btn btn-primary btn-xs' do
                 = icon :edit, 'Edit'
-              = link_to user_activity_path(current_user, @activity), class: 'btn btn-danger btn-xs',
+              = link_to user_activity_path(@activity.user, @activity), class: 'btn btn-danger btn-xs',
                 method: :delete, data: { confirm: 'Are you sure?' } do
                 = icon 'remove-circle', 'Delete'
 
@@ -45,7 +45,7 @@
           h4.panel-heading
             = Activity.human_attribute_name :contact
             .btn-group.pull-right
-              = link_to user_contact_path(current_user, @activity.contact), class: 'btn btn-info btn-xs' do
+              = link_to user_contact_path(@activity.contact.user, @activity.contact), class: 'btn btn-info btn-xs' do
                 = icon 'info-sign', 'More'
 
           ul.list-group

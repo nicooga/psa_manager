@@ -12,9 +12,11 @@
 #
 #= require jquery
 #= require jquery_ujs
+#= require jquery.turbolinks
 #= require underscore
 #= require gmaps/google
 #= require bootstrap
+#= require cocoon
 #= require_tree .
 
 window.init_datepickers = ->

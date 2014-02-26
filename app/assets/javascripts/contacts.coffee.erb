@@ -4,7 +4,7 @@ $ ->
   $form.find('select#activity_contact_id').change ->
     contact_id = $(this).val()
 
-    response = $.get "/contacts/#{contact_id}.json",
+    response = $.get "/users/1/contacts/#{contact_id}.json",
       scope:
         only:    'id'
         methods: 'addresses',

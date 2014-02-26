@@ -1,0 +1,28 @@
+.panel.panel-default
+  .panel-heading
+    h4.panel-title
+      = resource.name
+
+      .actions.pull-right
+        .btn-group
+          = link_to icon(:edit, 'Edit'), edit_user_society_path(resource.founder, resource),
+            class: 'btn btn-primary btn-xs'
+          = link_to icon(:remove, 'Delete'), user_society_path(resource.founder, resource),
+              class: 'btn btn-danger btn-xs', method: :delete, data: { confirm: 'Are you sure?' }
+
+  .panel-body
+    .row
+      .col-lg-6
+        h5= 'Basic Details'
+        dl.dl-horizontal.well
+          - %i|name description created_at|.each do |attr|
+            - if resource.send(attr).present?
+              dt= resource_class.human_attribute_name attr
+              dd= resource.send attr
+
+      .col-lg-6
+        .list-group
+          h5= :Users
+          - resource.users.each do |u|
+            li.list-group-item= u.decorate
+

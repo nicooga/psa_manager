@@ -5,20 +5,16 @@ class ContactDecorator < Draper::Decorator
     [first_name, last_name].join ' '
   end
 
-  def source
-    object.source
-  end
-
   def source_name
     object.source.decorate.full_name if object.source_id
   end
 
   def birthday
-    object.birthday.strftime('%Y %b %d')
+    object.birthday.try :strftime, '%Y %b %d'
   end
 
   def source_date
-    object.source_date.strftime('%Y %b %d')
+    object.source_date.try :strftime, '%Y %b %d'
   end
 
   def to_s() full_name end

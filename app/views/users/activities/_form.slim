@@ -1,5 +1,6 @@
 = form_for [current_user, local_assigns[:activity] || resource],
   as:      :activity,
+  url:     user_activities_path,
   html:    { role: :form },
   builder: Bootstrap3::FormBuilder do |f|
 

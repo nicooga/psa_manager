@@ -21,29 +21,16 @@ module Resource
     end
   end
 
+  def resource_chain
+    @resource_chain ||= Chain.new(self, *controller_path.split('/').map(&:singularize))
+  end
+
   def resource_class_name
-    resource_chain.last.singularize.capitalize
+    resource_chain.klass_name
   end
 
   def resource_class
-    if resource_chain.one?
-      resource_chain.first.camelcase.constantize
-    else
-      resolve_resource_chain
-    end
-  end
-
-  def resource_chain
-    controller_path.split('/').map(&:singularize)
-  end
-
-  def resolve_resource_chain
-    root_class = resource_chain.first.camelcase.constantize
-    root = root_class.find(params["#{root_class.model_name.element}_id"])
-
-    resource_chain[1..-2].inject(root) do |table, assoc|
-      table.send(assoc.pluralize).find(params["#{assoc}_id"])
-    end.send(resource_chain.last.pluralize)
+    resource_chain.klass
   end
 
   def build_resource
@@ -60,6 +47,50 @@ module Resource
       else
         instance_variable_set name, value
       end
+    end
+  end
+
+  class Chain
+    attr_reader :controller, :elements, :klass,
+      :root, :end, :objects
+
+    def initialize(controller, *elements)
+      @controller = controller
+      @elements = elements
+      resolve
+      self
+    end
+
+    def klass
+      @klass ||= if @elements.one?
+        elements.first.camelcase.constantize
+      else
+        @end
+      end
+    end
+
+    def klass_name
+      elements.last.singularize.capitalize
+    end
+
+    private
+
+    def resolve
+      root_class = elements.first.camelcase.constantize
+      @root = root_class.find(params["#{root_class.model_name.element}_id"])
+
+      @end = elements[1..-2].inject(root) do |table, assoc|
+        table.send(assoc.pluralize).find(params["#{assoc}_id"])
+      end.send(elements.last.pluralize)
+
+
+      @objects = elements[0..-2].map do |identifier|
+        identifier.camelcase.constantize.find(params["#{identifier}_id"])
+      end
+    end
+
+    def params
+      controller.params
     end
   end
 end

@@ -17,10 +17,13 @@ gem 'database_cleaner', '1.0.0.RC1'
 gem 'draper', '~> 1.3'
 gem 'money-rails'
 gem 'carmen-rails'
-gem 'has_scope'
-gem 'ransack', github: 'activerecord-hackery/ransack', branch: 'rails-4'
 gem 'geocoder'
 gem 'gmaps4rails'
+
+# Controller Stuff
+gem 'inherited_resources'
+gem 'has_scope'
+gem 'ransack', github: 'activerecord-hackery/ransack', branch: 'rails-4'
 
 # Authentication
 gem 'omniauth'
@@ -39,6 +42,7 @@ gem 'jquery-turbolinks'
 gem 'underscore-rails'
 
 # View Helpers
+gem 'cocoon'
 gem 'kaminari-bootstrap', '~> 3.0.1'
 gem 'bootstrap3-datetimepicker-rails', '~> 2.1.30'
 gem 'bootstrap3-form-builder', path: File.expand_path('~/Projects/bootstrap3-form-builder')

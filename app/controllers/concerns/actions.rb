@@ -12,8 +12,8 @@ module Actions
       resource_class.build(permited_params)
     if resource.save
       @action_successful = true
-      respond_with redirect_path(__method__.to_sym, resource),
-        notice: messages[:create], &responder
+      respond_with resource, notice: messages[:create],
+        location: redirect_path(__method__.to_sym, resource), &responder
     else
       @action_successful = false
       respond_with resource, &responder
@@ -23,7 +23,8 @@ module Actions
   def update
     if resource.update permited_params
       @action_successful = true
-      respond_with redirect_path(__method__.to_sym), notice: messages[:update], &responder
+      respond_with resource, notice:    messages[:update],
+        location:  redirect_path(__method__.to_sym), &responder
     else
       @action_successful = false
       render :edit
@@ -32,7 +33,7 @@ module Actions
 
   def destroy
     if resource.destroy
-      respond_with resource, notice: messages[:destroy]
+      redirect_to action: :index
     else
       redirect_to resource, notice: messages[:error]
     end
@@ -40,7 +41,9 @@ module Actions
 
   private
 
-  def redirect_path(action, resource = resource) resource end
+  def redirect_path(action, resource = resource)
+    resource_chain.objects << resource
+  end
 
   def permited_params
     params.fetch(resource_class_name.downcase.to_sym, {}).permit permited_params_keys

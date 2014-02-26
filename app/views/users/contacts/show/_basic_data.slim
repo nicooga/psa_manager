@@ -6,9 +6,9 @@
         - if @contact.try(attr)
           dt= Contact.human_attribute_name attr
           dd= @contact.try(attr)
-      - if @contact.source
+      - if @contact.source_id
         dt= Contact.human_attribute_name :source
-        dd= link_to @contact.source_name, user_contact_path(current_user, @contact.source_name)
+        dd= link_to(@contact.source_name, user_contact_path(current_user, @contact.source))
       - if @contact.source_date
         dt= Contact.human_attribute_name :source_date
         dd= @contact.source_date

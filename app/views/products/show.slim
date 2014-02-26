@@ -1,17 +1,17 @@
 .panel.product
   .panel-heading
-    = @product.name
+    = resource.name
     .btn-group.pull-right
-      = link_to edit_product_path(@product), class: 'btn btn-primary btn-small' do
+      = link_to edit_product_path(resource), class: 'btn btn-primary btn-small' do
         = icon :edit
-      = link_to product_path(@product), class: 'btn btn-danger btn-small',
+      = link_to product_path(resource), class: 'btn btn-danger btn-small',
         method: :delete, data: { confirm: 'Are you sure?' } do
         = icon :remove
 
   dl
     dt= Product.human_attribute_name :bonificable_points
-    dd= @product.bonificable_points
+    dd= resource.bonificable_points
     dt= Product.human_attribute_name :list_price
-    dd= @product.list_price_with_symbol
+    dd= resource.list_price_with_symbol
     dt= Product.human_attribute_name :suggested_price
-    dd= @product.suggested_price_with_symbol
+    dd= resource.suggested_price_with_symbol

@@ -1,0 +1,29 @@
+= form_for [current_user, resource],
+  html: { role: :form },
+  builder: Bootstrap3::FormBuilder do |f|
+
+  .panel.panel-default
+    .panel-heading
+      h4= params[:action] == :edit ? 'Editing a Society' : 'Creating a Society'
+
+    .panel-body
+      = render 'shared/form_errors', object: f.object
+
+      = f.text_field :name
+      = f.text_area :description
+
+      h4
+        = 'Members'
+        = link_to_add_association icon('plus', 'Add Membership'), f, :memberships,
+          class: 'btn btn-default pull-right btn-xs',
+          data: { 'association-insertion-node' => '#memberships' }
+
+      #memberships
+        = f.fields_for :memberships do |mf|
+          = render 'membership_fields', f: mf
+
+
+    .panel-footer
+      .btn-group
+        = f.submit class: 'btn btn-primary'
+        = link_to 'Cancel', :back, class: 'btn btn-warning'

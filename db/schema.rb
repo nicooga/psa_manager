@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140224035547) do
+ActiveRecord::Schema.define(version: 20140226022845) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -97,6 +97,16 @@ ActiveRecord::Schema.define(version: 20140224035547) do
   add_index "kits", ["product_id"], name: "index_kits_on_product_id", using: :btree
   add_index "kits", ["user_id"], name: "index_kits_on_user_id", using: :btree
 
+  create_table "memberships", force: true do |t|
+    t.integer  "society_id"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "memberships", ["society_id"], name: "index_memberships_on_society_id", using: :btree
+  add_index "memberships", ["user_id"], name: "index_memberships_on_user_id", using: :btree
+
   create_table "phone_numbers", force: true do |t|
     t.string   "number"
     t.string   "kind"
@@ -121,6 +131,16 @@ ActiveRecord::Schema.define(version: 20140224035547) do
     t.integer  "expiration_time"
     t.integer  "service_period"
   end
+
+  create_table "societies", force: true do |t|
+    t.string   "name"
+    t.text     "description"
+    t.integer  "founder_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "societies", ["founder_id"], name: "index_societies_on_founder_id", using: :btree
 
   create_table "users", force: true do |t|
     t.string   "email"

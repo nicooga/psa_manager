@@ -16,6 +16,7 @@ PsaManager::Application.routes.draw do
       end
 
       resources :kits
+      resources :societies
     end
   end
 
