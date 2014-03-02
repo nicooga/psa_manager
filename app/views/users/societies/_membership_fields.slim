@@ -1,6 +1,6 @@
 .nested_fields
   .input-group
     = f.select :user_id, User.all.map { |u| [u.decorate, u.id] }
-    span.input-group-addon
+    span.input-group-btn
       = link_to_remove_association icon(:remove), f,
-        wrapper_class: :nested_fields, class: 'no_decoration'
+        wrapper_class: :nested_fields, class: 'btn btn-default no_decoration'

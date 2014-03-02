@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140226022845) do
+ActiveRecord::Schema.define(version: 20140226222151) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -48,6 +48,30 @@ ActiveRecord::Schema.define(version: 20140226022845) do
   end
 
   add_index "addresses", ["contact_id"], name: "index_addresses_on_contact_id", using: :btree
+
+  create_table "calls", force: true do |t|
+    t.integer  "cold_list_id"
+    t.integer  "phone_number_id"
+    t.text     "notes"
+    t.string   "status",          default: "pending"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "calls", ["cold_list_id"], name: "index_calls_on_cold_list_id", using: :btree
+  add_index "calls", ["phone_number_id"], name: "index_calls_on_phone_number_id", using: :btree
+
+  create_table "cold_lists", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "responsible_id"
+    t.integer  "phone_number_prefix"
+    t.text     "notes"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "cold_lists", ["responsible_id"], name: "index_cold_lists_on_responsible_id", using: :btree
+  add_index "cold_lists", ["user_id"], name: "index_cold_lists_on_user_id", using: :btree
 
   create_table "contacts", force: true do |t|
     t.string   "first_name"

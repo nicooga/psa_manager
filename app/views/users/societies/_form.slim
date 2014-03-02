@@ -1,27 +1,30 @@
-= form_for [current_user, resource],
-  html: { role: :form },
+= form_for [current_user, resource], html: { role: :form },
   builder: Bootstrap3::FormBuilder do |f|
 
   .panel.panel-default
     .panel-heading
-      h4= params[:action] == :edit ? 'Editing a Society' : 'Creating a Society'
+      h4.panel-title
+        = params[:action].to_sym == :edit ?  "Editing Society: #{resource.name}" : 'Creating a Society'
 
     .panel-body
-      = render 'shared/form_errors', object: f.object
+      .row
+        .col-lg-6
+          h4 = 'Details'
+          = render 'shared/form_errors', object: f.object
 
-      = f.text_field :name
-      = f.text_area :description
+          = f.text_field :name
+          = f.text_area :description
 
-      h4
-        = 'Members'
-        = link_to_add_association icon('plus', 'Add Membership'), f, :memberships,
-          class: 'btn btn-default pull-right btn-xs',
-          data: { 'association-insertion-node' => '#memberships' }
+        .col-lg-6
+          h4
+            = 'Members'
+            = link_to_add_association icon('plus', 'Add Membership'), f, :memberships,
+              class: 'btn btn-default pull-right btn-xs',
+              data: { 'association-insertion-node' => '#memberships', 'association-insertion-method' => 'append' }
 
-      #memberships
-        = f.fields_for :memberships do |mf|
-          = render 'membership_fields', f: mf
-
+          #memberships
+            = f.fields_for :memberships do |mf|
+              = render 'membership_fields', f: mf
 
     .panel-footer
       .btn-group

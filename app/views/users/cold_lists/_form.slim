@@ -1,0 +1,28 @@
+= form_for [current_user, resource], html: { role: :form },
+  builder: Bootstrap3::FormBuilder do |f|
+
+  .panel.panel-default
+    .panel-heading
+      h4.panel-title
+        = params[:action].to_sym == :edit ?  "Editing Cold List" : 'Creating a Cold List'
+
+    .panel-body
+      = render 'shared/form_errors', object: f.object
+      = f.number_field :phone_number_prefix
+      = f.text_area :notes
+
+      - if params[:action] =~ /edit|update/
+        h4
+          = 'Phone Numbers'
+          = link_to_add_association icon('plus', 'Add Phone Number'), f, :calls,
+            class: 'btn btn-primary pull-right btn-xs',
+            data: { 'association-insertion-node' => '#calls', 'association-insertion-method' => 'append' }
+
+        #calls.panel-group
+          = f.fields_for :calls, f.object.calls do |cf|
+            = render 'call_fields', f: cf
+
+    .panel-footer
+      .btn-group
+        = f.submit class: 'btn btn-primary'
+        = link_to 'Cancel', :back, class: 'btn btn-warning'

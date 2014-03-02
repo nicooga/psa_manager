@@ -1,0 +1,15 @@
+.nested_fields.panel.panel-default
+  .panel-heading data-toggle='collapse' data-target="#_-timestamp-_#{f.object.id}" data-parent='#calls'
+    = f.object.phone_number.try(:number) ? "Call: #{f.object.phone_number.number}" : 'Call'
+    = link_to_remove_association icon(:remove, 'Remove Call'), f,
+      wrapper_class: :nested_fields,
+      class: 'btn btn-danger btn-xs no_decoration pull-right'
+
+  .panel-body.collapse id=("_-timestamp-_#{f.object.id}")
+    .row
+      .col-lg-3
+        = f.fields_for :phone_number, f.object.phone_number || PhoneNumber.new do |pnf|
+          = pnf.text_field :number
+          = pnf.select :kind, PhoneNumber::KINDS
+        = f.select :status, Call.statuses.map { |s| [s.to_s.titleize, s] }
+      .col-lg-9= f.text_area :notes

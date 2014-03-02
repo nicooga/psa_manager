@@ -6,6 +6,9 @@ class User < ActiveRecord::Base
   has_many :societies, foreign_key: :founder_id
   has_many :memberships
   has_many :belonging_societies, through: :memberships, source: :society
+  has_many :responsibles, through: :societies, source: :members
+
+  has_many :cold_lists
 
   validates :email, presence: true
   validates :email, uniqueness: true

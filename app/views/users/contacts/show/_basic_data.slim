@@ -34,25 +34,24 @@
     h5= 'Addresses'
     .panel.panel-dafault
       #addresses.panel-group
-        - @contact.addresses.map(&:decorate).each_with_index do |a, i|
+        - @contact.addresses.map(&:decorate).each_with_index do |a|
           .panel.panel-default
 
             .panel-heading
-              = content_tag :h4, class: 'panel-title',
-                data: { parent: '#addresses', toggle: 'collapse', target: "#address_#{i}" } do
-                = icon(:home, a.short_display)
+              = content_tag :h5, class: 'panel-title',
+                data: { parent: '#addresses', toggle: 'collapse', target: "#address_#{a.id}" } do
+                = icon(:home)
+                = a.short_display
+                = icon('map-marker') if a.geocoded?
                 .pull-right= icon('chevron-down')
 
-            div.panel-collapse.collapse id=("address_#{i}")
+            div.panel-collapse.collapse id=("address_#{a.id}")
               .panel-body
                 - if a.geocoded?
-                  .map.collapse id=("address_#{i}_map_container") style=('width: 600px')
-                    div id=("address_#{i}_map") style=('width: 600; height: 400px;')
+                  = render 'users/contacts/show/address_map', address: a
+                  .map id=("address_#{a.id}_map_container") style=('width: 600px')
+                    div id=("address_#{a.id}_map") style=('width: 600; height: 400px;')
                 .well.well-sm
-                  - if a.geocoded?
-                    = render 'users/contacts/show/address_map', address: a, i: i
-                    = link_to icon('map-marker'), '#', class: 'pull-right btn btn-default btn-xs',
-                      data: { toggle: :collapse, target: "#address_#{i}_map_container" }
                   dl.dl-horizontal
                     - %i|city state apartment zip_code notes|.each do |attr|
                       - if a.try(attr).present?

@@ -6,7 +6,7 @@ PsaManager::Application.routes.draw do
           resources :installations, only: :index
           resources :activities, only: [:index, :create]
         end
-      end
+      end # under module Users::Contacts
 
       resources :activities do
         member do
@@ -17,7 +17,8 @@ PsaManager::Application.routes.draw do
 
       resources :kits
       resources :societies
-    end
+      resources :cold_lists
+    end # under module Users
   end
 
   resources :products
