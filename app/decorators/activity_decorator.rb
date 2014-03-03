@@ -7,11 +7,11 @@ class ActivityDecorator < Draper::Decorator
   end
 
   def target_date
-    object.target_date.strftime('%a, %Y %b %d') if object.target_date
+    object.target_date.strftime('%a, %Y-%b-%d %H %R') if object.target_date
   end
 
   def completed_date
-    object.completed_date.strftime('%a, %Y %b %d') if object.completed_date
+    object.completed_date.strftime('%a, %Y-%b-%d %R') if object.completed_date
   end
 
   def type

@@ -1,13 +1,18 @@
 class CallDecorator < Draper::Decorator
+  include ActionView::Helpers::TagHelper
   delegate_all
 
-  # Define presentation-specific methods here. Helpers are accessed through
-  # `helpers` (aka `h`). You can override attributes, for example:
-  #
-  #   def created_at
-  #     helpers.content_tag :span, class: 'time' do
-  #       object.created_at.strftime("%a %m/%d/%y")
-  #     end
-  #   end
+  def status
+    content_tag :span, object.status, class: css_class_for(object.status)
+  end
 
+  private
+
+  def css_class_for(status)
+    @css_classes ||= ({
+      pending:   'label label-default',
+      failed:    'label label-danger',
+      completed: 'label label-success'
+    }.with_indifferent_access)[status]
+  end
 end

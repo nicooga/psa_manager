@@ -1,0 +1,4 @@
+$('#calls').html(
+  <%# pry %>
+  "<%= j render('calls', calls: assigns['calls'] || resource.cold_list.calls) %>"
+)

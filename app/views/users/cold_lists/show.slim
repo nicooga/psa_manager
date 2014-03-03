@@ -5,6 +5,8 @@
 
       .actions.pull-right
         .btn-group
+          = link_to icon(:plus, 'Add Calls'), user_cold_list_calls_path(resource.user, resource),
+            class: 'btn btn-primary btn-xs'
           = link_to icon(:edit, 'Edit'), edit_user_cold_list_path(resource.user, resource),
             class: 'btn btn-primary btn-xs'
           = link_to icon(:remove, 'Delete'), user_cold_list_path(resource.user, resource),
@@ -12,18 +14,21 @@
 
   .panel-body
     .row
-      .col-lg-6
+      .col-lg-4
         h5= 'Basic Details'
-        dl.dl-horizontal.well
-          - %i|notes|.each do |attr|
+        dl.well
+          - %i|phone_number_prefix notes|.each do |attr|
             - if resource.send(attr).present?
               dt= resource_class.human_attribute_name attr
               dd= resource.send attr
 
-      - if resource.class.any?
-        .col-lg-6
+      .col-lg-8
+        h5= 'Calls'
+        - if resource.calls.any?
           .list-group
             h5= :Calls
             - resource.calls.each do |c|
               li.list-group-item= c.decorate
 
+        - else
+          .alert.alert-info= 'There are no calls yet'

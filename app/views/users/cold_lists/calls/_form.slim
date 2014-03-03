@@ -1,0 +1,17 @@
+- user = User.find(params[:user_id])
+- cold_list = user.cold_lists.find(params[:cold_list_id])
+
+= form_for [user, cold_list, Call.new], remote: true,
+  builder: Bootstrap3::FormBuilder do |f|
+
+  .panel.panel-default
+    .panel-body
+      = render 'shared/form_errors', object: f.object
+
+      = f.select :status, Call.statuses.map { |s| [s.to_s.titleize, s] }
+      = f.fields_for :phone_number, f.object.phone_number || PhoneNumber.new do |pnf|
+        = pnf.text_field :number
+        = pnf.select :kind, PhoneNumber::KINDS
+      = f.text_area :notes, rows: 3
+
+    .panel-footer= f.submit class: 'btn btn-primary'

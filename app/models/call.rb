@@ -1,5 +1,6 @@
 class Call < ActiveRecord::Base
   include Statusable
+  default_scope -> { order(created_at: :desc) }
   has_statuses :pending, :failed, :completed
 
   belongs_to :cold_list

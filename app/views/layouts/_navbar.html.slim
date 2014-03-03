@@ -1,4 +1,4 @@
-nav.navbar.navbar-default.navbar-fixed-bottom role='navigation'
+nav.navbar.navbar-default.navbar-fixed-bottom.navbar-collapse role='navigation'
   / Brand and toggle get grouped for better mobile display
   .navbar-header= link_to 'PSA Manager', 'root_path', class: 'navbar-brand'
 
@@ -8,13 +8,13 @@ nav.navbar.navbar-default.navbar-fixed-bottom role='navigation'
     li= link_to Kit.model_name.human.pluralize, user_kits_path(current_user)
     li= link_to Activity.model_name.human.pluralize, user_activities_path(current_user)
     li= link_to Society.model_name.human.pluralize, user_societies_path(current_user)
+    li= link_to ColdList.model_name.human.pluralize, user_cold_lists_path(current_user)
 
-  ul.nav.navbar-nav.navbar-right
+  ul.nav.navbar-nav.navbar-right.navbar-inverse
     - if current_user
-      p.navbar-text= current_user.email
       li.dropdown
         = link_to '#', class: 'dropdown-toggle', data: {toggle: 'dropdown'} do
-          = icon('list-alt')
+          = icon('list-alt', current_user.email)
         ul.dropdown-menu
           li= link_to 'Logout', logout_path
 

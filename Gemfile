@@ -45,7 +45,7 @@ gem 'underscore-rails'
 gem 'cocoon'
 gem 'kaminari-bootstrap', '~> 3.0.1'
 gem 'bootstrap3-datetimepicker-rails', '~> 2.1.30'
-gem 'bootstrap3-form-builder', path: File.expand_path('~/Projects/bootstrap3-form-builder')
+gem 'bootstrap3-form-builder', github: 'nicooga/bootstrap3-form-builder'
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.

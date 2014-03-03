@@ -15,9 +15,13 @@ PsaManager::Application.routes.draw do
         end
       end
 
+      resources :cold_lists do
+        resources :calls, module: :cold_lists
+      end
+
       resources :kits
       resources :societies
-      resources :cold_lists
+
     end # under module Users
   end
 

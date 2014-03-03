@@ -10,8 +10,9 @@ GIT
       i18n
       polyamorous (~> 0.6.0)
 
-PATH
-  remote: /home/cygnus/Projects/bootstrap3-form-builder
+GIT
+  remote: git://github.com/nicooga/bootstrap3-form-builder.git
+  revision: cf735d50f16b108383fa2d33cabaf0ef0367b005
   specs:
     bootstrap3-form-builder (0.0.0)
 

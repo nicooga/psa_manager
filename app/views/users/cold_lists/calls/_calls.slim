@@ -1,0 +1,27 @@
+- calls = local_assigns[:calls].decorate.page(params[:calls_page]).per(30)
+
+#calls
+  .btn-toolbar.actions.pull-right
+    .btn-group= paginate(calls, param_name: :calls_page, remote: true)
+    .btn-group= scope_buttons :pending, :failed, :completed
+
+  table.table.table-condensed
+    thead
+      th= calls.model.human_attribute_name :status
+      th= PhoneNumber.human_attribute_name :kind
+      th= PhoneNumber.human_attribute_name :number
+      th= calls.model.human_attribute_name :notes
+
+    tbody
+      - calls.decorate.each do |call|
+        tr
+          td= call.send(:status)
+          td= call.phone_number.send(:kind)
+          td= call.phone_number.send(:number)
+          td
+            - if call.notes.present?
+              .notes.collapse id=("call_notes_#{call.id}") = call.send(:notes)
+              = link_to icon(:comment), '#', class: 'btn btn-default btn-xs',
+                data: { toggle: :collapse, target: "#call_notes_#{call.id}", parent: '#calls' }
+
+  = page_entries_info calls

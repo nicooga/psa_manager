@@ -1,0 +1,26 @@
+.panel.panel-default
+  .panel-heading
+    h4.panel-title
+      = 'Adding calls to Cold List'
+
+  .panel-body
+    .row
+      .col-lg-3
+        h5= 'Cold List Info'
+        dl.well
+          - cold_list = collection.proxy_association.owner
+          - cold_list_class = collection.proxy_association.reflection.active_record
+
+          - %i|phone_number_prefix notes|.each do |attr|
+            - if cold_list.send(attr).present?
+              dt= cold_list_class.human_attribute_name attr
+              dd= cold_list.send attr
+
+        = render 'form'
+
+      .col-lg-9
+        - if collection.any?
+          = render 'calls', calls: collection
+        - else
+          h5= 'Calls'
+          .alert.alert-info= 'There are no calls yet'

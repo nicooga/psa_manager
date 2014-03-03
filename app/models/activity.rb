@@ -3,7 +3,7 @@ class Activity < ActiveRecord::Base
   belongs_to :address
   belongs_to :contact
   belongs_to :user
-  default_scope -> { order 'target_date DESC' }
+  default_scope -> { order 'target_date ASC' }
   has_statuses :pending, :failed, :completed
 
   TYPES = %w| DemoArrangement SaleArrangement ServiceArrangement ExchangeArrangement
