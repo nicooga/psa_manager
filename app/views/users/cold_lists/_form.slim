@@ -9,6 +9,7 @@
     .panel-body
       = render 'shared/form_errors', object: f.object
       = f.number_field :phone_number_prefix
+      = f.select :responsible_id, current_user.responsibles.map { |u| [u.decorate, u.id]}
       = f.text_area :notes
 
     .panel-footer

@@ -1,0 +1,24 @@
+.btn-toolbar.actions
+  .btn-group= paginate(cold_lists, param_name: :cold_lists_page)
+  .btn-group= scope_buttons :assigned
+  = link_to 'Create a Cold List', new_user_cold_list_path(current_user),
+    class: 'btn btn-primary pull-right'
+
+table.table.table-condensed
+  thead
+    th= resource_class.human_attribute_name :phone_number_prefix
+    th= resource_class.human_attribute_name :responsible
+    th= resource_class.human_attribute_name :notes
+
+  tbody
+    - cold_lists.each do |item|
+      tr
+        td= item.phone_number_prefix
+        td= link_to item.responsible.try(:decorate), user_path(item.responsible)
+        td= item.notes.truncate(30)
+        td
+          .btn-group
+            = link_to icon('info-sign'), user_cold_list_path(item.user, item), class: 'btn btn-info btn-xs'
+            = link_to icon(:edit), edit_user_cold_list_path(item.user, item), class: 'btn btn-primary btn-xs'
+            = link_to icon(:remove), user_cold_list_path(item.user, item), class: 'btn btn-danger btn-xs',
+              method: :delete, data: { confirm: 'Are you sure?' }
