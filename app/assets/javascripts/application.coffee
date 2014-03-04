@@ -39,15 +39,20 @@ window.init_datetimepickers = ->
     resetSelector:   '.input-group-addon .glyphicon.glyphicon-remove',
 
 $ ->
-  $(document).ready ->
-    window.init_datetimepickers()
-    window.init_datepickers()
-
-    $('.input-group .reset').click ->
-      $(this).parent().find('input[type!="submit"]').val('')
-      $(this).parent().parent().submit()
-
   $(document).on 'cocoon:before-insert', (e, inserted_item)->
     new_id = new Date().getTime()
     html = inserted_item.html()
     inserted_item.html html.replace(/\-timestamp\-/g, new_id)
+
+  $(document).ready ->
+    window.init_datetimepickers()
+    window.init_datepickers()
+
+  $('.input-group .reset').click ->
+    $(this).parent().find('input[type!="submit"]').val('')
+    $(this).parent().parent().submit()
+
+  $('textarea.expand').focus( ->
+    $(this).attr 'rows', 4
+  ).blur ->
+    $(this).attr 'rows', 1

@@ -1,4 +1,4 @@
 $('#calls').html(
-  <%# pry %>
-  "<%= j render('calls', calls: assigns['calls'] || resource.cold_list.calls) %>"
+  "<%= j render('users/cold_lists/calls/calls',
+    calls: assigns['calls'] || local_assigns[:calls] || resource.cold_list.calls) %>"
 )

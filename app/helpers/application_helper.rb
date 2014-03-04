@@ -66,7 +66,7 @@ module Bootstrap3
     def select(field, choices, opts = {}, html_opts = {})
       html = super field, choices, merge_opts(opts,
         input_group: true,
-        include_blank: object.class.human_attribute_name(field)
+        include_blank: object.class.try(:human_attribute_name, field)
       ), merge_opts(html_opts, class: 'form-control')
       input_wrapping html, opts
     end

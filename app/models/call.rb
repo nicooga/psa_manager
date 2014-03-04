@@ -7,7 +7,7 @@ class Call < ActiveRecord::Base
   belongs_to :phone_number
 
   accepts_nested_attributes_for :phone_number,
-    allow_destroy: true, reject_if: :all_blank
+    allow_destroy: true, reject_if: :all_blank, update_only: true
 
   validates :phone_number, presence: true
 end

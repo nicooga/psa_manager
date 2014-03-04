@@ -1,6 +1,6 @@
 class Users::ColdLists::CallsController < InheritedResources::Base
   nested_belongs_to :user, :cold_list
-  respond_to :html, :js
+  respond_to :html, :js, :json
 
   has_scope :pending, type: :boolean
   has_scope :failed, type: :boolean
@@ -16,6 +16,21 @@ class Users::ColdLists::CallsController < InheritedResources::Base
     create! do |success, failure|
       success.js { render 'index.js.erb', layout: false }
       failure.js { render 'shared/js/form_errors', layout: false, object: resource }
+    end
+  end
+
+  def destroy
+    destroy! do |format|
+      format.js { render 'index.js.erb', layout: false }
+    end
+  end
+
+  def update
+    update! do |format|
+      format.json do
+        render json: resource.decorate,
+          methods: [:errors, :phone_number]
+      end
     end
   end
 
