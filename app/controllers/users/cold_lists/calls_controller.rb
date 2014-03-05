@@ -14,7 +14,7 @@ class Users::ColdLists::CallsController < InheritedResources::Base
 
   def create
     create! do |success, failure|
-      success.js { render 'index.js.erb', layout: false }
+      success.js { render 'create.js.erb', layout: false }
       failure.js { render 'shared/js/form_errors', layout: false, object: resource }
     end
   end

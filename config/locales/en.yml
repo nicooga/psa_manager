@@ -4,3 +4,10 @@ en:
       product:
         expiration_time: Expiration Time (in months)
         service_period:  Service Period (in months)
+  views:
+    pagination:
+      first:    "<span class='glyphicon glyphicon-fast-backward' />"
+      last:     "<span class='glyphicon glyphicon-fast-forward' />"
+      previous: "<span class='glyphicon glyphicon-backward' />"
+      next:     "<span class='glyphicon glyphicon-forward' />"
+      truncate: "..."

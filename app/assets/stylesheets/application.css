@@ -19,28 +19,21 @@ body { padding-top: 20px; }
   line-height: 16px;
   float: left;
 }
+.btn-group .pagination, .btn-group .pager { margin: 0; }
 
-.btn-group .pagination,
-.btn-group .pager {
-  margin: 0;
-}
-
-.actions {
-  margin-bottom: 15px;
-}
+.actions { margin-bottom: 15px; }
 
 .btn-xs   { height: 22px }
 .btn-base { height: 38px }
 
-table.table tr td div.btn-group { display:none;}
-table.table tr:hover td div.btn-group { display:inline-block;}
+table.table tr td div.btn-group { visibility: hidden }
+table.table tr:hover td div.btn-group { visibility: visible }
+table.table th { text-align: center }
 
 .page_entries_info { margin-bottom: 15px }
 
 .nav-tabs .navbar-text { margin-bottom: 0px }
 
 .panel-body .well { margin: 0px }
-
 .panel .panel {  margin-bottom: 0px }
 
-table td, table th { text-align: center }

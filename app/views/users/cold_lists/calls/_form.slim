@@ -10,7 +10,7 @@
 
       = f.select :status, Call.statuses.map { |s| [s.to_s.titleize, s] }
       = f.fields_for :phone_number, f.object.phone_number || PhoneNumber.new do |pnf|
-        = pnf.text_field :number
+        = pnf.text_field :number, value: f.object.phone_number.try(:number) || cold_list.next_phone_number
         = pnf.select :kind, PhoneNumber::KINDS
       = f.text_area :notes, rows: 3
 
