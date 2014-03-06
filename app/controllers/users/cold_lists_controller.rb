@@ -30,7 +30,9 @@ class Users::ColdListsController < InheritedResources::Base
   def permitted_params
     params.permit cold_list: [:notes, :phone_number_prefix, :responsible_id,
       calls_attributes: [:id, :status, :notes, :_destroy,
-        phone_number_attributes: [:id, :number, :kind]
+        phone_number_attributes: [:id, :number, :kind,
+          contact_attributes: [:id, :user_id, :first_name, :last_name, :email]
+        ]
       ]
     ]
   end

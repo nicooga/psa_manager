@@ -1,3 +1,5 @@
+$('.modal').modal('hide')
+
 $('#calls').html(
   "<%= j render('users/cold_lists/calls/calls',
     calls: assigns['calls'] || local_assigns[:calls] || resource.cold_list.calls) %>"

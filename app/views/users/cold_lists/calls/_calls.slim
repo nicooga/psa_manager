@@ -1,4 +1,4 @@
-- calls = local_assigns[:calls].decorate.page(params[:calls_page]).per(15)
+- calls = local_assigns[:calls].decorate.page(params[:calls_page]).per(10)
 - cold_list = calls.proxy_association.owner
 - user = cold_list.user
 
@@ -20,17 +20,29 @@
       th= PhoneNumber.human_attribute_name :number
       th= calls.model.human_attribute_name :notes
       th= icon :remove, calls.model.human_attribute_name(:_destroy)
+      th
 
     tbody
       - calls.each do |call|
-        tr
-          = f.fields_for :"calls_attributes[#{call.id}]", call do |cf|
+        = f.fields_for :"calls_attributes[#{call.id}]", call do |cf|
+
+          tr
             = cf.hidden_field :id
             td= cf.select :status, Call.statuses.map { |s| [s.to_s.titleize, s.to_s] }, {}, class: 'input-sm'
+
             = cf.fields_for :phone_number do |pnf|
+
               td= pnf.select :kind, PhoneNumber::KINDS, {}, class: 'input-sm'
               td= pnf.text_field :number, class: 'input-sm'
+
             td= cf.text_area :notes, class: 'input-sm expand', rows: 1
             td= cf.check_box :_destroy
+            td
+              .btn-group
+                - unless cf.object.phone_number.contact.present?
+                  = render 'users/cold_lists/calls/phone_number_contact_fields', form: cf
+                - else
+                  = link_to icon('info-sign', 'Contact'), user_contact_path(user, cf.object.phone_number.contact),
+                    class: 'btn btn-info btn-xs', target: :_blank
 
 = page_entries_info calls

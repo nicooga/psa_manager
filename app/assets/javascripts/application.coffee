@@ -56,3 +56,11 @@ $ ->
     $(this).attr 'rows', 4
   ).blur ->
     $(this).attr 'rows', 1
+
+  $('[data-toggle="collapse"]').click ->
+    $($(this).data('parent')).find('.collapse.in').collapse('hide')
+
+  $('.modal.hide_on_submit input[type="submit"]').click ->
+    $this = $(this)
+    $('.modal').modal('hide')
+    $this.parents().parents('form').submit()
