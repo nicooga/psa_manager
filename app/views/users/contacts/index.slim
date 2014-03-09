@@ -5,10 +5,11 @@ legend Contacts
     = form_for @q, url: user_contacts_path, method: :get, remote: :true,
       builder: Bootstrap3::FormBuilder do |f|
       .input-group
-        span.input-group-addon= icon(:search)
+        .input-group-addon= icon(:search)
         = f.text_field :first_name_or_last_name_or_email_cont
-        span.input-group-addon.reset= icon(:remove)
-        span.input-group-btn= f.submit 'Search', class: 'btn btn-default'
+        .input-group-btn= link_to icon(:remove), '#',
+          class: 'btn btn-base btn-default no_radius', data: { reset: :form }
+        .input-group-btn= f.submit 'Search', class: 'btn btn-default'
     .page_entries_info= page_entries_info @contacts
 
   .col-md-8

@@ -18,6 +18,12 @@ window.initializers =
       triggerSelector: '.input-group-addon .glyphicon.glyphicon-calendar',
       resetSelector:   '.input-group-addon .glyphicon.glyphicon-remove'
 
+  input_reset_buttons: ->
+    $('[data-reset]').click ->
+      $form = $(this).closest('form').closest('form')
+      $form.find('input[type=text]').val('')
+      $form.submit()
+
   cocoon_timestamp_parsing: ->
     $(document).on 'cocoon:before-insert', (e, inserted_item)->
       new_id = new Date().getTime()
