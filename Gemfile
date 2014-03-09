@@ -32,6 +32,8 @@ gem 'bcrypt-ruby', '~> 3.1.2'
 
 # Templating, js and assets stuff
 gem 'therubyracer'
+gem 'sass-rails'
+gem 'spinjs-rails'
 gem 'font-awesome-less'
 gem 'momentjs-rails', '~> 2.5.0'
 gem 'slim-rails'

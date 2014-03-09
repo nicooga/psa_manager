@@ -3,15 +3,18 @@
 
 = form_for [user, cold_list, Call.new], remote: true,
   builder: Bootstrap3::FormBuilder do |f|
+  - phone_number = f.object.phone_number || PhoneNumber.new
+  - number = phone_number.try(:number) || "011#{cold_list.next_phone_number}"
 
-  .panel.panel-default
-    .panel-body
-      = render 'shared/form_errors', object: f.object
+  h5= 'Phone number info'
+  = render 'users/cold_lists/calls/phone_info', number: number
 
-      = f.select :status, Call.statuses.map { |s| [s.to_s.titleize, s] }
-      = f.fields_for :phone_number, f.object.phone_number || PhoneNumber.new do |pnf|
-        = pnf.text_field :number, value: f.object.phone_number.try(:number) || cold_list.next_phone_number
-        = pnf.select :kind, PhoneNumber::KINDS
-      = f.text_area :notes, rows: 3
+  = render 'shared/form_errors', object: f.object
 
-    .panel-footer= f.submit class: 'btn btn-primary'
+  = f.select :status, Call.statuses.map { |s| [s.to_s.titleize, s] }
+  = f.fields_for :phone_number, f.object.phone_number || PhoneNumber.new do |pnf|
+    = pnf.text_field :number, value: f.object.phone_number.try(:number) || cold_list.next_phone_number
+    = pnf.select :kind, PhoneNumber::KINDS
+  = f.text_area :notes, rows: 3
+
+  = f.submit class: 'btn btn-primary'

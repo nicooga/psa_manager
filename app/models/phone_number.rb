@@ -16,4 +16,8 @@ class PhoneNumber < ActiveRecord::Base
   # TODO: change this virtual attributes into actual db columns
   def country_code() "+54" end
   def prefix() '011' end
+
+  def join(*attr_names)
+    attr_names.map(&method(:try)).join
+  end
 end

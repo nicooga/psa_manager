@@ -13,54 +13,60 @@
 #= require jquery
 #= require jquery_ujs
 #= require jquery.turbolinks
+#= require jquery.spin
 #= require underscore
 #= require gmaps/google
 #= require bootstrap
 #= require cocoon
+#= require cross_domain_ajax
+#= require initializers
 #= require_tree .
-
-window.init_datepickers = ->
-  $(".input-group.datepicker").datetimepicker
-    pickTime:        false,
-    format:          'yyyy-mm-dd',
-    autoclose:       true,
-    todayBtn:        true,
-    pickerPosition:  "bottom-left"
-    triggerSelector: '.input-group-addon .glyphicon.glyphicon-calendar',
-    resetSelector:   '.input-group-addon .glyphicon.glyphicon-remove',
-
-window.init_datetimepickers = ->
-  $(".input-group.datetimepicker").datetimepicker
-    format:          'yyyy-mm-dd hh:mm',
-    autoclose:       true,
-    todayBtn:        true,
-    pickerPosition:  "bottom-left",
-    triggerSelector: '.input-group-addon .glyphicon.glyphicon-calendar',
-    resetSelector:   '.input-group-addon .glyphicon.glyphicon-remove',
-
 $ ->
-  $(document).on 'cocoon:before-insert', (e, inserted_item)->
-    new_id = new Date().getTime()
-    html = inserted_item.html()
-    inserted_item.html html.replace(/\-timestamp\-/g, new_id)
+  window.titleize = titleize = (str)->
+    return unless str
+    words = str.split(" ")
+    array = []
+    i = 0
+    while i < words.length
+      array.push words[i].charAt(0).toUpperCase() + words[i].toLowerCase().slice(1)
+      ++i
+    array.join " "
 
-  $(document).ready ->
-    window.init_datetimepickers()
-    window.init_datepickers()
+  window.get_phone_number_info = (number, func)->
+    $.ajax
+      url: "http://www.paginasblancas.com.ar/Telefono/#{number}",
+      type: 'GET',
+      success: (res)->
+        try
+          $html = $(res.responseText).find('.resultBoxContent')
+          name = $html.find('.advertise-name').text()
+          match = try
+            $html.find('.advertiseBlockContent').text()
+              .match /\n(.+?),.*CP:(\d+).*-\s(.+?)\n/
+          catch
+            {}
 
-  $('.input-group .reset').click ->
-    $(this).parent().find('input[type!="submit"]').val('')
-    $(this).parent().parent().submit()
+          func
+            name:     titleize(name)
+            address:  titleize(match[1])
+            zip_code: titleize(match[2])
+            city:     titleize(match[3])
+        catch
+          func false
 
-  $('textarea.expand').focus( ->
-    $(this).attr 'rows', 4
-  ).blur ->
-    $(this).attr 'rows', 1
+  window.append_phone_info_to = (e, info)->
+    if info
+      $.each info, (key, value)->
+        e.find("[data-info='#{key}']").text(value)
+    else
+      e.html $('<div class="alert alert-warning">No info found</div>')
 
-  $('[data-toggle="collapse"]').click ->
-    $($(this).data('parent')).find('.collapse.in').collapse('hide')
+  # window.spin_on = (e)->
+    # spinner_spot = $('<div class="spinner_spot">')
+    # e.append spinner_spot
+    # spinner_spot.spin()
 
-  $('.modal.hide_on_submit input[type="submit"]').click ->
-    $this = $(this)
-    $('.modal').modal('hide')
-    $this.parents().parents('form').submit()
+  # window.stop_spinning_on = (e)->
+    # e.find('.spinner_spot').spin false
+
+  $(document).ready -> $.each window.initializers, (_, initializer)-> initializer()

@@ -1,0 +1,6 @@
+div.spiner.opacity_transition data-phone-number-info=(local_assigns[:number])
+  table.table.table-condensed
+    - %i|name address zip_code city|.each do |attr|
+      tr
+        th= PhoneNumber.human_attribute_name attr
+        td data-info=(attr)

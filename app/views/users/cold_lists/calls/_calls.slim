@@ -1,4 +1,4 @@
-- calls = local_assigns[:calls].decorate.page(params[:calls_page]).per(10)
+- calls = local_assigns[:calls].decorate.page(params[:calls_page]).per(15)
 - cold_list = calls.proxy_association.owner
 - user = cold_list.user
 
@@ -6,10 +6,11 @@
   builder: Bootstrap3::FormBuilder do |f|
 
   .row
-    .btn-toolbar.actions.pull-right
-      .btn-group= paginate(calls, param_name: :calls_page, remote: true, window: 1)
-      .btn-group= scope_buttons :pending, :failed, :completed
-      .btn-group= f.submit class: 'btn btn-primary'
+    .col-lg-12
+      .btn-toolbar.actions.pull-right
+        .btn-group= paginate(calls, param_name: :calls_page, remote: true, window: 1)
+        .btn-group= scope_buttons :pending, :failed, :completed
+        .btn-group= f.submit class: 'btn btn-primary'
 
   = render 'shared/form_errors', object: f.object
 
@@ -19,14 +20,18 @@
       th= PhoneNumber.human_attribute_name :kind
       th= PhoneNumber.human_attribute_name :number
       th= calls.model.human_attribute_name :notes
-      th= icon :remove, calls.model.human_attribute_name(:_destroy)
-      th
+      th= calls.model.human_attribute_name(:_destroy).html_safe
+      th= icon('list-alt')
 
     tbody
       - calls.each do |call|
         = f.fields_for :"calls_attributes[#{call.id}]", call do |cf|
+          - number = call.phone_number.join(:prefix, :number)
 
-          tr
+          tr.phone_info_popover data-phone-number=(number)
+            - content_for :cold_list_popovers
+              div.hidden id=("call_phone_number_info_#{call.id}")
+                = render 'phone_info', number: number
             = cf.hidden_field :id
             td= cf.select :status, Call.statuses.map { |s| [s.to_s.titleize, s.to_s] }, {}, class: 'input-sm'
 
@@ -37,12 +42,17 @@
 
             td= cf.text_area :notes, class: 'input-sm expand', rows: 1
             td= cf.check_box :_destroy
-            td
-              .btn-group
-                - unless cf.object.phone_number.contact.present?
-                  = render 'users/cold_lists/calls/phone_number_contact_fields', form: cf
-                - else
-                  = link_to icon('info-sign', 'Contact'), user_contact_path(user, cf.object.phone_number.contact),
-                    class: 'btn btn-info btn-xs', target: :_blank
+            td.actions
+              .dropdown
+                = link_to icon('list-alt'), '#', class: 'btn btn-primary btn-xs', data: { toggle: :dropdown }
+                ul.dropdown-menu
+                  - unless cf.object.phone_number.contact.present?
+                    li= render 'users/cold_lists/calls/phone_number_contact_fields', form: cf
+                  - else
+                    li= link_to icon('info-sign', 'Contact'),
+                      user_contact_path(user, cf.object.phone_number.contact), target: :_blank
+
+  #cold_list_modals= yield :cold_list_modals
+  #cold_list_popovers= yield :cold_list_popovers
 
 = page_entries_info calls

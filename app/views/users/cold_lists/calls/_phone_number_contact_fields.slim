@@ -12,8 +12,9 @@
 - content_for :"#{id}_modal_footer" do
   = form.submit class: 'btn btn-primary'
 
-= render 'shared/modal', id: id, title: 'Add Contact', modal_class: 'hide_on_submit'
+- content_for :cold_list_modals do
+  = render 'shared/modal', id: id, title: 'Add Contact', modal_class: 'hide_on_submit'
 
 = render 'shared/modal_button', id: id,
   title: icon(:plus, 'Add Contact Info'),
-  css_class: 'btn btn-primary btn-xs'
+  css_class: ''

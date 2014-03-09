@@ -28,6 +28,9 @@ body { padding-top: 20px; }
 
 table.table tr td div.btn-group { visibility: hidden }
 table.table tr:hover td div.btn-group { visibility: visible }
+table.table tr td.actions * { visibility: hidden }
+table.table tr:hover td.actions * { visibility: visible }
+
 table.table th { text-align: center }
 
 .page_entries_info { margin-bottom: 15px }
@@ -37,3 +40,19 @@ table.table th { text-align: center }
 .panel-body .well { margin: 0px }
 .panel .panel {  margin-bottom: 0px }
 
+.opacity_transition {
+  transition: opacity .5s ease-out;
+  -moz-transition: opacity .5s ease-out;
+  -webkit-transition: opacity .5s ease-out;
+  -o-transition: opacity .5s ease-out;
+}
+
+.opaque > *:not(.spinner) {
+  opacity: 0.2
+}
+
+.popover-content {
+  padding-bottom: 14px !important;
+  .table { margin: 0px }
+  .alert { margin: 0px }
+}

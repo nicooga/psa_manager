@@ -5,7 +5,7 @@
 
   .panel-body
     .row
-      .col-lg-3
+      .col-lg-4
         h5= 'Cold List Info'
         dl.well
           - cold_list = collection.proxy_association.owner
@@ -18,7 +18,7 @@
 
         #form= render 'form'
 
-      .col-lg-9#calls
+      .col-lg-8#calls
         - if collection.any?
           = render 'calls', calls: collection
         - else
