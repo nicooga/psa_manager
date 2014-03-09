@@ -36,6 +36,8 @@ window.initializers =
     ).blur ->
       $(this).attr 'rows', 1
 
+  tooltips: -> $('[data-toggle=tooltip]').tooltip()
+
   parent_collapse_hack: ->
     $('[data-toggle="collapse"]').click ->
       $($(this).data('parent')).find('.collapse.in').collapse('hide')

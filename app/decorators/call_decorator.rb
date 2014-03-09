@@ -3,14 +3,12 @@ class CallDecorator < Draper::Decorator
   delegate_all
 
   def status(options = {})
-    opts = { class: css_class_for(object.status) }
-    merge_opts(opts, class: 'rest-in-place',
-      data: { attribute: :status }
-    ) if options[:rest_in_place]
+    content_tag :span, object.status,
+      class: css_class_for(object.status)
+  end
 
-    puts opts.inspect
-
-    content_tag(:span, object.status, opts)
+  def created_at
+    object.created_at.try :strftime, '%a, %Y %b %d, %H %R'
   end
 
   private

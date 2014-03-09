@@ -7,7 +7,7 @@ class ActivityDecorator < Draper::Decorator
   end
 
   def target_date
-    object.target_date.strftime('%a, %Y-%b-%d %H %R') if object.target_date
+    object.target_date.try :strftime, '%a, %Y-%b-%d %H %R'
   end
 
   def completed_date

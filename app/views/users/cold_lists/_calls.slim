@@ -1,0 +1,30 @@
+- calls = resource.calls.page(params[:calls_page]).per(20)
+- if calls.any?
+  .row
+    .col-lg-12
+      = page_entries_info calls
+      .btn-toolbar.actions.pull-right
+        .btn-group= paginate calls, param_name: :calls_page, remote: true
+
+  table.table.table-condensed
+    thead
+      th= Call.human_attribute_name :status
+      th= PhoneNumber.human_attribute_name :number
+      th= PhoneNumber.human_attribute_name :kind
+      th= Call.human_attribute_name :notes
+      th= Call.human_attribute_name :created_at
+
+    tbody
+      - calls.each do |c|
+        - c = c.decorate
+        tr.centered
+          td= c.status
+          td= c.phone_number.number
+          td= c.phone_number.kind
+          td
+            = content_tag :span, icon(:comment), data: { toggle: :tooltip,
+              title: c.notes } if c.notes.present?
+          td= c.created_at
+
+- else
+  .alert.alert-info= 'There are no calls yet'

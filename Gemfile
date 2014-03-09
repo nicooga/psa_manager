@@ -19,6 +19,7 @@ gem 'money-rails'
 gem 'carmen-rails'
 gem 'geocoder'
 gem 'gmaps4rails'
+gem 'counter_culture', '~> 0.1.18'
 
 # Controller Stuff
 gem 'inherited_resources'

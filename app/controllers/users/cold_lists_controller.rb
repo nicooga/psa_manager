@@ -2,8 +2,14 @@ class Users::ColdListsController < InheritedResources::Base
   belongs_to :user
   respond_to :html, :js
 
-  has_scope(:assigned, type: :boolean) do |controller, scope|
+  has_scope(:assigned, type: :boolean, only: :index) do |controller, scope|
     controller.send(:parent).assigned_cold_lists
+  end
+
+  def show
+    show! do |format|
+      format.js { render 'show.js.erb', layout: false }
+    end
   end
 
   def index
@@ -22,6 +28,10 @@ class Users::ColdListsController < InheritedResources::Base
   end
 
   private
+
+  def resource
+    super.decorate
+  end
 
   def collection
     super.decorate.page(params[:cold_lists_page])

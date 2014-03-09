@@ -30,8 +30,10 @@ table.table tr td div.btn-group { visibility: hidden }
 table.table tr:hover td div.btn-group { visibility: visible }
 table.table tr td.actions * { visibility: hidden }
 table.table tr:hover td.actions * { visibility: visible }
+table.table thead th {  text-align: center }
+.centered { text-align: center }
+.right    { text-align: right }
 
-table.table th { text-align: center }
 
 .page_entries_info { margin-bottom: 15px }
 

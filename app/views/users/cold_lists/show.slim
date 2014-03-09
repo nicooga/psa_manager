@@ -14,21 +14,14 @@
 
   .panel-body
     .row
-      .col-lg-4
+      .col-lg-5
         h5= 'Basic Details'
-        dl.well
-          - %i|phone_number_prefix notes|.each do |attr|
+        dl.dl-horizontal.well
+          - %i|phone_number_prefix notes responsible pending_calls_count failed_calls_count completed_calls_count|.each do |attr|
             - if resource.send(attr).present?
-              dt= resource_class.human_attribute_name attr
+              dt.right= resource_class.human_attribute_name attr
               dd= resource.send attr
 
-      .col-lg-8
-        h5= 'Calls'
-        - if resource.calls.any?
-          .list-group
-            h5= :Calls
-            - resource.calls.each do |c|
-              li.list-group-item= c.decorate
-
-        - else
-          .alert.alert-info= 'There are no calls yet'
+      .col-lg-7
+        legend= 'Calls'
+        #calls= render 'calls'
