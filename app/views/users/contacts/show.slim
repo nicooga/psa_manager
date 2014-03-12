@@ -6,11 +6,14 @@
       li= link_to 'Installations', '#installations', data: { toggle: :tab }
 
       li.pull-right
-        = link_to icon(:remove, 'Remove'), user_contact_path(current_user, @contact), class: 'btn-danger',
+        = link_to icon(:remove, 'Remove'), user_contact_path(current_user, resource), class: 'btn-danger',
           method: :delete, data: { confirm: 'Are you sure?' }
       li.pull-right
-        = link_to icon(:edit, 'Edit'), edit_user_contact_path(current_user, @contact), class: 'btn-primary'
-      .navbar-text.pull-right= "Showing #{@contact} info"
+        = link_to icon(:edit, 'Edit'), edit_user_contact_path(current_user, resource), class: 'btn-primary'
+      .navbar-text.pull-right
+        = "Showing "
+        strong= resource
+        = " info"
 
     .panel-body
       .tab-content

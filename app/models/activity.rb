@@ -1,10 +1,14 @@
 class Activity < ActiveRecord::Base
   include Statusable
+  has_statuses :pending, :failed, :completed
+
   belongs_to :address
   belongs_to :contact
   belongs_to :user
   default_scope -> { order 'target_date ASC' }
-  has_statuses :pending, :failed, :completed
+
+  scope :today, -> { where target_date: Date.today..(Date.today + 1.day) }
+  scope :six_monts_old, -> { where completed_date }
 
   TYPES = %w| DemoArrangement SaleArrangement ServiceArrangement ExchangeArrangement
    InvitationArrangement PresentationArrangement EntryMonitoringArrangement EntryArrangement

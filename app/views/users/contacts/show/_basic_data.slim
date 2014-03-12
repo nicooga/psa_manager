@@ -3,18 +3,18 @@
     h5= 'Basic Data'
     dl.dl-horizontal.well.well-sm
       - %i|full_name email birthday|.each do |attr|
-        - if @contact.try(attr)
+        - if resource.try(attr)
           dt= Contact.human_attribute_name attr
-          dd= @contact.try(attr)
-      - if @contact.source_id
+          dd= resource.try(attr)
+      - if resource.source_id
         dt= Contact.human_attribute_name :source
-        dd= link_to(@contact.source_name, user_contact_path(current_user, @contact.source))
-      - if @contact.source_date
+        dd= link_to(resource.source_name, user_contact_path(current_user, resource.source))
+      - if resource.source_date
         dt= Contact.human_attribute_name :source_date
-        dd= @contact.source_date
-      - if @contact.source
+        dd= resource.source_date
+      - if resource.source
         dt= Contact.human_attribute_name :notes
-        dd= @contact.notes
+        dd= resource.notes
 
     - if resource.phone_numbers.without_address.any?
       h5= 'Phone Numbers'
@@ -34,7 +34,7 @@
     h5= 'Addresses'
     .panel.panel-dafault
       #addresses.panel-group
-        - @contact.addresses.map(&:decorate).each_with_index do |a|
+        - resource.addresses.map(&:decorate).each_with_index do |a|
           .panel.panel-default
 
             .panel-heading

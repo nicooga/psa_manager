@@ -26,6 +26,9 @@ PsaManager::Application.routes.draw do
   end
 
   resources :products
+  controller :dashboard do
+    get :dashboard, to: :index
+  end
 
   # Omniauth callback
   get '/auth/:provider/callback', to: 'sessions#create'

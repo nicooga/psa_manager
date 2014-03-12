@@ -1,0 +1,19 @@
+.panel.panel-default
+  .panel-heading
+    h1.panel-title Dashboard
+
+  .panel-body
+    .row
+      .col-lg-3
+        ul.nav.nav-pills.nav-stacked
+          li.active= link_to 'Activities pending today', '#activities', data: { toggle: :tab }
+          li= link_to 'Stale Contacts', '#contacts', data: { toggle: :tab }
+          li= link_to 'Installations', '#installations', data: { toggle: :tab }
+          li= link_to 'Cold Lists', '#cold_lists', data: { toggle: :tab }
+
+      .col-lg-9
+        .tab-content
+          #activities.tab-pane.fade.in.active= render 'activities'
+          #contacts.tab-pane.fade= render 'contacts'
+          #installations.tab-pane.fade= 'Installations'
+          #cold_lists.tab-pane.fade= 'Cold Llists'

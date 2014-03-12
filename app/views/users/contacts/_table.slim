@@ -5,7 +5,7 @@ table.table.table-stripped
     th
 
   tbody
-    - @contacts.each do |c|
+    - collection.each do |c|
       tr
         - %i|full_name email birthday|.each do |attr|
           td= c.try(attr)

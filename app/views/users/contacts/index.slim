@@ -10,11 +10,11 @@ legend Contacts
         .input-group-btn= link_to icon(:remove), '#',
           class: 'btn btn-base btn-default no_radius', data: { reset: :form }
         .input-group-btn= f.submit 'Search', class: 'btn btn-default'
-    .page_entries_info= page_entries_info @contacts
+    .page_entries_info= page_entries_info collection
 
   .col-md-8
     .btn-toolbar.pull-right
-      #pagination.btn-group= paginate @contacts
+      #pagination.btn-group= paginate collection
       #scopes.btn-group= scope_buttons :with_pending_activities
       = link_to 'New Contact', new_user_contact_path, class: 'btn btn-primary pull-right'
 
