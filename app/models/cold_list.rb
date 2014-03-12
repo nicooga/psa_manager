@@ -9,6 +9,10 @@ class ColdList < ActiveRecord::Base
 
   validates :phone_number_prefix, presence: true
 
+  scope :with_pending_calls, -> do
+    joins(:calls).where calls: { status: :pending }
+  end
+
   def next_phone_number
     numbers = phone_numbers.reorder(:number)
       .pluck('DISTINCT("phone_numbers"."number")')

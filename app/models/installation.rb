@@ -15,6 +15,10 @@ class Installation < ActiveRecord::Base
     where %q|"installations"."next_service_date" <= ?|, Time.now + 2.weeks
   end
 
+  scope :important, -> do
+    where [about_to_expire, next_service_near].map(&:where_clauses).join(' OR ')
+  end
+
   after_touch :update_next_service_date
   after_create :update_warranty_expiration_date
   after_create :update_next_service_date

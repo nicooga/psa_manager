@@ -8,7 +8,9 @@ class Activity < ActiveRecord::Base
   default_scope -> { order 'target_date ASC' }
 
   scope :today, -> { where target_date: Date.today..(Date.today + 1.day) }
-  scope :six_monts_old, -> { where completed_date }
+  scope :older_than, ->(seconds) do
+    where arel_table[:completed_date].lteq(Time.now.advance(seconds: -seconds))
+  end
 
   TYPES = %w| DemoArrangement SaleArrangement ServiceArrangement ExchangeArrangement
    InvitationArrangement PresentationArrangement EntryMonitoringArrangement EntryArrangement

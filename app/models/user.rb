@@ -1,6 +1,7 @@
 class User < ActiveRecord::Base
   has_many :contacts, dependent: :destroy
   has_many :kits, dependent: :destroy
+  has_many :installations, dependent: :destroy
   has_many :activities, dependent: :destroy
 
   has_many :societies, foreign_key: :founder_id

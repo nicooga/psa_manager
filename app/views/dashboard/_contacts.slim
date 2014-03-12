@@ -1,1 +1,7 @@
-h1= 'Contacts'
+- contacts = current_user.contacts.inactive
+
+- if contacts.any?
+  = render 'user/contacts/table', collection: contacts
+- else
+  .alert.alert-info
+    = 'There are no inactive contacts. Contacts become inacactive when last activity with them is more than 6 months old.'

@@ -14,5 +14,5 @@ class Contact < ActiveRecord::Base
   validates :email, format: { with: /\A[^@]+@[^@]+\..+\z/ }
 
   scope :with_pending_activities, -> { joins(:activities).where activities: { status: :pending } }
-  # scope :inactive, -> { joins(:activities).where activities: { ['"activities"."completed_date" < ?', Date.today - 6.months ] } }
+  scope :inactive, -> { joins(:activities).merge Activity.older_than(6.months) }
 end

@@ -45,6 +45,23 @@ module ApplicationHelper
       content_tag(:thead)
     end
   end
+
+  def badge(content, options = {})
+    opts = merge_opts(options, { class: 'badge' })
+    content_tag(:span, content, opts)
+  end
+
+  private
+
+  def merge_opts(opts, defaults)
+    defaults.merge(opts) do |k, old, new|
+      k == :class ? [old.to_s, new.to_s].join(' ') : new
+    end
+  end
+
+  def ignore_opts(opts, *keys)
+    opts.dup.delete_if {|k| keys.include? k }
+  end
 end
 
 module Bootstrap3

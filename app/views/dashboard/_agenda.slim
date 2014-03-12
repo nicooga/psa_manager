@@ -1,0 +1,20 @@
+ul.nav.nav-tabs
+  li.active= link_to '#activities', data: { toggle: :tab } do
+    = 'Activities pending today '
+    = badge current_user.activities.pending.today.count
+  li= link_to '#contacts', data: { toggle: :tab }
+    = 'Inactive Contacts '
+    = badge current_user.contacts.inactive.count
+  / li= link_to '#installations', data: { toggle: :tab }
+    / = 'Imporantant Installations '
+    / = badge current_user.installations.important.count
+  / li= link_to '#cold_lists', data: { toggle: :tab }
+    / = 'Cold Lists '
+    / = badge current_user.cold_lists.with_pending_calls.count
+
+
+.tab-content
+  #activities.tab-pane.fade.in.active= render 'activities'
+  #contacts.tab-pane.fade= render 'contacts'
+  / #installations.tab-pane.fade= 'Installations'
+  / #cold_lists.tab-pane.fade= 'Cold Llists'

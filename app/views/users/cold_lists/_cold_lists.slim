@@ -12,9 +12,10 @@ table.table.table-condensed
 
   tbody
     - cold_lists.each do |item|
-      tr
+      tr.centered
         td= item.phone_number_prefix
-        td= link_to item.responsible.try(:decorate), user_path(item.responsible)
+        td
+          = link_to item.responsible.decorate, user_path(item.responsible) if item.responsible
         td= item.notes.truncate(30)
         td
           .btn-group
