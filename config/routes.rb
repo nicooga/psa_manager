@@ -1,4 +1,9 @@
 PsaManager::Application.routes.draw do
+  root to: 'application#root'
+
+  # Handle static resource-less pages
+  get '/pages/:page_name', to: 'pages#page', as: :page
+
   resources :users do
     scope module: :users do
       resources :contacts do

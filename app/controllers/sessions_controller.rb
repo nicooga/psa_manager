@@ -1,4 +1,6 @@
 class SessionsController < ApplicationController
+  skip_before_action :require_login
+
   def create
     user = User.fetch(auth_hash)
     session[:user_id] = user.id

@@ -16,3 +16,6 @@
 /tmp
 /.pivotal_cache
 /.pivotalrc
+
+# Ignore environment
+.environment
