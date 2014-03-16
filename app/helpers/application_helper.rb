@@ -51,6 +51,10 @@ module ApplicationHelper
     content_tag(:span, content, opts)
   end
 
+  def nav_class(*controller_strings)
+    'active' if controller_strings.include? params[:controller]
+  end
+
   private
 
   def merge_opts(opts, defaults)

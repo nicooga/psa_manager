@@ -60,3 +60,38 @@ table.table thead th {  text-align: center }
 }
 
 .no_radius { border-radius: 0 !important }
+.navbar-right { padding-right: 15px }
+/* Dropdown */
+li.dropdown:hover > ul.dropdown-menu { display: block }
+.open > .dropdown-menu {
+  -webkit-transform: scale(1, 1);
+  transform: scale(1, 1);
+}
+.dropdown-menu {
+  -webkit-transform-origin: top;
+  transform-origin: top;
+  -webkit-animation-fill-mode: forwards;
+  animation-fill-mode: forwards;
+  -webkit-transform: scale(1, 0);
+  display: block;
+
+  transition: all 0.2s ease-out;
+  -webkit-transition: all 0.2s ease-out;
+}
+.navbar-fixed-bottom .dropdown-menu {
+  -webkit-transform-origin: bottom;
+  transform-origin: bottom;
+}
+.navbar .nav > li > .dropdown-menu:after { }
+.navbar-fixed-bottom > .dropdown-menu:after {
+  border-bottom: 0;
+  border-top: 6px solid rgba(39, 45, 51, 0.9);
+  top: auto;
+  display: inline-block;
+  bottom: -6px;
+  content: '';
+  position: absolute;
+  left: 50%;
+  border-right: 6px solid transparent;
+  border-left: 6px solid transparent;
+}
