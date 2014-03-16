@@ -20,7 +20,8 @@
       th= PhoneNumber.human_attribute_name :kind
       th= PhoneNumber.human_attribute_name :number
       th= calls.model.human_attribute_name :notes
-      th= calls.model.human_attribute_name(:_destroy).html_safe
+      th= link_to calls.model.human_attribute_name(:_destroy).html_safe, '#',
+        data: { checkbox_toggle: '[id$=_destroy]' }, class: 'btn btn-default btn-xs'
       th= icon('list-alt')
 
     tbody
@@ -28,7 +29,7 @@
         = f.fields_for :"calls_attributes[#{call.id}]", call do |cf|
           - number = call.phone_number.join(:prefix, :number)
 
-          tr.phone_info_popover data-phone-number=(number)
+          tr.centered.initializersenter.phone_info_popover data-phone-number=(number)
             - content_for :cold_list_popovers
               div.hidden id=("call_phone_number_info_#{call.id}")
                 = render 'phone_info', number: number

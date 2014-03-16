@@ -16,8 +16,7 @@ class ColdList < ActiveRecord::Base
   def next_phone_number
     numbers = phone_numbers.reorder(:number)
       .pluck('DISTINCT("phone_numbers"."number")')
-    possible_numbers = ((pnp * 10_000)..(pnp * 10_000 + 9999)).to_a
-    (possible_numbers - numbers).first
+    ((pnp * 10_000)..(pnp * 10_000 + 9999)).find { |e| not numbers.include? e }
   end
 
   alias_attribute :pnp, :phone_number_prefix

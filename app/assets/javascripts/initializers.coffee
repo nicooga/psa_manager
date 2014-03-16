@@ -61,12 +61,38 @@ window.initializers =
     ).click ->
       $(this).popover('show')
 
-  populate_phone_number_info_displays: ->
-    $.each $('[data-phone-number-info]'), (i,e)->
+  populate_phone_number_info_displays: (selector)->
+    $.each (selector || $('[data-phone-number-info]')), (i,e)->
       $e = $(e)
       $e.addClass 'opaque'
       $e.spin()
-      window.get_phone_number_info $e.data('phone-number-info'), (info)->
+      get_phone_number_info $e.data('phone-number-info'), (info)->
         append_phone_info_to $e, info
         $e.removeClass 'opaque'
         $e.spin false
+
+  input_group_decrease_buttons: ->
+    $('.input-group-btn [data-decrease]').click ->
+      $input = $(this).closest('.input-group').find('input')
+      $input.val parseInt($input.val()) - 1
+
+  input_group_increase_buttons: ->
+    $('.input-group-btn [data-increase]').click ->
+      $input = $(this).closest('.input-group').find('input')
+      $input.val parseInt($input.val()) + 1
+
+  call_form_increase_buttons: ->
+    $('[data-increase], [data-decrease]').click ->
+      $this = $(this)
+      $form = $this.closest('form')
+      number = $form.find('#call_phone_number_attributes_number').val()
+      $container = $this.closest('form').find('[data-phone-number-info]')
+      $container.data('phone-number-info' , "011#{number}")
+
+      initializers.populate_phone_number_info_displays($container)
+
+  checbox_toggle_buttons: ->
+    $('[data-checkbox-toggle]').click ->
+      selector = $(this).data('checkbox-toggle')
+      $.each $(selector), (i,e)->
+        $(e).prop 'checked', !$(e).prop('checked')

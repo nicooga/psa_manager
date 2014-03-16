@@ -11,6 +11,6 @@ class ColdListDecorator < Draper::Decorator
   end
 
   def responsible
-    object.responsible.decorate
+    object.responsible.try(:decorate)
   end
 end
