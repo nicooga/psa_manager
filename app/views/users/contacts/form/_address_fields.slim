@@ -1,16 +1,29 @@
-= form.fields_for :addresses, local_assigns[:address] do |form|
-  .address.col-lg-3 id=("address_-timestamp_#{form.index}-")
-    .panel.panel-default
-      = remove_fields_button(form, "#address_-timestamp_#{form.index}-", class: 'btn close')
-      = form.select :state, Address::STATES
-      = form.text_field :city
-      = form.text_field :street
-      = form.text_field :number
-      = form.text_field :apartment
-      = form.text_field :zip_code
-      = form.text_area :notes
-      = add_fields_button form, "#address_phones_-timestamp_#{form.index}-", 'users/contacts/form/phone_fields',
-        timestamp_name: :phone_timestamp,
-        partial_opts: { phone_numbers: PhoneNumber.new }
-      div id=("address_phones_-timestamp_#{form.index}-")
-        = render 'users/contacts/form/phone_fields', form: form, phone_numbers: form.object.phone_numbers.presence
+.nested_fields.panel.panel-default
+  = content_tag :div, class: 'panel-heading',
+    data: { toggle: :collapse, target: "#address_-timestamp-", parent: '#addresses_fields' }
+    h6.panel-title
+      = f.object.persisted? ? f.object.decorate.short_display : 'New Address'
+
+  .collapse.in id=("address_-timestamp-")
+    .panel-body
+      .row
+        .col-lg-3
+          = f.select :state, Address::STATES
+          = f.text_field :city
+          = f.text_field :street
+          = f.text_field :number
+          = f.text_field :apartment
+          = f.text_field :zip_code
+          = f.text_area :notes
+        .col-lg-9 id='address_phones_numbers_fields_-timestamp-'
+          = f.fields_for :phone_numbers do |pnf|
+            .row= render 'users/contacts/form/phone_number_fields', f: pnf
+
+    .panel-footer
+      = link_to_add_association icon(:plus, 'Add Phone Number'), f, :phone_numbers,
+        class: 'btn btn-default pull-right btn-xs',
+        partial: 'users/contacts/form/phone_number_fields',
+        data: { association_insertion_node: '#address_phones_numbers_fields_-timestamp-',
+              association_insertion_method: 'append' }
+      = link_to_remove_association icon(:remove, 'Remove'), f,
+        wrapper_class: :nested_fields, class: 'btn btn-danger btn-xs'

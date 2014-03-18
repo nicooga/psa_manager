@@ -1,7 +1,0 @@
-.panel.panel-default
-  .panel-heading
-    = form.label :addresses
-    = add_fields_button form, '#addresses', 'users/contacts/form/address_fields',
-      partial_opts: { address: Address.new }
-  .row#addresses
-    = render 'users/contacts/form/address_fields', form: form, address: resource.addresses.presence

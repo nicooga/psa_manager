@@ -2,27 +2,49 @@
   = render 'shared/form_errors', object: resource
 
   .panel.panel-default
-    .panel-heading= f.label :basic_data
+    ul.nav.nav-tabs
+      li.active= link_to 'Basic Data', '#basic_data', data: { toggle: :tab }
+      li= link_to PhoneNumber.model_name.collection.titleize, '#phone_numbers', data: { toggle: :tab }
+      li= link_to Address.model_name.collection.titleize, '#addresses', data: { toggle: :tab }
 
-    .row
-      .col-lg-6= f.text_field :first_name
-      .col-lg-6= f.text_field :last_name
+    .panel-body
+      .tab-content
+        #basic_data.tab-pane.fade.in.active
+          .row
+            .col-lg-6= f.text_field :first_name
+            .col-lg-6= f.text_field :last_name
+          = f.text_field :email
+          = f.datepicker :birthday
+          = f.select :source_id, current_user.contacts.map { |c| [c.decorate, c.id] }
+          = f.datepicker :source_date
+          = f.text_area :notes, rows: 3
 
-    = f.text_field :email
-    = f.datepicker :birthday
+        #phone_numbers.tab-pane.fade
+          .row
+            .col-lg-12= link_to_add_association icon(:plus, 'Add Phone Number'), f, :phone_numbers,
+              class: 'btn btn-default pull-right btn-xs',
+              partial: 'users/contacts/form/phone_number_fields',
+              data: { association_insertion_node: '#phone_numbers_fields',
+                    association_insertion_method: 'append' }
 
-    .form-group#contact_phone_numbers
-      = add_fields_button f, "#contact_phone_numbers", 'users/contacts/form/phone_fields',
-        partial_opts: { phone_numbers: PhoneNumber.new }
-      = render 'users/contacts/form/phone_fields', form: f,
-        phone_numbers: resource.phone_numbers.without_address
+          #phone_numbers_fields.row
+            = f.fields_for :phone_numbers do |pnf|
+              = render 'users/contacts/form/phone_number_fields', f: pnf
 
-    = f.select :source_id, current_user.contacts.map { |c| [c.decorate, c.id] }
-    = f.datepicker :source_date
-    = f.text_area :notes, rows: 3
+        #addresses.tab-pane.fade
+          = link_to_add_association icon(:plus, 'Add Address'), f, :addresses,
+            class: 'btn btn-default pull-right btn-xs',
+            partial: 'users/contacts/form/address_fields',
+            data: { association_insertion_node: '#addresses_fields',
+                  association_insertion_method: 'append' }
 
-  = render 'users/contacts/form/addresses_form', form: f
+          .row
+            .col-lg-12
+              #addresses_fields.panel-group
+                = f.fields_for :addresses do |af|
+                  = render 'users/contacts/form/address_fields', f: af
 
-  .btn-group
-    = f.submit class: 'btn btn-primary'
-    = link_to 'Cancel', :back, class: 'btn btn-warning'
+    .panel-footer
+      .btn-group
+        = f.submit class: 'btn btn-primary'
+        = link_to 'Cancel', :back, class: 'btn btn-warning'

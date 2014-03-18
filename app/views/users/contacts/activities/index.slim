@@ -13,7 +13,7 @@
     = render 'users/contacts/activities/form_modal'
 
   - if @activities.any?
-.table.table-hover.table-condensed.table-stripped
+    .table.table-hover.table-condensed.table-stripped
       thead
         - %i|status type target_date completed_date address|.each do |attr|
           th= Activity.human_attribute_name attr

@@ -1,17 +1,7 @@
 class Users::ContactsController < InheritedResources::Base
-  belongs_to :user
   respond_to :html, :js
-
+  belongs_to :user
   has_scope :with_pending_activities, type: :boolean
-
-  def resource
-    super.decorate
-  end
-
-  def collection
-    @q = apply_scopes(super).search(params[:q])
-    @q.result.page(params[:page]).decorate
-  end
 
   def index
     index! do |format|
@@ -24,9 +14,11 @@ class Users::ContactsController < InheritedResources::Base
       resource.activities
       .page(params[:activities_page]).per(10)
     )
+
     @installations = resource.installations
       .page(params[:installation_page]).per(10)
       .decorate
+
     show! do |format|
       format.json do
         render json: resource,
@@ -39,6 +31,15 @@ class Users::ContactsController < InheritedResources::Base
   end
 
   private
+
+  def resource_url() user_contact_path(id: resource.id) end
+  def collection_url() user_contacts_path end
+  def resource() super.decorate end
+
+  def collection
+    @q = apply_scopes(super).search(params[:q])
+    @q.result.page(params[:page]).decorate
+  end
 
   def permitted_params
     params.permit contact: [:first_name, :last_name, :email, :birthday, :notes, :source_id, :source_date,
