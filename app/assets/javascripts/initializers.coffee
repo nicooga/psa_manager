@@ -30,6 +30,10 @@ window.initializers =
       html = inserted_item.html()
       inserted_item.html html.replace(/\-timestamp\-/g, new_id)
 
+  cocoon_on_insert: ->
+    $(document).on 'cocoon:after-insert', ->
+      initializers.selectpickers()
+
   expandable_text_areas: ->
     $('textarea.expand').focus( ->
       $(this).attr 'rows', 4
@@ -96,3 +100,9 @@ window.initializers =
       selector = $(this).data('checkbox-toggle')
       $.each $(selector), (i,e)->
         $(e).prop 'checked', !$(e).prop('checked')
+
+  selectpickers: ->
+    $('select.selectpicker').selectpicker
+      'live-search': 'true'
+      width:         '100%'
+      size:          5

@@ -9,6 +9,7 @@
  * compiled file, but it's generally better to create a new file per style scope.
  *
  *= require_self
+ *= require bootstrap-select
  *= require_tree .
  */
 
@@ -98,3 +99,5 @@ table.table thead th {  text-align: center }
   border-right: 6px solid transparent;
   border-left: 6px solid transparent;
 }
+
+.bootstrap-select.btn-group { margin: 1px !important }

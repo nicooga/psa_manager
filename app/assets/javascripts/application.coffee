@@ -21,6 +21,7 @@
 #= require cross_domain_ajax
 #= require paginas_blancas_scrapping
 #= require initializers
+#= require bootstrap-select
 #= require_tree .
 $ ->
   window.titleize = titleize = (str)->

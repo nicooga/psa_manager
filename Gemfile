@@ -43,6 +43,7 @@ gem 'coffee-rails', '~> 4.0.0'
 gem 'jquery-rails'
 gem 'jquery-turbolinks'
 gem 'underscore-rails'
+gem 'bootstrap-select-rails'
 
 # View Helpers
 gem 'cocoon'

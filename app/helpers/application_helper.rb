@@ -87,8 +87,11 @@ module Bootstrap3
     def select(field, choices, opts = {}, html_opts = {})
       html = super field, choices, merge_opts(opts,
         input_group: true,
-        include_blank: object.class.try(:human_attribute_name, field)
-      ), merge_opts(html_opts, class: 'form-control')
+        title: object.class.try(:human_attribute_name, field)
+      ), merge_opts(html_opts,
+        class: 'selectpicker',
+        data: { live_search: 'true' }
+      )
       input_wrapping html, opts
     end
 
