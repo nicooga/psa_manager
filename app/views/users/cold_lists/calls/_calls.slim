@@ -32,13 +32,13 @@
           tr.centered.initializersenter.phone_info_popover data-phone-number=(number)
             - content_for :cold_list_popovers
               div.hidden id=("call_phone_number_info_#{call.id}")
-                = render 'phone_info', number: number
+                = render 'users/cold_lists/calls/phone_info', number: number
             = cf.hidden_field :id
-            td= cf.select :status, Call.statuses.map { |s| [s.to_s.titleize, s.to_s] }, {}, class: 'input-sm'
-
+            td= cf.select :status, Call.statuses.map { |s| [s.to_s.titleize, s.to_s] }, {},
+             data: { style: 'input-sm', width: '200px' }
             = cf.fields_for :phone_number do |pnf|
-
-              td= pnf.select :kind, PhoneNumber::KINDS, {}, class: 'input-sm'
+              td= pnf.select :kind, PhoneNumber::KINDS, {},
+               data: { style: 'input-sm', width: '200px' }
               td= pnf.text_field :number, class: 'input-sm'
 
             td= cf.text_area :notes, class: 'input-sm expand', rows: 1

@@ -102,7 +102,9 @@ window.initializers =
         $(e).prop 'checked', !$(e).prop('checked')
 
   selectpickers: ->
-    $('select.selectpicker').selectpicker
-      'live-search': 'true'
-      width:         '100%'
-      size:          5
+    $('select.selectpicker').each (i, e)->
+      $e = $(e)
+      $e.selectpicker
+        'live-search': 'true'
+        width:         $e.data('width') || '100%'
+        size:          $e.data('size')  || 5

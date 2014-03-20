@@ -29,6 +29,9 @@ class Users::ColdListsController < InheritedResources::Base
 
   private
 
+  def resource_url() user_cold_list_path end
+  def collection_url() user_cold_lists_path end
+
   def resource
     super.decorate
   end
