@@ -1,6 +1,16 @@
-class Users::ActivitiesController < ApplicationController
-  decorate_with ActivityDecorator
-  respond_to :js
+class Users::ActivitiesController < InheritedResources::Base
+  respond_to :html, :js
+  belongs_to :user
+
+  has_scope :pending_today, type: :boolean do |ctrlr, scope|
+    scope.pending.today
+  end
+
+  def index
+    index! do |format|
+      format.js { render 'index.js.erb', layout: false }
+    end
+  end
 
   def complete
     if resource.update permited_params.merge(status: :completed)
@@ -40,6 +50,13 @@ class Users::ActivitiesController < ApplicationController
       format.html { render :new }
       format.js   { render 'shared/js/form_errors.js.erb', layout: false }
     end
+  end
+
+  private
+
+  def collection
+    @q = apply_scopes(super).search(params[:q])
+    ActivityDecorator.decorate_collection @q.result.page(params[:page]).per(1)
   end
 
   permit_params :target_date, :completed_date, :type,

@@ -29,7 +29,7 @@
                 - %i|status type target_date completed_date|.each do |attr|
                   td= a.try(attr).instance_eval { try(:decorate) || self }
                 td= a.address.decorate.short_display
-                td
+                td.actions
                   .btn-group id=("activity_actions_#{a.id}")
                     - if a.pending?
                       - if a.needs_an_installation?

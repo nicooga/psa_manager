@@ -27,10 +27,9 @@ body { padding-top: 20px; }
 .btn-xs   { height: 22px }
 .btn-base { height: 38px }
 
-table.table tr td:last div.btn-group { visibility: hidden }
-table.table tr:hover td:last div.btn-group { visibility: visible }
-table.table tr td.actions * { visibility: hidden }
-table.table tr:hover td.actions * { visibility: visible }
+table tr td.actions div.btn-group       { visibility: hidden }
+table tr:hover td.actions div.btn-group { visibility: visible }
+
 table.table thead th {  text-align: center }
 .centered { text-align: center }
 .right    { text-align: right }

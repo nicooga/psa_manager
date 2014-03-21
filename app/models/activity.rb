@@ -16,6 +16,11 @@ class Activity < ActiveRecord::Base
    InvitationArrangement PresentationArrangement EntryMonitoringArrangement EntryArrangement
    Demo Sale Service Exchange Invitation Presentation EntryMonitoring Entry|
 
+  FIELDS_FOR_TEXT_SEARCH = %w|
+    notes contact_first_name contact_last_name
+    address_city address_state address_street
+  |
+
   validates :target_date, :type, :contact, :address, presence: true
 
   before_update :set_completed_date, if: :just_completed?

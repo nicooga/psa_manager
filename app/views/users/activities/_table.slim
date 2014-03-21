@@ -1,0 +1,40 @@
+.row
+  .col-md-4
+    = form_for @q, url: user_activities_path, method: :get, remote: :true,
+      builder: Bootstrap3::FormBuilder do |f|
+      .input-group
+        .input-group-addon= icon(:search)
+        = f.text_field Activity::FIELDS_FOR_TEXT_SEARCH.join('_or_') + '_cont'
+        .input-group-btn= link_to icon(:remove), '#',
+          class: 'btn btn-base btn-default no_radius', data: { reset: :form }
+        .input-group-btn= f.submit 'Search', class: 'btn btn-default'
+    .page_entries_info= page_entries_info collection
+
+  .col-md-8
+    .btn-toolbar.actions.pull-right
+      .btn-group= paginate collection, remote: true
+      .btn-group= scope_buttons :pending_today
+      = link_to 'Add new Activity', new_user_activity_path, class: 'btn btn-primary pull-right'
+
+table.table.table-condensed
+  - attributes = [:status, :type, :target_date, :completed_date, :contact_link, :address]
+
+  thead
+    - attributes.each do |attr|
+      th= Activity.human_attribute_name attr
+    th
+
+  tbody
+    - collection.each do |a|
+      tr
+        - attributes.each do |attr|
+          td= a.send(attr)
+        td.actions
+          .btn-group
+            = link_to user_activity_path(a.user, a), class: 'btn btn-info btn-xs' do
+              = icon 'info-sign'
+            = link_to edit_user_activity_path(a.user, a), class: 'btn btn-primary btn-xs' do
+              = icon :edit
+            = link_to user_activity_path(a.user, a), class: 'btn btn-danger btn-xs',
+              method: :delete, data: { confirm: 'Are you sure?' } do
+              = icon 'remove-circle'

@@ -6,6 +6,8 @@ en:
         service_period:  Service Period (in months)
       call:
         _destroy: "<span class='glyphicon glyphicon-remove' />"
+      activity:
+        contact_link: Contact
   views:
     pagination:
       first:    "<span class='glyphicon glyphicon-fast-backward' />"

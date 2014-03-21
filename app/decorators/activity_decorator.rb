@@ -1,5 +1,4 @@
 class ActivityDecorator < Draper::Decorator
-  include ActionView::Helpers::TagHelper
   delegate_all
 
   def address
@@ -7,11 +6,11 @@ class ActivityDecorator < Draper::Decorator
   end
 
   def target_date
-    object.target_date.try :strftime, '%a, %Y-%b-%d %H %R'
+    object.target_date.try :strftime, '%Y-%b-%d %H %R'
   end
 
   def completed_date
-    object.completed_date.strftime('%a, %Y-%b-%d %R') if object.completed_date
+    object.completed_date.strftime('%Y-%b-%d %H') if object.completed_date
   end
 
   def type
@@ -19,7 +18,12 @@ class ActivityDecorator < Draper::Decorator
   end
 
   def status
-    content_tag :span, object.status, class: css_class_for(object.status)
+    h.content_tag :span, object.status, class: css_class_for(object.status)
+  end
+
+  def contact_link(opts = {})
+    c = object.contact
+    h.link_to c.decorate, h.user_contact_path(c.user, c), opts
   end
 
   private

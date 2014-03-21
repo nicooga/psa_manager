@@ -1,25 +1,3 @@
-= link_to 'Add new Activity', new_user_activity_path, class: 'btn btn-primary pull-right'
 legend= Activity.model_name.collection.titleize
 
-table.table.table-condensed
-  - attributes = [:status, :type, :target_date, :completed_date, :contact, :address]
-  thead
-    - attributes.each do |attr|
-      th= Activity.human_attribute_name attr
-    th
-
-  tbody
-    - @activities.each do |a|
-      tr
-        - attributes.each do |attr|
-          - attr = a.try(attr)
-          td= attr.try(:decorate) || attr
-        td
-          .btn-group
-            = link_to user_activity_path(a.user, a), class: 'btn btn-info btn-xs' do
-              = icon 'info-sign'
-            = link_to edit_user_activity_path(a.user, a), class: 'btn btn-primary btn-xs' do
-              = icon :edit
-            = link_to user_activity_path(a.user, a), class: 'btn btn-danger btn-xs',
-              method: :delete, data: { confirm: 'Are you sure?' } do
-              = icon 'remove-circle'
+#activities= render 'users/activities/table'
