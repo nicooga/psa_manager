@@ -56,7 +56,7 @@ class Users::ActivitiesController < InheritedResources::Base
 
   def collection
     @q = apply_scopes(super).search(params[:q])
-    ActivityDecorator.decorate_collection @q.result.page(params[:page]).per(1)
+    ActivityDecorator.decorate_collection @q.result.page(params[:page])
   end
 
   permit_params :target_date, :completed_date, :type,

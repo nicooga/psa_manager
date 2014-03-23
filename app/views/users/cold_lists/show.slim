@@ -17,7 +17,9 @@
       .col-lg-5
         h5= 'Basic Details'
         dl.dl-horizontal.well
-          - %i|phone_number_prefix notes responsible pending_calls_count failed_calls_count completed_calls_count|.each do |attr|
+          - attrs = %i|phone_number_prefix notes responsible|
+          - attrs += Call.statuses.map { |s| "#{s}_calls_count".to_sym }
+          - attrs.each do |attr|
             - if resource.send(attr).present?
               dt.right= resource_class.human_attribute_name attr
               dd= resource.send attr

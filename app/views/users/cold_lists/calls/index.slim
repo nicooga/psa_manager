@@ -6,6 +6,10 @@
   .panel-body
     .row
       .col-lg-4
+        = link_to icon('chevron-left', 'Back to cold list'),
+          user_cold_list_path(parent.user, parent),
+          class: 'btn btn-default btn-xs pull-right'
+
         h5= 'Cold List Info'
 
         table.table.table-condensed
