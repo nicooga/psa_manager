@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140309063129) do
+ActiveRecord::Schema.define(version: 20140323004620) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -68,9 +68,10 @@ ActiveRecord::Schema.define(version: 20140309063129) do
     t.text     "notes"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "pending_calls_count",   default: 0
-    t.integer  "failed_calls_count",    default: 0
-    t.integer  "completed_calls_count", default: 0
+    t.integer  "pending_calls_count",  default: 0
+    t.integer  "negative_calls_count", default: 0
+    t.integer  "positive_calls_count", default: 0
+    t.integer  "skipped_calls_count",  default: 0
   end
 
   add_index "cold_lists", ["responsible_id"], name: "index_cold_lists_on_responsible_id", using: :btree
