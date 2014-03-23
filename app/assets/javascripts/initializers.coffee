@@ -95,6 +95,16 @@ window.initializers =
 
       initializers.populate_phone_number_info_displays($container)
 
+  call_form_number_info_on_keyup: ->
+    $('form input#call_phone_number_attributes_number').keyup ->
+      $this = $(this)
+      $form = $this.closest('form')
+      number = $this.val()
+      $container = $this.closest('form').find('[data-phone-number-info]')
+      $container.data('phone-number-info' , "011#{number}")
+
+      initializers.populate_phone_number_info_displays($container)
+
   checbox_toggle_buttons: ->
     $('[data-checkbox-toggle]').click ->
       selector = $(this).data('checkbox-toggle')

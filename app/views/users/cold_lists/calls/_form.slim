@@ -21,6 +21,18 @@
       .input-group-btn= link_to icon(:plus), '#',
         class: 'btn btn-default', data: { increase: :input }
     = pnf.select :kind, PhoneNumber::KINDS
-  = f.text_area :notes, rows: 3
+    = f.text_area :notes, rows: 3
 
-  = f.submit class: 'btn btn-primary'
+    #contact_fields.collapse
+      = pnf.fields_for :contact, pnf.object.contact || pnf.object.build_contact do |cf|
+        .row
+          .col-lg-6= cf.text_field :first_name
+          .col-lg-6= cf.text_field :last_name
+        = cf.text_field :email
+        = cf.datepicker :birthday
+        = cf.text_area :notes, rows: 3
+
+  .btn-group
+    = link_to 'Add Contact', '#contact_fields',
+      class: 'btn btn-default', data: { toggle: :collapse }
+    = f.submit class: 'btn btn-primary'

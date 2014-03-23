@@ -50,7 +50,7 @@
                   - unless cf.object.phone_number.contact.present?
                     li= render 'users/cold_lists/calls/phone_number_contact_fields', form: cf
                   - else
-                    li= link_to icon('info-sign', 'Contact'),
+                    li= link_to icon(:user, 'Contact'),
                       user_contact_path(user, cf.object.phone_number.contact), target: :_blank
 
   #cold_list_modals= yield :cold_list_modals

@@ -7,14 +7,15 @@
     .row
       .col-lg-4
         h5= 'Cold List Info'
-        dl.well
+
+        table.table.table-condensed
           - cold_list = collection.proxy_association.owner
           - cold_list_class = collection.proxy_association.reflection.active_record
 
           - %i|phone_number_prefix notes|.each do |attr|
             - if cold_list.send(attr).present?
-              dt= cold_list_class.human_attribute_name attr
-              dd= cold_list.send attr
+              th= cold_list_class.human_attribute_name attr
+              td= cold_list.send attr
 
         #form= render 'form'
 

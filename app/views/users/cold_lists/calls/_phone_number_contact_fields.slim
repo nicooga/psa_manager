@@ -3,11 +3,11 @@
 - content_for :"#{id}_modal_body" do
   = form.fields_for :phone_number do |pnf|
     = pnf.fields_for :contact, pnf.object.contact || pnf.object.build_contact do |pncf|
-      = pncf.hidden_field :id
-      = pncf.hidden_field :user_id, value: current_user.id
       = pncf.text_field :first_name
       = pncf.text_field :last_name
       = pncf.text_field :email
+      = pncf.datepicker :birthday
+      = pncf.text_area :notes
 
 - content_for :"#{id}_modal_footer" do
   = form.submit class: 'btn btn-primary'
