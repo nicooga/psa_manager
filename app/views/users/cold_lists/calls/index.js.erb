@@ -4,6 +4,4 @@ $('#calls').html(
   "<%= j render('users/cold_lists/calls/calls',
     calls: assigns['calls'] || local_assigns[:calls] || resource.cold_list.calls) %>"
 )
-
-window.initializers.populate_phone_number_info_displays()
-window.initializers.phone_info_popovers()
+window.run_initializers()

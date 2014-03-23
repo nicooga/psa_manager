@@ -5,7 +5,12 @@ class PhoneNumber < ActiveRecord::Base
   scope :without_address, -> { where address_id: nil }
   KINDS = %w|Home Work Cellphone Other|
 
-  accepts_nested_attributes_for :contact, reject_if: :contact_required_fields_blank?
+  accepts_nested_attributes_for :contact,
+    reject_if: ->(attrs) do
+      (Contact.attribute_names - %w|id user_id created_at updated_at|).all? { |attr|
+        attrs[attr].blank?
+      }
+    end
 
   validates :number, presence: true
   validates :number, numericality: {
@@ -19,13 +24,5 @@ class PhoneNumber < ActiveRecord::Base
 
   def join(*attr_names)
     attr_names.map(&method(:try)).join
-  end
-
-  private
-
-  def contact_required_fields_blank?
-    (self.class.attribute_names - %w|id user_id created_at updated_at|).all? do |attr|
-      contact.try(attr).blank?
-    end
   end
 end

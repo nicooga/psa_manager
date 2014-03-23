@@ -34,4 +34,7 @@ $ ->
       ++i
     array.join " "
 
-  $(document).ready -> $.each window.initializers, (_, initializer)-> initializer()
+  window.run_initializers = ->
+    $.each window.initializers, (_, initializer)-> initializer()
+
+  $(document).ready -> run_initializers()

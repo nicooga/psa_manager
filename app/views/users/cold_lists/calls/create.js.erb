@@ -1,7 +1,3 @@
 <%= render template: 'users/cold_lists/calls/index.js.erb' %>
 $('#form').html("<%= j render('form') %>")
-window.initializers.populate_phone_number_info_displays()
-window.initializers.input_group_decrease_butons()
-window.initializers.input_group_increase_butons()
-window.initializers.call_form_increase_buttons()
-window.initializers.selectpickers()
+window.run_initializers()

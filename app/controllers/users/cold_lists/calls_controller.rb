@@ -36,9 +36,17 @@ class Users::ColdLists::CallsController < InheritedResources::Base
 
   private
 
+  def build_resource
+    super.tap do |r|
+      r.phone_number.contact.try(:user=, current_user)
+    end
+  end
+
   def permitted_params
     params.permit call: [:status, :notes,
-      phone_number_attributes: [:number, :kind]
+      phone_number_attributes: [:id, :number, :kind,
+        contact_attributes: [:id, :first_name, :last_name, :email, :birthday, :notes]
+      ]
     ]
   end
 end
