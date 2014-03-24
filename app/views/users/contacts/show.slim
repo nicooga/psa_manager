@@ -1,19 +1,17 @@
 .contact
   .panel.panel-default
     ul#contact_info.nav.nav-tabs
-      li.active= link_to 'Basic Data', '#basic_data', data: { toggle: :tab }
-      li= link_to 'Activities', '#activities', data: { toggle: :tab }
-      li= link_to 'Installations', '#installations', data: { toggle: :tab }
+      li.active= link_to t('views.contacts.basic_data'), '#basic_data', data: { toggle: :tab }
+      li= link_to Activity.model_name.human.plural, '#activities', data: { toggle: :tab }
+      li= link_to Installation.model_name.human.plural, '#installations', data: { toggle: :tab }
 
       li.pull-right
-        = link_to icon(:remove, 'Remove'), user_contact_path(current_user, resource), class: 'btn-danger',
+        = link_to icon(:remove, t('views.shared.links.destroy')), user_contact_path(current_user, resource), class: 'btn-danger',
           method: :delete, data: { confirm: 'Are you sure?' }
       li.pull-right
-        = link_to icon(:edit, 'Edit'), edit_user_contact_path(current_user, resource), class: 'btn-primary'
+        = link_to icon(:edit, t('views.shared.links.edit')), edit_user_contact_path(current_user, resource), class: 'btn-primary'
       .navbar-text.pull-right
-        = "Showing "
-        strong= resource
-        = " info"
+        = t('views.contacts.showing_contact_info', contact: content_tag(:strong, resource)).html_safe
 
     .panel-body
       .tab-content

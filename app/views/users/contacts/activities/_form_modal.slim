@@ -1,7 +1,7 @@
 = render 'shared/modal_button',
   css_class: 'btn btn-primary pull-right',
   id:        :activity_form,
-  title:     'New Activity'
+  title:     t('helpers.submit.create', model: Activity.model_name.human)
 
 - content = capture do
   = render 'users/contacts/activities/form_for_modal'

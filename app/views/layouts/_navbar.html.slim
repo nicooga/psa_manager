@@ -8,36 +8,37 @@
   #navbar_collapse.collapse.navbar-collapse
     ul.nav.navbar-nav
       li.dropdown class=(nav_class(*%w|users/contacts users/activities users/cold_lists|))
-        = link_to icon('collapse-up', 'Agenda'), '#',
+        = link_to icon('collapse-up', t('views.shared.menus.agenda')), '#',
           class: 'dropdown-toggle', data: { toggle: 'dropdown' }
         ul.dropdown-menu
           li class=(nav_class('users/contacts'))
-            = link_to icon(:user, Contact.model_name.collection.titleize),
+            = link_to icon(:user, Contact.model_name.human.plural),
               user_contacts_path(current_user)
           li class=(nav_class('users/activities'))
-            = link_to icon(:tasks, Activity.model_name.collection.titleize),
+            = link_to icon(:tasks, Activity.model_name.human.plural),
               user_activities_path(current_user)
           li class=(nav_class('users/cold_lists'))
-            = link_to icon(:list, ColdList.model_name.collection.titleize),
+            = link_to icon(:list, ColdList.model_name.human.plural),
               user_cold_lists_path(current_user)
 
       li.dropdown class=(nav_class(*%w|products users/kits|))
-        = link_to icon('collapse-up', 'Inventory'), '#',
+        = link_to icon('collapse-up', t('views.shared.menus.inventory')), '#',
           class: 'dropdown-toggle', data: { toggle: 'dropdown' }
         ul.dropdown-menu
-          li class=(nav_class('users/kits')) = link_to Kit.model_name.collection.titleize, user_kits_path(current_user)
-          li class=(nav_class('products')) = link_to Product.model_name.collection.titleize, products_path
+          li class=(nav_class('users/kits')) = link_to Kit.model_name.human.plural, user_kits_path(current_user)
+          li class=(nav_class('products')) = link_to Product.model_name.human.plural, products_path
 
       li class=(nav_class('users/societies'))
-        = link_to Society.model_name.collection.titleize, user_societies_path(current_user)
+        = link_to Society.model_name.human.plural, user_societies_path(current_user)
 
     ul.nav.navbar-nav.navbar-right
       - if current_user
         li.dropdown class=(nav_class('dashboard'))
           = link_to current_user.email, '#', class: 'dropdown-toggle', data: {toggle: 'dropdown'}
           ul.dropdown-menu
-            li class=(nav_class('dashboard')) = link_to icon(:home, 'Dashboard'), dashboard_path
-            li= link_to icon('log-out', 'Logout'), logout_path
+            li class=(nav_class('dashboard'))
+              = link_to icon(:home, t('views.shared.menus.dashboard')), dashboard_path
+            li= link_to icon('log-out', t('views.shared.menus.logout')), logout_path
 
       - else
         li= link_to 'Login with Google :D', '/auth/google_oauth2'

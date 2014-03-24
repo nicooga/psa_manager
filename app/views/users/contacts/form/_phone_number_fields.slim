@@ -2,6 +2,6 @@
   = f.hidden_field :contact_id, value: resource.id
   .input-group
     = f.text_field :number, group: false
-    = f.select :kind, PhoneNumber::KINDS, group: false
+    = f.select :kind, PhoneNumber::KINDS.map { |s| t('views.phone_numbers.kinds')[s.downcase.to_sym] }, group: false
     .input-group-btn= link_to_remove_association icon(:remove), f,
       wrapper_class: :nested_fields, class: 'btn btn-default no_decoration'

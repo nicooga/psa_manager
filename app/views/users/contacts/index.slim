@@ -1,4 +1,4 @@
-legend Contacts
+legend= Contact.model_name.human.plural
 
 .row
   .col-md-4
@@ -9,13 +9,13 @@ legend Contacts
         = f.text_field :first_name_or_last_name_or_email_cont
         .input-group-btn= link_to icon(:remove), '#',
           class: 'btn btn-base btn-default no_radius', data: { reset: :form }
-        .input-group-btn= f.submit 'Search', class: 'btn btn-default'
+        .input-group-btn= f.submit t('views.shared.search'), class: 'btn btn-default'
     .page_entries_info= page_entries_info collection
 
   .col-md-8
     .btn-toolbar.pull-right
-      #pagination.btn-group= paginate collection
+      #pagination.btn-group= paginate collection, remote: true, window: 1
       #scopes.btn-group= scope_buttons :with_pending_activities
-      = link_to 'New Contact', new_user_contact_path, class: 'btn btn-primary pull-right'
+      = link_to t('helpers.submit.create', model: Contact.model_name.human), new_user_contact_path, class: 'btn btn-primary pull-right'
 
 #table= render 'table'

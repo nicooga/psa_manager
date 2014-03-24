@@ -20,7 +20,7 @@
             .row= render 'users/contacts/form/phone_number_fields', f: pnf
 
     .panel-footer
-      = link_to_add_association icon(:plus, 'Add Phone Number'), f, :phone_numbers,
+      = link_to_add_association add_entity_icon(PhoneNumber), f, :phone_numbers,
         class: 'btn btn-default pull-right btn-xs',
         partial: 'users/contacts/form/phone_number_fields',
         data: { association_insertion_node: '#address_phones_numbers_fields_-timestamp-',

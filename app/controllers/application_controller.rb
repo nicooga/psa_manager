@@ -5,6 +5,7 @@ class ApplicationController < BaseController
   helper_method :current_user
 
   before_action :require_login
+  before_action :set_locale
 
   def root
     if current_user
@@ -24,5 +25,9 @@ class ApplicationController < BaseController
     unless current_user
       redirect_to page_path(:home), error: 'You must be logged in to see this page'
     end
+  end
+
+  def set_locale
+    I18n.locale = request.env['HTTP_ACCEPT_LANGUAGE'].scan(/^[a-z]{2}/).first
   end
 end

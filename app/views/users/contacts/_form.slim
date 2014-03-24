@@ -4,8 +4,8 @@
   .panel.panel-default
     ul.nav.nav-tabs
       li.active= link_to 'Basic Data', '#basic_data', data: { toggle: :tab }
-      li= link_to PhoneNumber.model_name.collection.titleize, '#phone_numbers', data: { toggle: :tab }
-      li= link_to Address.model_name.collection.titleize, '#addresses', data: { toggle: :tab }
+      li= link_to PhoneNumber.model_name.human.plural, '#phone_numbers', data: { toggle: :tab }
+      li= link_to Address.model_name.human.plural, '#addresses', data: { toggle: :tab }
 
     .panel-body
       .tab-content
@@ -21,7 +21,7 @@
 
         #phone_numbers.tab-pane.fade
           .row
-            .col-lg-12= link_to_add_association icon(:plus, 'Add Phone Number'), f, :phone_numbers,
+            .col-lg-12= link_to_add_association add_entity_icon(PhoneNumber), f, :phone_numbers,
               class: 'btn btn-default pull-right btn-xs',
               partial: 'users/contacts/form/phone_number_fields',
               data: { association_insertion_node: '#phone_numbers_fields',
@@ -32,7 +32,7 @@
               = render 'users/contacts/form/phone_number_fields', f: pnf
 
         #addresses.tab-pane.fade
-          = link_to_add_association icon(:plus, 'Add Address'), f, :addresses,
+          = link_to_add_association add_entity_icon(Address), f, :addresses,
             class: 'btn btn-default pull-right btn-xs',
             partial: 'users/contacts/form/address_fields',
             data: { association_insertion_node: '#addresses_fields',
@@ -47,4 +47,4 @@
     .panel-footer
       .btn-group
         = f.submit class: 'btn btn-primary'
-        = link_to 'Cancel', :back, class: 'btn btn-warning'
+        = link_to t('helpers.form.cancel'), :back, class: 'btn btn-warning'

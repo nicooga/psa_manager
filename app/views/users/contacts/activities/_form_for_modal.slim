@@ -4,7 +4,7 @@
   html: { role: :form }, builder: Bootstrap3::FormBuilder do |f|
 
   .modal-header
-    h4.modal-title= "New Activity"
+    h4.modal-title= t('helpers.submit.create', model: Activity.model_name.human)
 
   .modal-body
     = render 'shared/form_errors', object: f.object

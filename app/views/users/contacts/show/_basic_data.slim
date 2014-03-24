@@ -1,6 +1,6 @@
 .row
   .col-md-5
-    h5= 'Basic Data'
+    h5= t('views.contacts.basic_data')
     dl.dl-horizontal.well.well-sm
       - %i|full_name email birthday|.each do |attr|
         - if resource.try(attr)
@@ -16,9 +16,8 @@
         dt= Contact.human_attribute_name :notes
         dd= resource.notes
 
+    h5= PhoneNumber.model_name.human.plural
     - if resource.phone_numbers.without_address.any?
-      h5= 'Phone Numbers'
-
       table.table.table-condensed
         thead
           th= PhoneNumber.human_attribute_name :number
@@ -28,46 +27,57 @@
           - resource.phone_numbers.without_address.each do |pn|
             tr
               td= pn.number
-              td= pn.kind
+              td= t('views.phone_numbers.kinds')[pn.kind.tr(' ', '_').downcase.to_sym]
+    - else
+      .alert.alert-info
+        = t('views.shared.no_entities', entities: PhoneNumber.model_name.human.plural)
+        |. 
+        = link_to t('views.shared.create_some'), edit_user_contact_path, class: 'alert-link'
 
   .col-md-7
-    h5= 'Addresses'
-    .panel.panel-dafault
-      #addresses.panel-group
-        - resource.addresses.map(&:decorate).each_with_index do |a|
-          .panel.panel-default
+    h5= Address.model_name.human.plural
+    - if resource.addresses.any?
+      .panel.panel-dafault
+        #addresses.panel-group
+          - resource.addresses.map(&:decorate).each_with_index do |a|
+            .panel.panel-default
 
-            .panel-heading
-              = content_tag :h5, class: 'panel-title',
-                data: { parent: '#addresses', toggle: 'collapse', target: "#address_#{a.id}" } do
-                = icon(:home)
-                = a.short_display
-                = icon('map-marker') if a.geocoded?
-                .pull-right= icon('chevron-down')
+              .panel-heading
+                = content_tag :h5, class: 'panel-title',
+                  data: { parent: '#addresses', toggle: 'collapse', target: "#address_#{a.id}" } do
+                  = icon(:home)
+                  = a.short_display
+                  = icon('map-marker') if a.geocoded?
+                  .pull-right= icon('chevron-down')
 
-            div.panel-collapse.collapse id=("address_#{a.id}")
-              .panel-body
-                - if a.geocoded?
-                  = render 'users/contacts/show/address_map', address: a
-                  .map id=("address_#{a.id}_map_container") style=('width: 600px')
-                    div id=("address_#{a.id}_map") style=('width: 600; height: 400px;')
-                .well.well-sm
-                  dl.dl-horizontal
-                    - %i|city state apartment zip_code notes|.each do |attr|
-                      - if a.try(attr).present?
-                        dt= Address.human_attribute_name attr
-                        dd= a.try attr
+              div.panel-collapse.collapse id=("address_#{a.id}")
+                .panel-body
+                  - if a.geocoded?
+                    = render 'users/contacts/show/address_map', address: a
+                    .map id=("address_#{a.id}_map_container") style=('width: 600px')
+                      div id=("address_#{a.id}_map") style=('width: 600; height: 400px;')
+                  .well.well-sm
+                    dl.dl-horizontal
+                      - %i|city state apartment zip_code notes|.each do |attr|
+                        - if a.try(attr).present?
+                          dt= Address.human_attribute_name attr
+                          dd= a.try attr
 
-                - if a.phone_numbers.any?
-                  h5= 'Phone Numbers'
+                  - if a.phone_numbers.any?
+                    h5= 'Phone Numbers'
 
-                  table.table.table-condensed
-                    thead
-                      th= PhoneNumber.human_attribute_name :number
-                      th= PhoneNumber.human_attribute_name :kind
+                    table.table.table-condensed
+                      thead
+                        th= PhoneNumber.human_attribute_name :number
+                        th= PhoneNumber.human_attribute_name :kind
 
-                    tbody
-                      - a.phone_numbers.each do |pn|
-                        tr
-                          td= pn.number
-                          td= pn.kind
+                      tbody
+                        - a.phone_numbers.each do |pn|
+                          tr
+                            td= pn.number
+                            td= pn.kind
+    - else
+      .alert.alert-info
+        = t('views.shared.no_entities', entities: Address.model_name.human.plural)
+        |. 
+        = link_to t('views.shared.create_some'), edit_user_contact_path, class: 'alert-link'

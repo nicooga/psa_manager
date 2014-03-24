@@ -1,0 +1,114 @@
+es:
+  activerecord:
+    models:
+      contact:      Contacto
+      activity:     Actividad
+      cold_list:    Lista Fría
+      product:      Producto
+      society:      Sociedad
+      installation: Instalación
+      phone_number: Numero Telefónico
+      address:      Dirección
+
+    attributes:
+      contact:
+        first_name:  Nombre
+        last_name:   Apellido
+        full_name:   Nombre
+        birthday:    Cumpleaños
+        source:      Fuente
+        source_date: Fecha de Registro
+
+      phone_number:
+        number: Número
+        kind:   Tipo
+
+      address:
+        city:      Ciudad
+        state:     Provincia
+        street:    Calle
+        number:    Número
+        apartment: Departamento
+        zip_code:  Código Postal
+        notes:     Notas
+
+      product:
+        expiration_time: Tiempo de Expiración (meses)
+        service_period:  Período de Service (meses)
+
+      call:
+        _destroy: "<span class='glyphicon glyphicon-remove' />"
+
+      activity:
+        contact_link:   Contacto
+        type:           Tipo
+        target:         Fecha Objetivo
+        completed_date: Fecha de Completición
+        address:        Dirección
+
+  views:
+    pagination:
+      first:    "<span class='glyphicon glyphicon-fast-backward' />"
+      last:     "<span class='glyphicon glyphicon-fast-forward' />"
+      previous: "<span class='glyphicon glyphicon-backward' />"
+      next:     "<span class='glyphicon glyphicon-forward' />"
+      truncate: "..."
+
+    shared:
+      site_name: Cequolla
+      search:    Buscar
+      menus:
+        agenda:    Agenda
+        inventory: Inventario
+        dashboard: Dashboard
+        logout:    Salir
+      no_entities: 'No hay %{entities}'
+      create_some: Crea algunas
+
+      links:
+        edit:    Editar
+        destroy: Destruir
+
+    contacts:
+      basic_data:           Datos Básicos
+      showing_contact_info: Mostrando info de %{contact}
+
+    phone_numbers:
+      kinds:
+        home:      Casa
+        work:      Trabajo
+        cellphone: Celular
+        other:     Otro
+
+  helpers:
+    page_entries_info:
+      one_page:
+        display_entries:
+          zero:  No se han encontrado %{entry_name}
+          one:   Mostrando <b>1</b> %{entry_name}
+          other: Mostrando tod@s las %{entry_name} (<b>%{count}</b>)
+      more_pages:
+        display_entries: Mostrando %{entry_name} <b>%{first}&nbsp;-&nbsp;%{last}</b> de <b>%{total}</b> totales
+
+    submit:
+      create: Crear %{model}
+      save:   Guardar %{model}
+      update: Guardar Cambios
+
+    form:
+      add:      Agregar %{model}
+      cancel:   Cancelar
+
+    titles:
+      creating: Creando %{model}
+      editing:  Editando %{model}
+
+    model_scopes:
+      with_pending_activities: Con actividades pendientes
+      pending:                 Pendientes
+      failed:                  Falladas
+      completed:               Completadas
+      about_to_expire:         Expirando pronto
+      next_service_near:       Servicio pronto
+      assigned:                Asignadas a mí
+      pending_today:           Pendientes hoy
