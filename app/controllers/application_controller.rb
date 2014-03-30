@@ -28,6 +28,8 @@ class ApplicationController < BaseController
   end
 
   def set_locale
-    I18n.locale = request.env['HTTP_ACCEPT_LANGUAGE'].scan(/^[a-z]{2}/).first
+    req_accepted_languages = request.env['HTTP_ACCEPT_LANGUAGE']
+    logger.debug "Requested Accepted Languages: #{req_accepted_languages}"
+    I18n.locale = req_accepted_languages.scan(/^[a-z]{2}/).first || :es
   end
 end
