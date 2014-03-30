@@ -9,5 +9,8 @@ Bundler.require(:default, Rails.env)
 module PsaManager
   class Application < Rails::Application
     config.autoload_paths += Dir[Rails.root.join('app', 'models', '{**}')]
+    config.default_locale = :es
+    config.i18n.fallbacks = true
+    config.i18n.fallbacks = [:es]
   end
 end
